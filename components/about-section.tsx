@@ -96,7 +96,7 @@ export default function AboutSection() {
                     <CalendarDays className="h-3 w-3" /> 2025.07 - 2026.06
                   </p>
                   <p className="text-slate-600 dark:text-slate-400">
-                    알고리즘 기반의 문제 해결 능력 배양 및 실전 웹 애플리케이션 개발 프로젝트 수행 (우수 수료)
+                    현재 진행 중
                   </p>
                 </div>
 

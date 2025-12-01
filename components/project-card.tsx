@@ -63,19 +63,19 @@ export default function ProjectCard({ project }: { project: Project }) {
         {/* Situation */}
         <div className={`p-4 rounded-lg border-l-4 border-l-blue-500 ${STAR_COLORS.situation}`}>
           <h4 className={`font-semibold text-sm mb-2 ${STAR_TEXT_COLORS.situation}`}>상황 (Situation)</h4>
-          <p className="text-sm text-foreground leading-relaxed">{project.situation}</p>
+          <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{project.situation}</p>
         </div>
 
         {/* Task */}
         <div className={`p-4 rounded-lg border-l-4 border-l-purple-500 ${STAR_COLORS.task}`}>
           <h4 className={`font-semibold text-sm mb-2 ${STAR_TEXT_COLORS.task}`}>과제 (Task)</h4>
-          <p className="text-sm text-foreground leading-relaxed">{project.task}</p>
+          <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{project.task}</p>
         </div>
 
         {/* Action */}
         <div className={`p-4 rounded-lg border-l-4 border-l-green-500 ${STAR_COLORS.action}`}>
           <h4 className={`font-semibold text-sm mb-2 ${STAR_TEXT_COLORS.action}`}>행동 (Action)</h4>
-          <p className="text-sm text-foreground leading-relaxed">{project.action}</p>
+          <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{project.action}</p>
         </div>
 
         {/* Result - Collapsible */}
