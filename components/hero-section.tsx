@@ -42,6 +42,18 @@ export default function HeroSection() {
           >
             View Projects <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
+          
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-12 px-8 text-base border-blue-400/50 text-blue-400 hover:bg-blue-400/10 hover:text-blue-300 hover:border-blue-300 transition-all hover:scale-105"
+            onClick={() => {
+              document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })
+            }}
+          >
+            About Me
+          </Button>
+
           <Button 
             size="lg" 
             variant="outline" 
