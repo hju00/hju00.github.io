@@ -85,7 +85,7 @@ export default function SkillsSection() {
             </h3>
             <div className="flex flex-wrap gap-2.5">
               {SKILLS.certifications.map((cert) => (
-                <Badge key={cert} variant="outline" className="text-sm px-3 py-1 border-slate-200 dark:border-slate-700 hover:border-amber-500/50 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+                <Badge key={cert} variant="secondary" className="text-sm px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                   {cert}
                 </Badge>
               ))}

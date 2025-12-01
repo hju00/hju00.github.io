@@ -45,7 +45,7 @@ export default function HeroSection() {
           <Button 
             size="lg" 
             variant="outline" 
-            className="h-12 px-8 text-base border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-600 transition-all hover:scale-105" 
+            className="h-12 px-8 text-base border-slate-500 text-slate-100 bg-slate-900/50 hover:bg-slate-800 hover:text-white hover:border-white transition-all hover:scale-105" 
             asChild
           >
             <a href="https://github.com/hju00" target="_blank" rel="noopener noreferrer">
