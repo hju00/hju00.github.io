@@ -16,8 +16,7 @@ export default function HeroSection() {
         </div>
 
         <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white text-pretty leading-tight">
-          신뢰를 설계하는 백엔드 엔지니어,
-          <span className="text-primary"> OOO</span>
+          신뢰를 설계하는 백엔드 엔지니어, <span className="text-primary"> 박형주</span>
         </h1>
 
         <p className="text-xl md:text-2xl text-slate-300 mb-8 text-pretty leading-relaxed max-w-2xl mx-auto">
@@ -39,7 +38,7 @@ export default function HeroSection() {
             View Projects
           </Button>
           <Button size="lg" variant="outline" className="border-primary/30 hover:bg-primary/5 bg-transparent" asChild>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/hju00" target="_blank" rel="noopener noreferrer">
               <Github className="mr-2 h-5 w-5" />
               GitHub Profile
             </a>

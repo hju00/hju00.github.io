@@ -4,9 +4,9 @@ const PROJECTS = [
   {
     id: 1,
     title: "Hyperledger Fabric Data Platform",
-    period: "2023 - 2024",
+    period: "2024 04 - 2024 10",
     role: "Backend Lead",
-    techStack: ["Java", "Spring Boot", "MySQL", "CouchDB", "Hyperledger Fabric", "UML"],
+    techStack: ["Hyperledger Fabric", "Node.js", "React", "MySQL", "CouchDB", "UML", "ELK Stack"],
     situation:
       "조직에서 데이터 조작 방지 및 감사 추적이 필요한 데이터 수집 시스템이 필요했습니다. 기존 중앙화된 DB는 보안 취약점과 신뢰성 문제가 있었습니다.",
     task: "높은 성능을 유지하면서 데이터 무결성을 보장하는 백엔드 시스템을 설계하고 구현해야 했습니다.",
@@ -18,7 +18,7 @@ const PROJECTS = [
   {
     id: 2,
     title: "SsaveryTime - SSAFY 커뮤니티 & 다이어트 서비스",
-    period: "2023 - 2024",
+    period: "2025 11 - 2025 12",
     role: "Full-Stack Engineer (Backend Focus)",
     techStack: ["Spring Boot", "MySQL", "Vue.js", "JPA", "Crawling", "API Integration"],
     situation:

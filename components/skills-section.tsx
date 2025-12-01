@@ -5,7 +5,6 @@ const SKILLS = {
   backend: [
     "Java",
     "Spring Boot",
-    "Spring Data JPA",
     "Spring Security",
     "RESTful API",
     "Microservices",
@@ -19,8 +18,8 @@ const SKILLS = {
     "Transaction Management",
     "Indexing Strategies",
   ],
-  infrastructure: ["Hyperledger Fabric", "Docker", "Kubernetes", "CI/CD", "System Architecture", "Distributed Systems"],
-  certifications: ["SSAFY (Samsung Software Academy)", "Java Certification", "Backend Architecture Design"],
+  infrastructure: ["Hyperledger Fabric", "Docker", "CI/CD", "System Architecture", "Distributed Systems"],
+  certifications: ["정보처리기사", "SQLD", "SSAFY (Samsung Software AI Academy For Youth)"],
 }
 
 export default function SkillsSection() {

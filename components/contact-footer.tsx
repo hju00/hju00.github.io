@@ -47,18 +47,13 @@ export default function ContactFooter() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="flex gap-4">
               <Button variant="ghost" size="icon" className="hover:text-primary" asChild>
-                <a href="mailto:your.email@example.com" target="_blank" rel="noopener noreferrer">
+                <a href="hju00forwork@gmail.com" target="_blank" rel="noopener noreferrer">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="hover:text-primary" asChild>
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                   <Github className="h-5 w-5" />
-                </a>
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:text-primary" asChild>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="h-5 w-5" />
                 </a>
               </Button>
             </div>
