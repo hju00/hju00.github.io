@@ -12,7 +12,7 @@ const PROJECTS = [
     task: "데이터의 '무결성(Integrity)'을 보장하면서도, 인가된 사용자만 참여시켜 데이터 품질을 유지할 수 있는 '허가형 블록체인 시스템' 구축이 필요했습니다.",
     action: "1. Hyperledger Fabric을 도입하여 참여자를 제한하는 멤버십 서비스(MSP)를 구축했습니다.\n2. 데이터 성격에 따라 3-Tier(MySQL-CouchDB-Fabric) 저장소 분리 아키텍처를 설계하여 성능 효율을 높였습니다.\n3. 스마트 컨트랙트(Chaincode)로 검증 로직을 자동화하여 휴먼 에러를 최소화했습니다.",
     result: "데이터 위변조를 원천 차단하고 무의미한 데이터 생성을 방지하여, 신뢰도 99%의 고품질 데이터 수집 파이프라인을 완성했습니다.",
-    image: "/placeholder-logo.png", // Replace with project screenshot
+    image: "/projects/project1-thumbnail.png", // Replace with project screenshot
     // architecture: "/architecture-placeholder.png" // Uncomment when you have an architecture diagram
   },
   {
@@ -27,11 +27,11 @@ const PROJECTS = [
     
     // 수정 포인트: 기술적 의사결정과 아키텍처 설계를 구체적으로 명시
     action:
-      "DB 상에서 작성자 역추적을 원천 차단하기 위해 단방향 해시(SHA-256)와 Salt를 결합한 '소유권 검증 아키텍처'를 설계하여 익명성과 관리 기능을 동시에 확보함. Spring Scheduler와 Jsoup을 활용한 '메뉴 데이터 파이프라인'을 구축하여 외부 데이터 의존성을 최소화하고, Solved.ac API 연동 시 캐싱 전략을 적용하여 외부 API 호출 비용을 절감함.",
+      "1. DB 상에서 작성자 역추적을 원천 차단하기 위해 단방향 해시(SHA-256)와 Salt를 결합한 '소유권 검증 아키텍처'를 설계하여 익명성과 관리 기능을 동시에 확보함.\n2. Spring Scheduler와 Jsoup을 활용한 '메뉴 데이터 파이프라인'을 구축하여 외부 데이터 의존성을 최소화하고, Solved.ac API 연동 시 캐싱 전략을 적용하여 외부 API 호출 비용을 절감함.",
     
     // 수정 포인트: '운영 수치' 대신 '기술적 완성도'와 '자동화 성과' 강조
     result:
-      "✓ 익명 소유권 검증 로직 구현 및 보안 테스트 통과 (DB 레벨 추적 불가능 검증)\n✓ 메뉴 데이터 수집 100% 자동화로 수동 업데이트 소요 시간 0분으로 단축\n✓ 알고리즘 티어 연동 시스템 구축으로 게이미피케이션 기반 커뮤니티 마련\n✓ RESTful API 설계 및 Swagger 문서화로 프론트엔드 협업 효율 증대",
+      "현재 프로젝트 진행 중",
     image: "/placeholder.jpg", // Replace with project screenshot
     // architecture: "/ssaverytime-architecture.png", // Add architecture diagram here
     troubleshooting: {

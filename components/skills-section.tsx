@@ -9,12 +9,10 @@ const SKILLS = {
     "Spring Security",
     "JPA",
     "RESTful API",
-    "Microservices",
   ],
   database: [
     "MySQL",
     "CouchDB",
-    "Redis",
     "Query Optimization",
     "Database Design",
     "Transaction Management",
@@ -22,14 +20,13 @@ const SKILLS = {
   infrastructure: [
     "Hyperledger Fabric", 
     "Docker", 
-    "AWS", 
     "CI/CD", 
     "System Architecture", 
     "Distributed Systems"
   ],
   certifications: [
-    { name: "SQLD", date: "2025.04", link: "https://drive.google.com/file/d/15IxslXghT2Tt6uzbrNedLoOvuxAmLGbW/view?usp=drive_link" },
-    { name: "정보처리기사", date: "2025.06", link: "https://drive.google.com/file/d/1214cvq8KPQxJzKr9ekSrGWmB0uhe4Z6k/view?usp=sharing" },
+    { name: "SQLD", date: "2025.04", link: "/certificates/sqld.pdf" },
+    { name: "정보처리기사", date: "2025.06", link: "/certificates/engineer-information-processing.pdf" },
     { name: "SSAFY 14기", date: "2025.07 ~", link: "https://www.ssafy.com/" }
   ],
 }
@@ -111,7 +108,7 @@ export default function SkillsSection() {
                   href={cert.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/30 hover:border-amber-200 transition-colors group cursor-pointer"
+                  className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-200 cursor-pointer hover:-translate-y-1 hover:shadow-md hover:border-primary group"
                 >
                   <div className="flex items-center gap-3">
                     <div className="h-2 w-2 rounded-full bg-amber-500" />

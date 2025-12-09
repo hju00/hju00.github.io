@@ -2,10 +2,11 @@
 
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ZoomIn } from "lucide-react" 
 import { TroubleshootingDialog, TroubleshootingLog } from "./troubleshooting-dialog"
 import Image from "next/image"
+import { ImageViewerDialog } from "./image-viewer-dialog"
+import { Button } from "@/components/ui/button"
 
 interface Project {
   id: number
@@ -37,32 +38,45 @@ const STAR_TEXT_COLORS = {
 }
 
 export default function ProjectCard({ project }: { project: Project }) {
-  const [isExpanded, setIsExpanded] = useState(false)
-
   return (
     <Card className="overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
       {/* Project Thumbnail */}
       {project.image && (
-        <div className="relative w-full h-48 overflow-hidden bg-slate-100 dark:bg-slate-900 border-b border-border">
+        <div className="relative w-full h-48 overflow-hidden border-b border-border group">
           <Image 
             src={project.image} 
             alt={project.title} 
             fill 
-            className="object-cover hover:scale-105 transition-transform duration-500"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
+
+          {/* Clickable Zoom Button Overlay */}
+          <ImageViewerDialog src={project.image} alt={project.title}>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer">
+              <Button 
+                variant="secondary"
+                size="icon"
+                className="rounded-full shadow-xl scale-90 group-hover:scale-100 transition-transform duration-300"
+                aria-label={`View full image of ${project.title}`}
+              >
+                <ZoomIn className="h-5 w-5" />
+              </Button>
+            </div>
+          </ImageViewerDialog>
         </div>
       )}
 
       {/* Header */}
       <div className="p-6 border-b border-border bg-gradient-to-r from-slate-50 to-transparent dark:from-slate-900 dark:to-transparent">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h3 className="text-xl font-bold text-foreground">{project.title}</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{project.period}</p>
+        <div className="mb-4">
+          <h3 className="text-xl font-bold text-foreground mb-2">{project.title}</h3>
+          <div className="flex items-center flex-wrap gap-2 text-sm text-slate-600 dark:text-slate-400">
+            <Badge variant="outline" className="whitespace-nowrap">
+              {project.role}
+            </Badge>
+            <span>•</span>
+            <span>{project.period}</span>
           </div>
-          <Badge variant="outline" className="ml-2 whitespace-nowrap">
-            {project.role}
-          </Badge>
         </div>
 
         {/* Tech Stack */}
@@ -110,21 +124,11 @@ export default function ProjectCard({ project }: { project: Project }) {
           <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{project.action}</p>
         </div>
 
-        {/* Result - Collapsible */}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className={`p-4 rounded-lg border-l-4 border-l-amber-500 ${STAR_COLORS.result} text-left transition-all`}
-        >
-          <div className="flex items-center justify-between">
-            <h4 className={`font-semibold text-sm ${STAR_TEXT_COLORS.result}`}>결과 (Result)</h4>
-            <ChevronDown
-              className={`h-4 w-4 ${STAR_TEXT_COLORS.result} transition-transform ${isExpanded ? "rotate-180" : ""}`}
-            />
-          </div>
-          {isExpanded && (
-            <div className="mt-3 text-sm text-foreground leading-relaxed whitespace-pre-line">{project.result}</div>
-          )}
-        </button>
+        {/* Result - Always Visible */}
+        <div className={`p-4 rounded-lg border-l-4 border-l-amber-500 ${STAR_COLORS.result}`}>
+          <h4 className={`font-semibold text-sm mb-2 ${STAR_TEXT_COLORS.result}`}>결과 (Result)</h4>
+          <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{project.result}</p>
+        </div>
 
         {project.troubleshooting && (
           <TroubleshootingDialog log={project.troubleshooting} />

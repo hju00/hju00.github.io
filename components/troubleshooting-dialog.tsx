@@ -31,7 +31,7 @@ export function TroubleshootingDialog({ log }: { log: TroubleshootingLog }) {
           Troubleshooting Log
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col p-0 overflow-hidden">
+      <DialogContent className="max-w-4xl max-h-[85vh] flex flex-col p-0 overflow-hidden">
         <DialogHeader className="p-6 pb-2">
           <div className="flex items-center gap-2 mb-2">
             <Badge variant="destructive" className="rounded-sm">
