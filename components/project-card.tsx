@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
+import { TroubleshootingDialog, TroubleshootingLog } from "./troubleshooting-dialog"
+import Image from "next/image"
 
 interface Project {
   id: number
@@ -15,6 +17,9 @@ interface Project {
   task: string
   action: string
   result: string
+  image?: string // Project thumbnail
+  architecture?: string // Architecture diagram URL
+  troubleshooting?: TroubleshootingLog
 }
 
 const STAR_COLORS = {
@@ -36,6 +41,18 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Card className="overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+      {/* Project Thumbnail */}
+      {project.image && (
+        <div className="relative w-full h-48 overflow-hidden bg-slate-100 dark:bg-slate-900 border-b border-border">
+          <Image 
+            src={project.image} 
+            alt={project.title} 
+            fill 
+            className="object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+      )}
+
       {/* Header */}
       <div className="p-6 border-b border-border bg-gradient-to-r from-slate-50 to-transparent dark:from-slate-900 dark:to-transparent">
         <div className="flex items-start justify-between mb-4">
@@ -43,7 +60,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             <h3 className="text-xl font-bold text-foreground">{project.title}</h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{project.period}</p>
           </div>
-          <Badge variant="outline" className="ml-2">
+          <Badge variant="outline" className="ml-2 whitespace-nowrap">
             {project.role}
           </Badge>
         </div>
@@ -60,6 +77,21 @@ export default function ProjectCard({ project }: { project: Project }) {
 
       {/* STAR Content */}
       <div className="p-6 flex-1 flex flex-col gap-4">
+        {/* Architecture Diagram (Optional) */}
+        {project.architecture && (
+          <div className="mb-4 p-2 border rounded-lg bg-white dark:bg-slate-950">
+            <div className="relative w-full aspect-video rounded overflow-hidden">
+               <Image 
+                src={project.architecture} 
+                alt={`${project.title} Architecture`} 
+                fill 
+                className="object-contain"
+              />
+            </div>
+            <p className="text-center text-xs text-muted-foreground mt-2">System Architecture</p>
+          </div>
+        )}
+
         {/* Situation */}
         <div className={`p-4 rounded-lg border-l-4 border-l-blue-500 ${STAR_COLORS.situation}`}>
           <h4 className={`font-semibold text-sm mb-2 ${STAR_TEXT_COLORS.situation}`}>상황 (Situation)</h4>
@@ -93,6 +125,10 @@ export default function ProjectCard({ project }: { project: Project }) {
             <div className="mt-3 text-sm text-foreground leading-relaxed whitespace-pre-line">{project.result}</div>
           )}
         </button>
+
+        {project.troubleshooting && (
+          <TroubleshootingDialog log={project.troubleshooting} />
+        )}
       </div>
     </Card>
   )

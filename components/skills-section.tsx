@@ -1,25 +1,37 @@
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
+import { TechIcon } from "@/components/tech-icon"
 
 const SKILLS = {
   backend: [
     "Java",
     "Spring Boot",
     "Spring Security",
+    "JPA",
     "RESTful API",
     "Microservices",
-    "Design Patterns",
   ],
   database: [
     "MySQL",
     "CouchDB",
+    "Redis",
     "Query Optimization",
     "Database Design",
     "Transaction Management",
-    "Indexing Strategies",
   ],
-  infrastructure: ["Hyperledger Fabric", "Docker", "CI/CD", "System Architecture", "Distributed Systems"],
-  certifications: ["정보처리기사", "SQLD", "SSAFY (Samsung Software AI Academy For Youth)"],
+  infrastructure: [
+    "Hyperledger Fabric", 
+    "Docker", 
+    "AWS", 
+    "CI/CD", 
+    "System Architecture", 
+    "Distributed Systems"
+  ],
+  certifications: [
+    { name: "SQLD", date: "2025.04", link: "https://drive.google.com/file/d/15IxslXghT2Tt6uzbrNedLoOvuxAmLGbW/view?usp=drive_link" },
+    { name: "정보처리기사", date: "2025.06", link: "https://drive.google.com/file/d/1214cvq8KPQxJzKr9ekSrGWmB0uhe4Z6k/view?usp=sharing" },
+    { name: "SSAFY 14기", date: "2025.07 ~", link: "https://www.ssafy.com/" }
+  ],
 }
 
 export default function SkillsSection() {
@@ -38,56 +50,79 @@ export default function SkillsSection() {
               <div className="h-3 w-3 rounded-full bg-blue-500 mr-3 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
               Backend
             </h3>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {SKILLS.backend.map((skill) => (
-                <Badge key={skill} variant="secondary" className="text-sm px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  {skill}
-                </Badge>
+                <div key={skill} className="flex flex-col items-center gap-2 p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-blue-500/50 transition-colors group">
+                  <div className="h-10 w-10 flex items-center justify-center bg-white dark:bg-slate-800 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                    <TechIcon name={skill} size={24} />
+                  </div>
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300 text-center">{skill}</span>
+                </div>
               ))}
             </div>
           </Card>
 
-          {/* Database & Infrastructure */}
+          {/* Database */}
           <Card className="p-8 bg-card border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200 fill-mode-both view-trigger">
             <h3 className="text-xl font-bold mb-6 text-foreground flex items-center">
               <div className="h-3 w-3 rounded-full bg-emerald-500 mr-3 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-              Database & Infrastructure
+              Database
             </h3>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {SKILLS.database.map((skill) => (
-                <Badge key={skill} variant="secondary" className="text-sm px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500/10 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-                  {skill}
-                </Badge>
+                <div key={skill} className="flex flex-col items-center gap-2 p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-emerald-500/50 transition-colors group">
+                  <div className="h-10 w-10 flex items-center justify-center bg-white dark:bg-slate-800 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                    <TechIcon name={skill} size={24} />
+                  </div>
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300 text-center">{skill}</span>
+                </div>
               ))}
             </div>
           </Card>
 
-          {/* Architecture & Systems */}
+          {/* Infrastructure */}
           <Card className="p-8 bg-card border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 md:col-span-1 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both view-trigger">
             <h3 className="text-xl font-bold mb-6 text-foreground flex items-center">
               <div className="h-3 w-3 rounded-full bg-purple-500 mr-3 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-              Architecture
+              Infrastructure
             </h3>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {SKILLS.infrastructure.map((skill) => (
-                <Badge key={skill} variant="secondary" className="text-sm px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-purple-500/10 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                  {skill}
-                </Badge>
+                <div key={skill} className="flex flex-col items-center gap-2 p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-purple-500/50 transition-colors group">
+                  <div className="h-10 w-10 flex items-center justify-center bg-white dark:bg-slate-800 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                    <TechIcon name={skill} size={24} />
+                  </div>
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300 text-center">{skill}</span>
+                </div>
               ))}
             </div>
           </Card>
 
-          {/* Certifications */}
+          {/* Certifications (Updated with Links) */}
           <Card className="p-8 bg-card border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 md:col-span-1 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-400 fill-mode-both view-trigger">
             <h3 className="text-xl font-bold mb-6 text-foreground flex items-center">
               <div className="h-3 w-3 rounded-full bg-amber-500 mr-3 shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
               Certifications
             </h3>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-col gap-3">
               {SKILLS.certifications.map((cert) => (
-                <Badge key={cert} variant="secondary" className="text-sm px-3 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-                  {cert}
-                </Badge>
+                <a 
+                  key={cert.name} 
+                  href={cert.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/30 hover:border-amber-200 transition-colors group cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="h-2 w-2 rounded-full bg-amber-500" />
+                    <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
+                      {cert.name}
+                    </span>
+                  </div>
+                  <Badge variant="outline" className="text-xs bg-white dark:bg-slate-950 ml-2">
+                    {cert.date}
+                  </Badge>
+                </a>
               ))}
             </div>
           </Card>

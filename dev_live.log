@@ -1,0 +1,12 @@
+
+> hju00-portfolio@0.1.0 dev
+> next dev -p 5175
+
+   ▲ Next.js 16.0.3 (Turbopack)
+   - Local:         http://localhost:5175
+   - Network:       http://172.30.1.3:5175
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 562ms
+[?25h
