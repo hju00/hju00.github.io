@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { ExternalLink, Github, Calendar, User } from "lucide-react"
 import Image from "next/image"
 import { TroubleshootingDialog, TroubleshootingLog } from "./troubleshooting-dialog"
@@ -55,7 +54,7 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-4xl h-[90vh] p-0 flex flex-col gap-0 overflow-hidden">
+      <DialogContent className="max-w-6xl h-[90vh] p-0 flex flex-col gap-0 overflow-hidden">
         {/* Header Section */}
         <div className="p-6 border-b bg-muted/40 shrink-0">
           <DialogHeader>
@@ -91,8 +90,8 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
           </div>
         </div>
 
-        {/* Scrollable Content Section */}
-        <ScrollArea className="flex-1 p-6">
+        {/* Scrollable Content Section - Replaced ScrollArea with native scrolling div */}
+        <div className="flex-1 overflow-y-auto p-6">
           <div className="space-y-8 pb-8">
             {/* Architecture / Image */}
             {project.architecture ? (
@@ -197,7 +196,7 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
               </div>
             )}
           </div>
-        </ScrollArea>
+        </div>
       </DialogContent>
     </Dialog>
   )
