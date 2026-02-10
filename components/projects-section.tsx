@@ -89,7 +89,7 @@ const PROJECTS = [
               <div>
                 <strong>3.2 로그 분석 결과</strong>
                 <CodeBlock label="Server Log">
-{`Servlet.service() ... threw exception [Request processing failed: org.springframework.jdbc.BadSqlGrammarException: 
+                  {`Servlet.service() ... threw exception [Request processing failed: org.springframework.jdbc.BadSqlGrammarException: 
 ...
 ### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'b.UPDATED_AT' in 'field list'
 ...
@@ -106,7 +106,7 @@ Pre-authenticated entry point called. Rejecting access`}
               <div>
                 <strong>3.3 DB 스키마 불일치 원인 (Docker)</strong>
                 <p>
-                  <code>docker-compose.yml</code> 설정 확인 결과, 초기화 스크립트가 마운트되지 않았고, 
+                  <code>docker-compose.yml</code> 설정 확인 결과, 초기화 스크립트가 마운트되지 않았고,
                   기존 Docker Volume이 유지되어 스키마 변경사항이 반영되지 않았습니다.
                 </p>
               </div>
@@ -121,7 +121,7 @@ Pre-authenticated entry point called. Rejecting access`}
                 <strong>4.1 docker-compose.yml 수정</strong>
                 <p>MySQL 컨테이너 생성 시 초기화 스크립트가 실행되도록 볼륨 마운트 추가.</p>
                 <CodeBlock label="docker-compose.yml">
-{`db:
+                  {`db:
   image: mysql:8.0
   volumes:
     - db-data:/var/lib/mysql
@@ -133,7 +133,7 @@ Pre-authenticated entry point called. Rejecting access`}
                 <strong>4.2 Docker Volume 초기화</strong>
                 <p>기존 데이터(구 스키마)를 삭제하고 새로 초기화하기 위해 볼륨 삭제 후 재시작.</p>
                 <CodeBlock label="Terminal">
-{`docker-compose down -v  # -v 옵션으로 볼륨 삭제
+                  {`docker-compose down -v  # -v 옵션으로 볼륨 삭제
 docker-compose up -d --build`}
                 </CodeBlock>
               </div>
@@ -159,6 +159,22 @@ docker-compose up -d --build`}
       ],
     },
   },
+  {
+    id: 3,
+    title: "CONY - 기프티콘 관리 및 판매 서비스",
+    period: "2026.01 - 2026.02",
+    role: "Team Lead (Backend & Infra)",
+    techStack: ["Spring Boot", "JPA", "MySQL", "Redis", "Docker", "Jenkins", "Nginx", "Prometheus", "Grafana", "AWS S3"],
+    situation:
+      "SSAFY 14기 공통 프로젝트로 6인 팀에서 모바일 기프티콘 관리 및 판매 서비스를 개발했습니다. 3개의 독립적인 백엔드 서비스(Manage, Payment, AI)를 안정적으로 운영할 인프라 구축과 함께, 핵심 기능인 기프티콘 공유방 시스템의 백엔드 API 개발을 담당했습니다.",
+    task:
+      "인프라 측면에서는 마이크로서비스 간 네트워크 격리, 20개 이상의 환경변수 보안 관리, 변경된 서비스만 골라서 배포하는 선택적 CI/CD 파이프라인, 실시간 모니터링 체계 구축이 필요했습니다. 백엔드 측면에서는 공유방 생성/참여/관리, 초대 코드 기반 참여, 방장 권한 관리(멤버 강퇴/방 삭제), 방 내 기프티콘 검색 및 페이징 조회 등 복합적인 비즈니스 로직 설계가 필요했습니다.",
+    action:
+      "1. 공유방 API 설계 및 구현: 공유방 CRUD, 초대 코드(UUID) 기반 참여 시스템, 방장/멤버 역할 분리(RoomRole), 강퇴 시 재가입 방지를 위한 BannedRoomMember 엔티티 등 세밀한 권한 관리 로직을 설계했습니다. JPA Specification을 활용한 동적 쿼리로 방 내 기프티콘의 상태별/키워드별 검색 및 페이징 조회를 구현했습니다.\n2. Docker Compose 멀티 서비스 오케스트레이션: 3개 백엔드 서비스를 각각 독립 컨테이너로 구성하고, 외부 Docker Network(cony-net)로 서비스 간 통신을 격리하면서도 연결성을 확보했습니다.\n3. Jenkins CI/CD 조건부 배포: Jenkinsfile에서 changeset 디렉티브를 활용해 변경된 서비스만 감지하여 선택적으로 빌드/배포하는 파이프라인을 구축했습니다. Jenkins Credentials를 통해 환경변수를 안전하게 주입하고, 빌드 후 자동 삭제하는 보안 프로세스를 적용했습니다.\n4. Prometheus + Grafana 모니터링: Spring Boot Actuator 메트릭을 Prometheus로 수집하고, Grafana 대시보드를 프로비저닝하여 서비스 상태, JVM 메모리, API 응답 시간 등을 실시간으로 모니터링할 수 있는 환경을 구축했습니다.\n5. Nginx 리버스 프록시: 외부 트래픽을 Nginx에서 받아 각 서비스 포트로 분배하는 리버스 프록시를 구성하여, 단일 도메인으로 모든 서비스에 접근할 수 있도록 했습니다.",
+    result:
+      "공유방 API를 통해 사용자 간 기프티콘 공유 핵심 기능을 안정적으로 제공했습니다. 변경된 서비스만 선택적으로 빌드/배포하여 CI/CD 소요 시간을 약 60% 단축했으며, Docker 기반 컨테이너 오케스트레이션으로 무중단 운영 환경을 구축했습니다. Prometheus + Grafana 모니터링으로 실시간 장애 감지 및 대응 체계를 확립하여, 프로젝트 기간 동안 인프라 장애로 인한 서비스 다운타임 없이 안정적으로 운영을 완료했습니다.",
+    image: "/projects/project3-thumbnail.png",
+  },
 ]
 
 export default function ProjectsSection() {
@@ -175,8 +191,8 @@ export default function ProjectsSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {PROJECTS.map((project, index) => (
-            <div 
-              key={project.id} 
+            <div
+              key={project.id}
               className="animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both view-trigger"
               style={{ animationDelay: `${index * 200}ms` }}
             >

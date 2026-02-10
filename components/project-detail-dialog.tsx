@@ -54,7 +54,7 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-6xl h-[90vh] p-0 flex flex-col gap-0 overflow-hidden">
+      <DialogContent className="!max-w-none w-[98vw] h-[96vh] p-0 flex flex-col gap-0 overflow-hidden">
         {/* Header Section */}
         <div className="p-6 border-b bg-muted/40 shrink-0">
           <DialogHeader>
@@ -90,83 +90,78 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
           </div>
         </div>
 
-        {/* Scrollable Content Section - Replaced ScrollArea with native scrolling div */}
+        {/* Scrollable Content Section */}
         <div className="flex-1 overflow-y-auto p-6">
           <div className="space-y-8 pb-8">
-            {/* Architecture / Image */}
-            {project.architecture ? (
-              <div className="space-y-3">
-                <h3 className="text-lg font-semibold">시스템 아키텍처</h3>
-                <div className="relative w-full aspect-video rounded-lg border bg-muted/50 overflow-hidden">
-                  <Image
-                    src={project.architecture}
-                    alt={`${project.title} Architecture`}
-                    fill
-                    className="object-contain"
-                  />
+            {/* Image + STAR in side-by-side layout */}
+            <div className="flex flex-col xl:flex-row gap-8">
+              {/* Image Section - Compact */}
+              {(project.architecture || project.image) && (
+                <div className="xl:w-[360px] shrink-0 space-y-3">
+                  <h3 className="text-lg font-semibold">
+                    {project.architecture ? "시스템 아키텍처" : "프로젝트 미리보기"}
+                  </h3>
+                  <div className="rounded-lg border bg-muted/50 overflow-hidden">
+                    <Image
+                      src={project.architecture || project.image!}
+                      alt={project.title}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
                 </div>
-              </div>
-            ) : project.image ? (
-               <div className="space-y-3">
-                <h3 className="text-lg font-semibold">프로젝트 미리보기</h3>
-                <div className="relative w-full aspect-video rounded-lg border bg-muted/50 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            ) : null}
+              )}
 
-            {/* STAR Content */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">프로젝트 상세 (Engineering STAR)</h3>
-              
-              <div className="grid gap-4">
-                {/* Situation */}
-                <div className={`p-5 rounded-xl border ${STAR_COLORS.situation}`}>
-                  <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.situation}`}>
-                    <span className="bg-blue-200 dark:bg-blue-900 px-2 py-0.5 rounded text-xs">Situation</span>
-                    배경 및 문제
-                  </h4>
-                  <p className="text-sm leading-relaxed whitespace-pre-line text-foreground/90">
-                    {project.situation}
-                  </p>
-                </div>
+              {/* STAR Content - Takes remaining space */}
+              <div className="flex-1 space-y-4">
+                <h3 className="text-lg font-semibold">프로젝트 상세 (Engineering STAR)</h3>
 
-                {/* Task */}
-                <div className={`p-5 rounded-xl border ${STAR_COLORS.task}`}>
-                  <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.task}`}>
-                    <span className="bg-purple-200 dark:bg-purple-900 px-2 py-0.5 rounded text-xs">Task</span>
-                    기술적 난제
-                  </h4>
-                  <p className="text-sm leading-relaxed whitespace-pre-line text-foreground/90">
-                    {project.task}
-                  </p>
-                </div>
+                <div className="grid gap-4">
+                  {/* Situation */}
+                  <div className={`p-5 rounded-xl border ${STAR_COLORS.situation}`}>
+                    <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.situation}`}>
+                      <span className="bg-blue-200 dark:bg-blue-900 px-2 py-0.5 rounded text-xs">Situation</span>
+                      배경 및 문제
+                    </h4>
+                    <p className="text-base leading-relaxed whitespace-pre-line text-foreground/90">
+                      {project.situation}
+                    </p>
+                  </div>
 
-                {/* Action */}
-                <div className={`p-5 rounded-xl border ${STAR_COLORS.action}`}>
-                  <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.action}`}>
-                    <span className="bg-green-200 dark:bg-green-900 px-2 py-0.5 rounded text-xs">Action</span>
-                    해결책 및 아키텍처
-                  </h4>
-                  <p className="text-sm leading-relaxed whitespace-pre-line text-foreground/90">
-                    {project.action}
-                  </p>
-                </div>
+                  {/* Task */}
+                  <div className={`p-5 rounded-xl border ${STAR_COLORS.task}`}>
+                    <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.task}`}>
+                      <span className="bg-purple-200 dark:bg-purple-900 px-2 py-0.5 rounded text-xs">Task</span>
+                      기술적 난제
+                    </h4>
+                    <p className="text-base leading-relaxed whitespace-pre-line text-foreground/90">
+                      {project.task}
+                    </p>
+                  </div>
 
-                {/* Result */}
-                <div className={`p-5 rounded-xl border ${STAR_COLORS.result}`}>
-                  <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.result}`}>
-                    <span className="bg-amber-200 dark:bg-amber-900 px-2 py-0.5 rounded text-xs">Result</span>
-                    성과 및 임팩트
-                  </h4>
-                  <p className="text-sm leading-relaxed whitespace-pre-line text-foreground/90">
-                    {project.result}
-                  </p>
+                  {/* Action */}
+                  <div className={`p-5 rounded-xl border ${STAR_COLORS.action}`}>
+                    <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.action}`}>
+                      <span className="bg-green-200 dark:bg-green-900 px-2 py-0.5 rounded text-xs">Action</span>
+                      해결책 및 아키텍처
+                    </h4>
+                    <p className="text-base leading-relaxed whitespace-pre-line text-foreground/90">
+                      {project.action}
+                    </p>
+                  </div>
+
+                  {/* Result */}
+                  <div className={`p-5 rounded-xl border ${STAR_COLORS.result}`}>
+                    <h4 className={`font-bold mb-2 flex items-center gap-2 ${STAR_TEXT_COLORS.result}`}>
+                      <span className="bg-amber-200 dark:bg-amber-900 px-2 py-0.5 rounded text-xs">Result</span>
+                      성과 및 임팩트
+                    </h4>
+                    <p className="text-base leading-relaxed whitespace-pre-line text-foreground/90">
+                      {project.result}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -179,19 +174,19 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
                   <Badge variant="outline" className="text-xs font-normal">Technical Deep Dive</Badge>
                 </h3>
                 <div className="border rounded-xl p-1 bg-muted/30">
-                   {/* Reuse existing component but maybe wrap it differently or just render content directly? 
+                  {/* Reuse existing component but maybe wrap it differently or just render content directly? 
                        TroubleshootingDialog is a dialog trigger itself. 
                        Here we might want to show it inline or keep it as a nested dialog.
                        Let's keep it as a nested dialog button for now to avoid too much scrolling. */}
-                   <div className="p-4 flex items-center justify-between">
-                      <div>
-                        <p className="font-medium text-sm">{project.troubleshooting.title}</p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {project.troubleshooting.date} • {project.troubleshooting.environment}
-                        </p>
-                      </div>
-                      <TroubleshootingDialog log={project.troubleshooting} />
-                   </div>
+                  <div className="p-4 flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-sm">{project.troubleshooting.title}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {project.troubleshooting.date} • {project.troubleshooting.environment}
+                      </p>
+                    </div>
+                    <TroubleshootingDialog log={project.troubleshooting} />
+                  </div>
                 </div>
               </div>
             )}
