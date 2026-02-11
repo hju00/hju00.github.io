@@ -26,12 +26,12 @@ export function TroubleshootingDialog({ log }: { log: TroubleshootingLog }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full mt-4 gap-2 border-dashed">
+        <Button variant="outline" className="gap-2 border-dashed shrink-0">
           <BookOpen className="w-4 h-4" />
           Troubleshooting Log
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[85vh] flex flex-col p-0 overflow-hidden">
+      <DialogContent className="!max-w-4xl max-h-[85vh] flex flex-col p-0 overflow-hidden">
         <DialogHeader className="p-6 pb-2">
           <div className="flex items-center gap-2 mb-2">
             <Badge variant="destructive" className="rounded-sm">
@@ -46,7 +46,7 @@ export function TroubleshootingDialog({ log }: { log: TroubleshootingLog }) {
             Environment: {log.environment}
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="flex-1 overflow-y-auto min-h-0 p-6 pt-2">
           <div className="space-y-8 pb-8">
             {log.sections.map((section, index) => (

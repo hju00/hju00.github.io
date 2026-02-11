@@ -18,15 +18,15 @@ const SKILLS = {
     "Transaction Management",
   ],
   infrastructure: [
-    "Hyperledger Fabric", 
-    "Docker", 
-    "CI/CD", 
-    "System Architecture", 
+    "Hyperledger Fabric",
+    "Docker",
+    "CI/CD",
+    "System Architecture",
     "Distributed Systems"
   ],
   certifications: [
-    { name: "SQLD", date: "2025.04", link: "/certificates/sqld.pdf" },
-    { name: "정보처리기사", date: "2025.06", link: "/certificates/engineer-information-processing.pdf" },
+    { name: "SQLD", date: "2025.04", link: "https://drive.google.com/file/d/1owtHkllOHmrQULWB3Y0YMHynUbq01jEr/view?usp=drive_link" },
+    { name: "정보처리기사", date: "2025.06", link: "https://drive.google.com/file/d/1JfKRqQN09VksAW1eRt-6gd6Nobf_dHkv/view?usp=drive_link" },
     { name: "SSAFY 14기", date: "2025.07 ~", link: "https://www.ssafy.com/" }
   ],
 }
@@ -103,10 +103,10 @@ export default function SkillsSection() {
             </h3>
             <div className="flex flex-col gap-3">
               {SKILLS.certifications.map((cert) => (
-                <a 
-                  key={cert.name} 
-                  href={cert.link} 
-                  target="_blank" 
+                <a
+                  key={cert.name}
+                  href={cert.link}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-200 cursor-pointer hover:-translate-y-1 hover:shadow-md hover:border-primary group"
                 >

@@ -17,19 +17,19 @@ const PROJECTS = [
   },
   {
     id: 2,
-    title: "SsaveryTime - SSAFY 커뮤니티 & 다이어트 서비스",
+    title: "SsaveryTime - SSAFY 통합 커뮤니티 플랫폼",
     period: "2025.11 - 2025.12",
-    role: "Full-Stack Engineer (Backend Focus)",
-    techStack: ["Spring Boot", "MySQL", "Vue.js", "JPA", "Crawling", "API Integration"],
+    role: "Full-Stack (UI / Backend / AI / DevOps)",
+    techStack: ["Spring Boot", "MyBatis", "MySQL", "Vue.js", "FastAPI", "Docker", "JWT", "Prometheus", "Grafana"],
     situation:
-      "SSAFY 교육생들을 위한 정보 채널(식단, 커뮤니티, 알고리즘 정보)이 파편화되어 있어 접근성이 낮았고, 자유로운 소통을 저해하는 실명 기반 시스템의 한계를 극복하기 위해 **통합 익명 플랫폼**의 필요성이 대두되었습니다.",
+      "SSAFY 교육생들을 위한 정보(식단, 커뮤니티, 알고리즘 랭킹)가 여러 플랫폼에 파편화되어 있었습니다. 또한 기존 커뮤니티는 실명 기반으로 운영되어 자유로운 소통이 어렵다는 문제가 있었습니다. 이를 해결하기 위해 2인 팀으로 통합 익명 커뮤니티 플랫폼을 개발했습니다.",
     task:
-      "가장 큰 기술적 난제는 **'데이터베이스 관리자조차 작성자를 특정할 수 없는 완전한 익명성'**을 보장하면서도, 작성자 본인만은 게시글을 수정/삭제할 수 있는 **논리적 모순(Trade-off)**을 해결하는 것이었습니다. 또한 외부 데이터(식단, Solved.ac) 동기화 시 발생하는 지연 시간을 최소화해야 했습니다.",
+      "가장 큰 기술적 과제는 DB 관리자조차 작성자를 특정할 수 없는 완전한 익명성을 보장하면서도, 작성자 본인만은 자신의 게시글을 수정/삭제할 수 있게 하는 것이었습니다. 또한 게시판 CRUD, 좋아요/스크랩/신고 기능, Solved.ac 연동, AI 게시글 요약, Docker 기반 배포 및 모니터링 환경 구축까지 전반적인 시스템 설계와 구현이 필요했습니다.",
     action:
-      "1. **Security Architecture:** 단방향 해시(SHA-256)와 Salt를 결합한 **'비식별 소유권 검증 모델'**을 설계했습니다. 사용자 정보와 비밀번호를 결합해 생성한 해시값만을 저장하여, DB 상에서 역추적을 원천 차단하면서도 소유권 검증이 가능하도록 구현했습니다.\n2. **Data Pipeline:** Spring Scheduler와 Jsoup을 활용한 자동화된 크롤링 파이프라인을 구축하고, 빈번한 Solved.ac API 호출에 캐싱(Caching) 전략을 적용하여 응답 속도를 최적화했습니다.",
+      "1. 익명 소유권 검증 시스템: 익명 게시글 작성 시 userSeq를 DB에 NULL로 저장하고, 대신 게시글 ID와 사용자 ID를 조합한 SHA-256 해시값만 별도 테이블(AnonymousBoard)에 저장하여, DB에서 작성자를 역추적할 수 없으면서도 해시 비교를 통해 소유권 검증이 가능하도록 구현했습니다.\n2. 게시판 및 소셜 기능 API: Spring Boot + MyBatis 기반으로 게시글 CRUD, 좋아요/스크랩 토글, 게시글 신고, 키워드 검색 및 정렬, 페이징 조회 등의 RESTful API를 설계하고 구현했습니다. Spring Security + JWT 기반 인증/인가를 적용하고, Solved.ac API 연동으로 사용자 백준 티어 정보를 실시간 표시했습니다.\n3. AI 게시글 요약 서비스: FastAPI로 별도 AI 마이크로서비스를 구축하여, 200자 이상의 긴 게시글을 AI가 자동 요약하는 기능을 구현했습니다. 요약 결과를 DB에 캐싱하여 중복 호출을 방지했습니다.\n4. Docker Compose 인프라: Frontend, Backend, AI, Prometheus, Grafana 총 5개 서비스를 Docker Compose로 오케스트레이션하고, AWS EC2 + RDS 환경에 배포했습니다. Spring Boot Actuator 메트릭을 Prometheus로 수집하고 Grafana 대시보드로 실시간 모니터링 체계를 구축했습니다.",
     result:
-      "서비스를 성공적으로 런칭하여 보안 사고 없는 안전한 익명 소통 공간을 제공했습니다. 특히 API 캐싱 도입으로 외부 의존성이 높은 페이지의 로딩 속도를 50% 이상 개선했으며, 데이터 수집 자동화로 운영 리소스를 'Zero' 수준으로 최소화하는 데 성공했습니다.",
-    image: "/placeholder.jpg", // Replace with project screenshot
+      "2인 팀으로 6주 만에 서비스를 성공적으로 런칭했습니다. 해시 기반 익명 소유권 검증 시스템으로 보안 사고 없이 안전한 익명 소통 공간을 제공했으며, AI 요약 캐싱으로 중복 API 호출을 제거하고, Docker 기반 자동 배포 환경으로 운영 효율을 극대화했습니다.",
+    image: "/projects/project2-thumbnail.png", // Replace with project screenshot
     // architecture: "/ssaverytime-architecture.png", // Add architecture diagram here
     troubleshooting: {
       title: "API 403 Forbidden 에러와 Docker DB 스키마 동기화 이슈",
@@ -174,6 +174,122 @@ docker-compose up -d --build`}
     result:
       "공유방 API를 통해 사용자 간 기프티콘 공유 핵심 기능을 안정적으로 제공했습니다. 변경된 서비스만 선택적으로 빌드/배포하여 CI/CD 소요 시간을 약 60% 단축했으며, Docker 기반 컨테이너 오케스트레이션으로 무중단 운영 환경을 구축했습니다. Prometheus + Grafana 모니터링으로 실시간 장애 감지 및 대응 체계를 확립하여, 프로젝트 기간 동안 인프라 장애로 인한 서비스 다운타임 없이 안정적으로 운영을 완료했습니다.",
     image: "/projects/project3-thumbnail.png",
+    troubleshooting: {
+      title: "공유방 기프티콘 썸네일 미표시 및 DTO 필드 누락 이슈",
+      date: "2026-02-07",
+      environment: "Spring Boot 3.x, JPA, MySQL 8.0, Docker Compose, React Native",
+      sections: [
+        {
+          title: "1. 문제 상황 (Symptoms)",
+          content: (
+            <ul className="list-disc list-inside space-y-1">
+              <li>
+                <strong>현상 1:</strong> '내 쿠폰함'에서는 기프티콘 썸네일이 정상 표시되지만, 공유방 내 기프티콘 목록에서는 썸네일이 전혀 표시되지 않음.
+              </li>
+              <li>
+                <strong>현상 2:</strong> 공유방 기프티콘을 클릭해 상세 페이지로 이동 시, 원가·바코드·소유자 정보 등이 표시되지 않아 FE에서 에러 발생.
+              </li>
+              <li>
+                <strong>예상:</strong> 공유방에서도 내 쿠폰함과 동일한 수준의 기프티콘 정보가 표시되어야 함.
+              </li>
+            </ul>
+          ),
+        },
+        {
+          title: "2. 원인 분석 (Root Cause Analysis)",
+          content: (
+            <div className="space-y-4">
+              <div>
+                <strong>2.1 썸네일 미표시 원인</strong>
+                <p className="mt-1">
+                  RoomService의 기프티콘 목록 조회 로직을 확인한 결과, THUMBNAIL 타입의 이미지만 조회하고 있었습니다.
+                  그러나 일부 기프티콘은 OCR 처리 과정에서 THUMBNAIL이 생성되지 않고 ORIGINAL 이미지만 존재하는 경우가 있었습니다.
+                </p>
+                <CodeBlock label="RoomService.java (수정 전)">{`// THUMBNAIL 이미지만 조회 → ORIGINAL만 있는 경우 null 반환
+Map<Long, String> imageMap = gifticonImageRepository
+    .findAllByGifticonIdIn(gifticonIds, ImageType.THUMBNAIL)
+    .stream()
+    .collect(Collectors.toMap(...));`}</CodeBlock>
+              </div>
+              <div>
+                <strong>2.2 DTO 필드 누락 원인</strong>
+                <p className="mt-1">
+                  GifticonRoomResponseDto가 최소한의 필드(이름, 브랜드, 유효기한, 상태)만 포함하고 있어서,
+                  FE에서 상세 페이지 렌더링에 필요한 originalPrice, barcodeNumber, isOwner, roomId, roomName 필드가 전달되지 않았습니다.
+                </p>
+              </div>
+            </div>
+          ),
+        },
+        {
+          title: "3. 해결 방법 (Resolution)",
+          content: (
+            <div className="space-y-4">
+              <div>
+                <strong>3.1 썸네일 폴백(Fallback) 로직 추가</strong>
+                <p>THUMBNAIL이 없는 기프티콘에 대해 ORIGINAL 이미지를 대체로 사용하는 2단계 조회 로직을 구현했습니다.</p>
+                <CodeBlock label="RoomService.java (수정 후)">{`// 1단계: THUMBNAIL 이미지 조회
+Map<Long, String> thumbnailMap = gifticonImageRepository
+    .findAllByGifticonIdIn(gifticonIds, ImageType.THUMBNAIL)
+    .stream()
+    .collect(Collectors.toMap(...));
+
+// 2단계: THUMBNAIL이 없는 기프티콘만 ORIGINAL 이미지 조회
+Map<Long, String> originalMap = gifticonImageRepository
+    .findAllByGifticonIdIn(gifticonIds, ImageType.ORIGINAL)
+    .stream()
+    .filter(img -> !thumbnailMap.containsKey(img.getGifticon().getId()))
+    .collect(Collectors.toMap(...));
+
+// 두 맵 합치기 (THUMBNAIL 우선)
+Map<Long, String> imageMap = new HashMap<>(thumbnailMap);
+imageMap.putAll(originalMap);`}</CodeBlock>
+              </div>
+              <div>
+                <strong>3.2 GifticonRoomResponseDto 필드 확장</strong>
+                <p>FE에서 필요한 필드를 DTO에 추가하고, from() 팩토리 메서드에서 엔티티의 연관 관계를 활용해 필드를 채우도록 수정했습니다.</p>
+                <CodeBlock label="GifticonRoomResponseDto.java">{`// 추가된 필드
+private Integer originalPrice;
+private String barcodeNumber;
+private Boolean isOwner;
+private Long roomId;
+private String roomName;
+
+// from() 메서드에 currentUserId 매개변수 추가
+public static GifticonRoomResponseDto from(
+    Gifticon gifticon, String imageUrl, Long currentUserId) {
+    return builder()
+        ...
+        .isOwner(gifticon.getUser().getId().equals(currentUserId))
+        .roomId(gifticon.getRoom() != null 
+            && !gifticon.getRoom().getIsDefault()
+            ? gifticon.getRoom().getId() : null)
+        .roomName(gifticon.getRoom() != null 
+            ? gifticon.getRoom().getName() : "기본 쿠폰함")
+        .build();
+}`}</CodeBlock>
+              </div>
+            </div>
+          ),
+        },
+        {
+          title: "4. 교훈 (Lessons Learned)",
+          content: (
+            <ul className="list-disc list-inside space-y-2 bg-slate-100 dark:bg-slate-900 p-4 rounded-md">
+              <li>
+                <strong>방어적 데이터 조회:</strong> 외부 시스템(OCR)의 처리 결과에 의존하는 데이터는 항상 대체 경로(Fallback)를 마련해야 한다. THUMBNAIL이 없을 수 있다는 엣지 케이스를 미리 고려했다면 핫픽스를 피할 수 있었다.
+              </li>
+              <li>
+                <strong>FE-BE 간 DTO 계약:</strong> API 응답 DTO를 설계할 때 FE가 실제로 필요로 하는 필드를 미리 정의하는 API 계약(Contract)을 명확히 해야 한다. 최소한의 필드만 전달하면 이후 상세 페이지 개발 시 추가 핫픽스가 불가피하다.
+              </li>
+              <li>
+                <strong>연쇄 버그의 위험:</strong> 하나의 누락(썸네일)을 수정하는 과정에서 또 다른 누락(DTO 필드)을 발견했다. 기능 구현 시 해당 데이터가 사용되는 전체 흐름(목록→상세)을 통합적으로 검토해야 한다.
+              </li>
+            </ul>
+          ),
+        },
+      ],
+    },
   },
 ]
 
