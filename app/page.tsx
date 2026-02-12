@@ -2,6 +2,7 @@ import HeroSection from "@/components/hero-section"
 import AboutSection from "@/components/about-section"
 import SkillsSection from "@/components/skills-section"
 import ProjectsSection from "@/components/projects-section"
+import TimelineSection from "@/components/timeline-section"
 import ContactFooter from "@/components/contact-footer"
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
+      <TimelineSection />
       <ContactFooter />
     </main>
   )
