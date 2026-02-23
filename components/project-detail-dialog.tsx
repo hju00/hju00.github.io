@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Calendar, User } from "lucide-react"
+import { ExternalLink, Github, Calendar, User, Trophy } from "lucide-react"
 import Image from "next/image"
 import { TroubleshootingDialog, TroubleshootingLog } from "./troubleshooting-dialog"
 
@@ -29,6 +29,7 @@ export interface Project {
   architecture?: string
   troubleshooting?: TroubleshootingLog
   link?: string // 배포 링크나 깃허브 링크가 있다면 추가 가능
+  award?: string // 수상 내역
 }
 
 const STAR_COLORS = {
@@ -82,6 +83,12 @@ export function ProjectDetailDialog({ project, children }: ProjectDetailDialogPr
           </DialogHeader>
 
           <div className="flex flex-wrap gap-2 mt-4">
+            {project.award && (
+              <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200 border-amber-300 dark:border-amber-700 gap-1">
+                <Trophy className="h-3 w-3" />
+                {project.award}
+              </Badge>
+            )}
             {project.techStack.map((tech) => (
               <Badge key={tech} variant="secondary">
                 {tech}

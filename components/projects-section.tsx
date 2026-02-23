@@ -174,6 +174,7 @@ docker-compose up -d --build`}
     result:
       "공유방 API를 통해 사용자 간 기프티콘 공유 핵심 기능을 안정적으로 제공했습니다. 변경된 서비스만 선택적으로 빌드/배포하여 CI/CD 소요 시간을 약 60% 단축했으며, Docker 기반 컨테이너 오케스트레이션으로 무중단 운영 환경을 구축했습니다. Prometheus + Grafana 모니터링으로 실시간 장애 감지 및 대응 체계를 확립하여, 프로젝트 기간 동안 인프라 장애로 인한 서비스 다운타임 없이 안정적으로 운영을 완료했습니다.",
     image: "/projects/project3-thumbnail.png",
+    award: "SSAFY 14기 공통 프로젝트 우수상",
     troubleshooting: {
       title: "공유방 기프티콘 썸네일 미표시 및 DTO 필드 누락 이슈",
       date: "2026-02-07",

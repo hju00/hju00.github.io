@@ -21,7 +21,7 @@ const SKILLS = {
     "Distributed Systems"
   ],
   awards: [
-    { title: "수상 내역을 추가해주세요", date: "20XX.XX", org: "주최 기관", description: "수상 내용 설명" },
+    { title: "SSAFY 14기 공통 프로젝트 우수상", date: "2026.02", org: "삼성 청년 SW 아카데미 (SSAFY)", description: "CONY - 기프티콘 관리 및 판매 서비스" },
   ],
   certifications: [
     { name: "SQLD", date: "2025.04", link: "https://drive.google.com/file/d/1owtHkllOHmrQULWB3Y0YMHynUbq01jEr/view?usp=drive_link" },

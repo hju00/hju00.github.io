@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Trophy } from "lucide-react"
 import Image from "next/image"
 import { ProjectDetailDialog, Project } from "./project-detail-dialog"
 
@@ -13,12 +13,21 @@ export default function ProjectCard({ project }: { project: Project }) {
         {/* Project Thumbnail */}
         {project.image && (
           <div className="relative w-full h-48 overflow-hidden border-b border-border">
-            <Image 
-              src={project.image} 
-              alt={project.title} 
-              fill 
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
               className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
+            {/* Award Badge */}
+            {project.award && (
+              <div className="absolute top-3 left-3 z-10">
+                <Badge className="bg-amber-100/95 text-amber-800 dark:bg-amber-900/90 dark:text-amber-200 border-amber-300 dark:border-amber-700 gap-1 shadow-md backdrop-blur-sm">
+                  <Trophy className="h-3 w-3" />
+                  {project.award}
+                </Badge>
+              </div>
+            )}
             {/* Hover Overlay */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
               <span className="text-white font-medium px-4 py-2 border border-white/50 rounded-full backdrop-blur-sm">

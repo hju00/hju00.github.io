@@ -13,7 +13,7 @@ const TIMELINE_ITEMS = [
     {
         date: "2026.01 ~ 02",
         title: "CONY",
-        description: "기프티콘 관리 및 판매 서비스. 6인 팀 리더, 백엔드 & 인프라 담당.",
+        description: "기프티콘 관리 및 판매 서비스. 6인 팀 리더, 백엔드 & 인프라 담당.\n🏆 우수 프로젝트 수상",
         side: "left" as const,
         type: "project" as const,
     },
@@ -147,7 +147,7 @@ export default function TimelineSection() {
                                                 <div className={`p-4 rounded-xl border ${config.border} ${config.bg} text-right transition-all hover:shadow-md`}>
                                                     <p className="text-xs font-mono text-muted-foreground mb-1">{item.date}</p>
                                                     <h3 className="text-base font-bold text-foreground">{item.title}</h3>
-                                                    <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                                                    <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">{item.description}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -165,7 +165,7 @@ export default function TimelineSection() {
                                                 <div className={`p-4 rounded-xl border ${config.border} ${config.bg} text-left transition-all hover:shadow-md`}>
                                                     <p className="text-xs font-mono text-muted-foreground mb-1">{item.date}</p>
                                                     <h3 className="text-base font-bold text-foreground">{item.title}</h3>
-                                                    <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                                                    <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">{item.description}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -179,7 +179,7 @@ export default function TimelineSection() {
                                         <div className={`p-4 rounded-xl border ${config.border} ${config.bg} transition-all`}>
                                             <p className="text-xs font-mono text-muted-foreground mb-1">{item.date}</p>
                                             <h3 className="text-base font-bold text-foreground">{item.title}</h3>
-                                            <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                                            <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">{item.description}</p>
                                         </div>
                                     </div>
                                 </div>
