@@ -65,15 +65,15 @@ export default function AboutSection() {
               
               <div className="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed space-y-4">
                 <p>
-                  안녕하세요, <strong className="text-foreground">신뢰할 수 있는 백엔드 시스템</strong>을 설계하는 개발자 박형주입니다.
+                  안녕하세요, <strong className="text-foreground">안정적인 인프라 설계부터 견고한 백엔드 아키텍처 구축까지</strong>, 시스템 전반을 책임지는 개발자 박형주입니다. 
                 </p>
                 <p>
-                  단순히 기능이 동작하는 것을 넘어, <span className="bg-primary/10 text-primary px-1 rounded">데이터 무결성</span>과 <span className="bg-primary/10 text-primary px-1 rounded">시스템 안정성</span>을 최우선으로 고려합니다. 
-                  Java와 Spring Boot를 주력으로 사용하며, 대용량 트래픽 처리를 위한 아키텍처 설계에 깊은 관심을 가지고 있습니다.
+                  단순히 기능이 동작하는 것을 넘어, 서비스의 확장성을 고려한 <span className="bg-primary/10 text-primary px-1 rounded">인프라 구축</span>과 <span className="bg-primary/10 text-primary px-1 rounded">시스템 무중단 운영</span>을 중요하게 생각합니다. 
+                  Java와 Spring Boot 위주의 백엔드 생태계와 Docker, Jenkins 같은 DevOps 툴체인을 엮어 개발과 운영(CI/CD) 사이클의 효율을 높이는 작업을 즐깁니다.
                 </p>
                 <p>
-                  비즈니스 요구사항을 명확히 분석하고, 이를 기술적으로 풀어내는 과정에서 즐거움을 느낍니다. 
-                  팀원들과의 원활한 소통을 중요하게 생각하며, 함께 성장하는 개발 문화를 지향합니다.
+                  문제가 발생하면 원인을 찾을 때까지 파고들며, 로그 분석과 모니터링 대시보드 구축을 통해 잠재적인 이슈를 선제적으로 대응합니다. 
+                  팀원들과 기술적인 인사이트를 공유하며 함께 성장하는 엔지니어링 문화를 만들어갑니다.
                 </p>
               </div>
             </div>
@@ -81,7 +81,7 @@ export default function AboutSection() {
             <div>
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <GraduationCap className="h-5 w-5 text-primary" />
-                Education
+                Timeline & Education
               </h3>
               
               <div className="space-y-4">
@@ -89,14 +89,14 @@ export default function AboutSection() {
                 <div className="group relative pl-8 border-l-2 border-slate-200 dark:border-slate-800 hover:border-primary transition-colors">
                   <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-background border-2 border-slate-400 group-hover:border-primary transition-colors" />
                   <div className="mb-1 flex flex-wrap items-center gap-2">
-                    <h4 className="font-bold text-lg">Samsung Software Academy for Youth (SSAFY)</h4>
-                    <Badge variant="secondary" className="text-xs">Java 전공</Badge>
+                    <h4 className="font-bold text-lg">삼성청년SW·AI아카데미 수료</h4>
                   </div>
                   <p className="text-sm text-slate-500 mb-2 flex items-center gap-1">
                     <CalendarDays className="h-3 w-3" /> 2025.07 - 2026.06
                   </p>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    현재 진행 중
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
+                    1600시간의 강도 높은 소프트웨어 교육 이수 (알고리즘, 웹 구조 교육 과정) <br/>
+                    Spring 기반 팀 단위 실무 프로젝트 3회 수행 및 서비스 개발과 인프라 통합 구축 경험
                   </p>
                 </div>
 
@@ -105,13 +105,13 @@ export default function AboutSection() {
                   <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-background border-2 border-slate-400 group-hover:border-primary transition-colors" />
                   <div className="mb-1 flex flex-wrap items-center gap-2">
                     <h4 className="font-bold text-lg">부산대학교</h4>
-                    <Badge variant="secondary" className="text-xs">전기컴퓨터공학부 정보컴퓨터공학과 전공</Badge>
+                    <Badge variant="secondary" className="text-xs">전기컴퓨터공학부 정보컴퓨터공학 전공</Badge>
                   </div>
                   <p className="text-sm text-slate-500 mb-2 flex items-center gap-1">
                     <CalendarDays className="h-3 w-3" /> 2019.03 - 2025.08
                   </p>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    컴퓨터 공학 전반을 학습하며 정보 보안 및 네트워크 분야를 중점적으로 학습 (학점 3.09/4.5)
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
+                    컴퓨터 공학 전반을 학습하며 정보 보안 및 네트워크, 운영체제 등을 중점적으로 이수
                   </p>
                 </div>
 

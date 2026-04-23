@@ -55,8 +55,8 @@ export default function ProjectCard({ project }: { project: Project }) {
           {/* Tech Stack - Limit to first 5 or show all if short */}
           <div className="flex flex-wrap gap-2 mb-6">
             {project.techStack.slice(0, 5).map((tech) => (
-              <Badge key={tech} variant="secondary" className="text-xs bg-muted/50 group-hover:bg-muted transition-colors">
-                {tech}
+              <Badge key={tech.name} variant="secondary" className="text-xs bg-muted/50 group-hover:bg-muted transition-colors">
+                {tech.name}
               </Badge>
             ))}
             {project.techStack.length > 5 && (

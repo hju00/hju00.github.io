@@ -11,6 +11,13 @@ import {
 // All items merged and sorted by date descending
 const TIMELINE_ITEMS = [
     {
+        date: "2026.02 ~ 03",
+        title: "Donttaz",
+        description: "AI 기반 스마트 금고 핀테크 플랫폼. 무중단 배포(Blue-Green) 환경 및 Redis 분산 락, 비동기 트랜잭션 아키텍처 설계.\n🏆 우수상 (1등) 수상",
+        side: "left" as const,
+        type: "project" as const,
+    },
+    {
         date: "2026.01 ~ 02",
         title: "CONY",
         description: "기프티콘 관리 및 판매 서비스. 6인 팀 리더, 백엔드 & 인프라 담당.\n🏆 우수 프로젝트 수상",
