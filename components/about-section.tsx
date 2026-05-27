@@ -65,15 +65,15 @@ export default function AboutSection() {
               
               <div className="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed space-y-4">
                 <p>
-                  안녕하세요, <strong className="text-foreground">안정적인 인프라 설계부터 견고한 백엔드 아키텍처 구축까지</strong>, 시스템 전반을 책임지는 개발자 박형주입니다. 
+                  안녕하세요, <strong className="text-foreground">안정적인 인프라 설계부터 견고한 백엔드 아키텍처 구축까지</strong>, 시스템 전반을 책임지는 개발자 박형주입니다.
                 </p>
                 <p>
-                  단순히 기능이 동작하는 것을 넘어, 서비스의 확장성을 고려한 <span className="bg-primary/10 text-primary px-1 rounded">인프라 구축</span>과 <span className="bg-primary/10 text-primary px-1 rounded">시스템 무중단 운영</span>을 중요하게 생각합니다. 
+                  단순히 기능이 동작하는 것을 넘어, 서비스의 확장성을 고려한 <span className="bg-primary/10 text-primary px-1 rounded">인프라 구축</span>과 <span className="bg-primary/10 text-primary px-1 rounded">시스템 무중단 운영</span>을 중요하게 생각합니다.
                   Java와 Spring Boot 위주의 백엔드 생태계와 Docker, Jenkins 같은 DevOps 툴체인을 엮어 개발과 운영(CI/CD) 사이클의 효율을 높이는 작업을 즐깁니다.
                 </p>
                 <p>
-                  문제가 발생하면 원인을 찾을 때까지 파고들며, 로그 분석과 모니터링 대시보드 구축을 통해 잠재적인 이슈를 선제적으로 대응합니다. 
-                  팀원들과 기술적인 인사이트를 공유하며 함께 성장하는 엔지니어링 문화를 만들어갑니다.
+                  문제가 발생하면 로그 분석과 디버그 추적으로 근본 원인을 찾을 때까지 파고들며, Prometheus·Grafana 기반 모니터링 대시보드를 통해 잠재적인 이슈를 선제적으로 대응합니다.
+                  트러블슈팅 경험을 팀 내 문서로 남기고 기술 세션을 주도해, 동일 장애가 반복되지 않는 엔지니어링 환경을 만드는 것을 목표로 합니다.
                 </p>
               </div>
             </div>
@@ -89,15 +89,18 @@ export default function AboutSection() {
                 <div className="group relative pl-8 border-l-2 border-slate-200 dark:border-slate-800 hover:border-primary transition-colors">
                   <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-background border-2 border-slate-400 group-hover:border-primary transition-colors" />
                   <div className="mb-1 flex flex-wrap items-center gap-2">
-                    <h4 className="font-bold text-lg">삼성청년SW·AI아카데미 수료</h4>
+                    <h4 className="font-bold text-lg">삼성청년SW·AI아카데미 14기 수료</h4>
+                    <Badge variant="secondary" className="text-xs">Java Track</Badge>
                   </div>
                   <p className="text-sm text-slate-500 mb-2 flex items-center gap-1">
                     <CalendarDays className="h-3 w-3" /> 2025.07 - 2026.06
                   </p>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm">
-                    1600시간의 강도 높은 소프트웨어 교육 이수 (알고리즘, 웹 구조 교육 과정) <br/>
-                    Spring 기반 팀 단위 실무 프로젝트 3회 수행 및 서비스 개발과 인프라 통합 구축 경험
-                  </p>
+                  <ul className="text-slate-600 dark:text-slate-400 text-sm space-y-1 list-none">
+                    <li>· Java, Spring Boot, Vue.js, 알고리즘 등 1,600시간 집중 교육 이수</li>
+                    <li>· 자유주제 팀 개발 프로젝트 (6인, 5주) 및 핀테크 도메인 특화 팀 프로젝트 (6인, 7주) 등 총 3회 수행</li>
+                    <li>· 애자일 기반 협업 (JIRA·GitLab), CI/CD 파이프라인 및 Docker 인프라 구성 경험</li>
+                    <li>· 팀 리드 2회 수행 — 스프린트 관리, 기술 의사결정, 코드 리뷰 주도</li>
+                  </ul>
                 </div>
 
                 {/* Education Item 2 */}
@@ -110,24 +113,10 @@ export default function AboutSection() {
                   <p className="text-sm text-slate-500 mb-2 flex items-center gap-1">
                     <CalendarDays className="h-3 w-3" /> 2019.03 - 2025.08
                   </p>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm">
-                    컴퓨터 공학 전반을 학습하며 정보 보안 및 네트워크, 운영체제 등을 중점적으로 이수
-                  </p>
-                </div>
-
-                {/* Education Item 3 */}
-                <div className="group relative pl-8 border-l-2 border-slate-200 dark:border-slate-800 hover:border-primary transition-colors">
-                  <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-background border-2 border-slate-400 group-hover:border-primary transition-colors" />
-                  <div className="mb-1 flex flex-wrap items-center gap-2">
-                    <h4 className="font-bold text-lg">광주서석고등학교</h4>
-                    <Badge variant="secondary" className="text-xs">이과 (자연계열)</Badge>
-                  </div>
-                  <p className="text-sm text-slate-500 mb-2 flex items-center gap-1">
-                    <CalendarDays className="h-3 w-3" /> 2016.03 - 2019.02
-                  </p>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    성실한 학교 생활
-                  </p>
+                  <ul className="text-slate-600 dark:text-slate-400 text-sm space-y-1 list-none">
+                    <li>· 운영체제, 컴퓨터 네트워크, 정보 보안, 자료구조·알고리즘 등 컴퓨터공학 핵심 과목 이수</li>
+                    <li>· 졸업 논문 프로젝트: Hyperledger Fabric 기반 허가형 데이터 수집 플랫폼 설계 및 구현</li>
+                  </ul>
                 </div>
               </div>
             </div>

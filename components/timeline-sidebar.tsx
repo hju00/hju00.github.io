@@ -10,6 +10,24 @@ import {
 
 const TIMELINE_ITEMS = [
     {
+        date: "2026.06",
+        title: "SSAFY 14기 수료",
+        subtitle: "Java 전공 수료",
+        type: "education" as const,
+    },
+    {
+        date: "2026.04",
+        title: "ANVI",
+        subtitle: "온라인 시험 감독 솔루션",
+        type: "project" as const,
+    },
+    {
+        date: "2026.02",
+        title: "Donttaz",
+        subtitle: "스마트 금고 핀테크 플랫폼",
+        type: "project" as const,
+    },
+    {
         date: "2026.01",
         title: "CONY",
         subtitle: "기프티콘 관리 서비스",

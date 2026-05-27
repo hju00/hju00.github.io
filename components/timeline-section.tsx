@@ -11,9 +11,23 @@ import {
 // All items merged and sorted by date descending
 const TIMELINE_ITEMS = [
     {
+        date: "2026.06",
+        title: "SSAFY 14기 수료",
+        description: "삼성청년SW·AI아카데미 1년 과정 수료.\nJava 전공 트랙.",
+        side: "right" as const,
+        type: "education" as const,
+    },
+    {
+        date: "2026.04 ~ 05",
+        title: "ANVI",
+        description: "온디바이스 AI(YOLO + Gemma VLM) 기반 온라인 시험 감독 솔루션 개발. 6인 팀 리더, AI 파이프라인 및 Android 개발 담당.",
+        side: "left" as const,
+        type: "project" as const,
+    },
+    {
         date: "2026.02 ~ 03",
         title: "Donttaz",
-        description: "AI 기반 스마트 금고 핀테크 플랫폼. 무중단 배포(Blue-Green) 환경 및 Redis 분산 락, 비동기 트랜잭션 아키텍처 설계.\n🏆 우수상 (1등) 수상",
+        description: "AI 기반 스마트 금고 핀테크 플랫폼. 무중단 배포(Blue-Green) 환경 및 Redis 분산 락, 비동기 트랜잭션 아키텍처 설계.",
         side: "left" as const,
         type: "project" as const,
     },
@@ -41,7 +55,7 @@ const TIMELINE_ITEMS = [
     {
         date: "2025.07",
         title: "SSAFY 14기 입과",
-        description: "Java 전공 트랙 (진행 중)",
+        description: "Java 전공 트랙 입과",
         side: "right" as const,
         type: "education" as const,
     },
