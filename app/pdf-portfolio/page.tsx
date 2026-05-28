@@ -351,18 +351,18 @@ export default function PdfPortfolio() {
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 1: ANVI (한 끗 다른 해결 및 트레이드오프 검증)</span>
+            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 1: ANVI (디바이스 리소스 최적화 및 아키텍처 비교 검증)</span>
           </div>
           <span className="text-xs font-mono text-muted-foreground">Technical Deep Dive</span>
         </div>
 
         <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 한 끗 다른 해결 (3단계) */}
+          {/* 핵심 해결 방안 */}
           <div className="col-span-6 space-y-3.5">
             <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg space-y-2">
               <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
                 <Zap className="h-4 w-4 text-emerald-600" />
-                <h3>한 끗 다른 해결: VLM 발열 제어를 위한 룰 기반 상태 필터</h3>
+                <h3>핵심 해결 방안: 상태 머신(State Machine)을 활용한 VLM 호출 빈도 제어</h3>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 일반적으로 온디바이스 AI의 배터리 과소모를 막기 위해 인공지능 모델 자체의 양자화(Int8 Quantization) 튜닝이나 렌더링 프레임 레이트(FPS)를 깎는 타협안을 택하지만, 이는 탐지 신뢰도의 급격한 저하를 가져옵니다. 
@@ -372,12 +372,12 @@ export default function PdfPortfolio() {
             </div>
           </div>
 
-          {/* 트레이드오프 & 논리적 의사결정 (4단계) */}
+          {/* 트레이드오프 & 논리적 의사결정 */}
           <div className="col-span-6 space-y-3.5">
             <div className="space-y-2">
               <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
                 <AlertTriangle className="h-4 w-4 text-amber-500" />
-                <h3>주어진 환경 속 트레이드오프와 논리적 선택</h3>
+                <h3>인프라 리소스 제약 조건과 아키텍처 트레이드오프</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
                 클라우드 기반 VLM(정확도 약 96%)을 호출하면 가장 높은 탐지 정밀도를 보장할 수 있습니다. 
@@ -516,18 +516,18 @@ export default function PdfPortfolio() {
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 2: Donttaz (동시성 제어 한 끗 다른 해결 및 트레이드오프)</span>
+            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 2: Donttaz (대용량 트래픽 동시성 제어 및 데이터 정합성 설계)</span>
           </div>
           <span className="text-xs font-mono text-muted-foreground">Concurrency Deep Dive</span>
         </div>
 
         <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 한 끗 다른 해결 (3단계) */}
+          {/* 핵심 해결 방안 */}
           <div className="col-span-6 space-y-3.5">
             <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg space-y-2">
               <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
                 <Zap className="h-4 w-4 text-emerald-600" />
-                <h3>한 끗 다른 해결: DB 고갈을 피하는 Redis 분산 락 격리</h3>
+                <h3>핵심 해결 방안: DB 커넥션 풀 보호를 위한 Redis 분산 락 격리</h3>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다. 
@@ -537,12 +537,12 @@ export default function PdfPortfolio() {
             </div>
           </div>
 
-          {/* 트레이드오프 & 논리적 의사결정 (4단계) */}
+          {/* 트레이드오프 & 논리적 의사결정 */}
           <div className="col-span-6 space-y-3.5">
             <div className="space-y-2">
               <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
                 <AlertTriangle className="h-4 w-4 text-amber-500" />
-                <h3>주어진 환경 속 트레이드오프와 논리적 선택</h3>
+                <h3>락 메커니즘 선택에 따른 성능과 신뢰성의 트레이드오프</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
                 Redis 분산 락 방식은 별도의 인프라를 운영해야 하므로 SPOF(단일 장애점) 발생 위험과 캐시 구축 서버 유지 비용이 추가되는 트레이드오프가 있습니다. 
@@ -778,9 +778,9 @@ export default function PdfPortfolio() {
   const ALL_SLIDES_MAP: Record<string, { title: string; category: string; component: (props: { version: PresetVersion }) => React.JSX.Element }> = {
     cover: { title: "표지 및 프로필 (Cover & Profile)", category: "기본 정보", component: CoverSlide },
     anvi_1: { title: "ANVI 1 (개요, 아키텍처 및 AI 실무)", category: "핵심 프로젝트", component: Anvi1Slide },
-    anvi_2: { title: "ANVI 2 (한 끗 다른 해결 & 트레이드오프)", category: "핵심 프로젝트", component: Anvi2Slide },
+    anvi_2: { title: "ANVI 2 (리소스 최적화 및 아키텍처 비교)", category: "핵심 프로젝트", component: Anvi2Slide },
     donttaz_1: { title: "Donttaz 1 (개요, 비동기 격리 및 가상 금고)", category: "핵심 프로젝트", component: Donttaz1Slide },
-    donttaz_2: { title: "Donttaz 2 (동시성 제어 한 끗 다른 해결)", category: "핵심 프로젝트", component: Donttaz2Slide },
+    donttaz_2: { title: "Donttaz 2 (동시성 제어 및 아키텍처 비교)", category: "핵심 프로젝트", component: Donttaz2Slide },
     cony: { title: "CONY (선택적 빌드 CI/CD & 이미지 폴백)", category: "주요 프로젝트", component: ConySlide },
     secondary: { title: "SsaveryTime & Hyperledger 분산 저장소", category: "기타 프로젝트", component: SecondarySlide },
   }
