@@ -23,7 +23,7 @@ interface Slide {
 // 1. ANVI Performance Chart
 const AnviPerformanceChart = () => {
   return (
-    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3.5">
+    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3">
       <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
         <Layers2 className="h-3.5 w-3.5 text-blue-500" />
         <span>계층형 엣지 추론 성능 분석 (전량 VLM 대비)</span>
@@ -38,19 +38,17 @@ const AnviPerformanceChart = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
-                  1,200회 / 분
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '100%' }} />
               </div>
+              <span className="w-24 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">1,200회 / 분</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '12%' }}>
-                  1.5회 / 분
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '1.2%' }} />
               </div>
+              <span className="w-24 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">1.5회 / 분</span>
             </div>
           </div>
         </div>
@@ -64,19 +62,17 @@ const AnviPerformanceChart = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '8%' }}>
-                  1분 미만 (발열 꺼짐)
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '0.8%' }} />
               </div>
+              <span className="w-24 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">1분 미만</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
-                  120분 이상 (무발열 완주)
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '100%' }} />
               </div>
+              <span className="w-24 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">120분+ (완주)</span>
             </div>
           </div>
         </div>
@@ -88,7 +84,7 @@ const AnviPerformanceChart = () => {
 // 2. Donttaz Performance Chart
 const DonttazPerformanceChart = () => {
   return (
-    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3.5">
+    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3">
       <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
         <Database className="h-3.5 w-3.5 text-blue-500" />
         <span>500건 자동 이체 동시성 제어 성능 분석</span>
@@ -103,19 +99,17 @@ const DonttazPerformanceChart = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
-                  8.5초 (커넥션 대기)
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '100%' }} />
               </div>
+              <span className="w-24 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">8.5초 (대기)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '14%' }}>
-                  1.2초 (메모리 제어)
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '14%' }} />
               </div>
+              <span className="w-24 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">1.2초 (격리)</span>
             </div>
           </div>
         </div>
@@ -129,19 +123,17 @@ const DonttazPerformanceChart = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '88%' }}>
-                  88% (12% 데이터 오염)
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '88%' }} />
               </div>
+              <span className="w-24 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">88% 성공</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
-                  100% 무결성 유지
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '100%' }} />
               </div>
+              <span className="w-24 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">100% 무결성</span>
             </div>
           </div>
         </div>
@@ -153,7 +145,7 @@ const DonttazPerformanceChart = () => {
 // 3. CONY Build Time Chart
 const ConyBuildTimeChart = () => {
   return (
-    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3.5">
+    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3">
       <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
         <RefreshCw className="h-3.5 w-3.5 text-blue-500" />
         <span>선택적 서브 빌드 파이프라인 성능 분석</span>
@@ -168,19 +160,17 @@ const ConyBuildTimeChart = () => {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전체 빌드</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
-                  12분 30초
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '100%' }} />
               </div>
+              <span className="w-24 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">12분 30초</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">선택 빌드</span>
-              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '38%' }}>
-                  4분 48초
-                </div>
+              <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '38.4%' }} />
               </div>
+              <span className="w-24 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">4분 48초</span>
             </div>
           </div>
         </div>
@@ -507,15 +497,6 @@ export default function PdfPortfolio() {
                 </div>
               </div>
             </div>
-
-            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
-              <Image
-                src="/projects/project1-thumbnail.png"
-                alt="ANVI 서비스 화면"
-                fill
-                className="object-cover"
-              />
-            </div>
           </div>
         </div>
 
@@ -554,15 +535,6 @@ export default function PdfPortfolio() {
                 저는 모델 성능을 깎는 대신, 바운딩 박스 내 탐지 객체(스마트폰/이어폰 등)의 누적 통계를 통제하는 룰 기반 상태 머신(State Machine)을 설계했습니다. 
                 단순 노이즈 탐지는 VLM 호출로 이어지지 않고, 연속 3초 이상 누적 감지된 시점에만 딱 1회 정밀 VLM 분석을 가동시킴으로써, 불필요한 고비용 VLM 연산 실행 횟수를 물리적으로 사전에 완벽히 예방했습니다.
               </p>
-            </div>
-
-            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
-              <Image
-                src="/projects/anvi/architecture/ANVI_APP_SA.drawio.png"
-                alt="ANVI 온디바이스 AI 파이프라인 아키텍처"
-                fill
-                className="object-cover object-top"
-              />
             </div>
           </div>
 
@@ -672,15 +644,6 @@ export default function PdfPortfolio() {
                 </div>
               </div>
             </div>
-
-            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
-              <Image
-                src="/projects/project2-thumbnail.png"
-                alt="Donttaz 서비스 화면"
-                fill
-                className="object-cover"
-              />
-            </div>
           </div>
         </div>
 
@@ -721,15 +684,6 @@ export default function PdfPortfolio() {
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
                 저는 DB 레벨이 아닌 Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리하고, 락 획득 실패 시 지수 백오프(Exponential Backoff) 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
               </p>
-            </div>
-
-            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
-              <Image
-                src="/projects/donttaz/architecture.png"
-                alt="Donttaz 분산 락 아키텍처"
-                fill
-                className="object-cover object-top"
-              />
             </div>
           </div>
 
@@ -802,15 +756,6 @@ export default function PdfPortfolio() {
             
             {/* Before & After 수치 그래프 */}
             <ConyBuildTimeChart />
-
-            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
-              <Image
-                src="/projects/project3-thumbnail.png"
-                alt="CONY 서비스 화면"
-                fill
-                className="object-cover"
-              />
-            </div>
           </div>
 
           {/* 한 끗 다른 해결: 썸네일 예외 폴백 */}
