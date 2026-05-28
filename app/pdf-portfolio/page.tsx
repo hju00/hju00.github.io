@@ -801,7 +801,7 @@ export default function PdfPortfolio() {
         .slide-page {
           width: 297mm !important;
           height: 210mm !important;
-          padding: 18mm 22mm !important;
+          padding: 15mm 20mm !important;
           box-sizing: border-box !important;
           position: absolute;
           top: 0;
@@ -813,6 +813,18 @@ export default function PdfPortfolio() {
           flex-direction: column !important;
           justify-content: space-between !important;
         }
+
+        /* Scale up font-sizes inside slide-page to enhance readability */
+        .slide-page .text-\[9px\] { font-size: 11.5px !important; line-height: 15px !important; }
+        .slide-page .text-\[10px\] { font-size: 12.5px !important; line-height: 17px !important; }
+        .slide-page .text-\[11px\] { font-size: 13.5px !important; line-height: 19px !important; }
+        .slide-page .text-xs { font-size: 14.5px !important; line-height: 20px !important; }
+        .slide-page .text-sm { font-size: 16.5px !important; line-height: 23px !important; }
+        .slide-page .text-base { font-size: 18.5px !important; line-height: 26px !important; }
+        .slide-page .text-lg { font-size: 20.5px !important; line-height: 29px !important; }
+        .slide-page .text-xl { font-size: 23.5px !important; line-height: 32px !important; }
+        .slide-page .text-2xl { font-size: 27.5px !important; line-height: 36px !important; }
+        .slide-page .text-3xl { font-size: 33.5px !important; line-height: 42px !important; }
 
         @media print {
           @page {
