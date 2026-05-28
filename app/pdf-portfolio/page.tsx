@@ -20,6 +20,175 @@ interface Slide {
   component: (props: { version: PresetVersion }) => React.JSX.Element
 }
 
+// 1. ANVI Performance Chart
+const AnviPerformanceChart = () => {
+  return (
+    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3.5">
+      <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
+        <Layers2 className="h-3.5 w-3.5 text-blue-500" />
+        <span>계층형 엣지 추론 성능 분석 (전량 VLM 대비)</span>
+      </div>
+      <div className="space-y-2.5">
+        {/* Metric 1: VLM 호출 수 */}
+        <div className="space-y-1">
+          <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
+            <span>분당 VLM 호출 횟수 (낮을수록 리소스 우수)</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">-99.8% 절감</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
+                  1,200회 / 분
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '12%' }}>
+                  1.5회 / 분
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Metric 2: 배터리 연속 구동 시간 */}
+        <div className="space-y-1">
+          <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
+            <span>기기 연속 작동 시간 (발열 한계 테스트)</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">120배 연장</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '8%' }}>
+                  1분 미만 (발열 꺼짐)
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
+                  120분 이상 (무발열 완주)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 2. Donttaz Performance Chart
+const DonttazPerformanceChart = () => {
+  return (
+    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3.5">
+      <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
+        <Database className="h-3.5 w-3.5 text-blue-500" />
+        <span>500건 자동 이체 동시성 제어 성능 분석</span>
+      </div>
+      <div className="space-y-2.5">
+        {/* Metric 1: 처리 속도 */}
+        <div className="space-y-1">
+          <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
+            <span>500건 동시 처리 시간 (낮을수록 우수)</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">85% 단축</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
+                  8.5초 (커넥션 대기)
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '14%' }}>
+                  1.2초 (메모리 제어)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Metric 2: 잔액 정합성 */}
+        <div className="space-y-1">
+          <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
+            <span>동시성 유입 시 잔액 무결성 성공률</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">100% 보장</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '88%' }}>
+                  88% (12% 데이터 오염)
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
+                  100% 무결성 유지
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 3. CONY Build Time Chart
+const ConyBuildTimeChart = () => {
+  return (
+    <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg space-y-3.5">
+      <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
+        <RefreshCw className="h-3.5 w-3.5 text-blue-500" />
+        <span>선택적 서브 빌드 파이프라인 성능 분석</span>
+      </div>
+      <div className="space-y-2.5">
+        {/* Metric 1: 빌드 속도 */}
+        <div className="space-y-1">
+          <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
+            <span>CI/CD 파이프라인 빌드/배포 속도 (낮을수록 우수)</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">61.6% 단축</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전체 빌드</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-rose-400 to-rose-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '100%' }}>
+                  12분 30초
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">선택 빌드</span>
+              <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden relative">
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-md flex items-center pl-2 text-[9px] text-white font-bold" style={{ width: '38%' }}>
+                  4분 48초
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function PdfPortfolio() {
   const [selectedVersion, setSelectedVersion] = useState<PresetVersion>("general")
   const [activeSlides, setActiveSlides] = useState<Record<string, boolean>>({
@@ -413,35 +582,8 @@ export default function PdfPortfolio() {
               </p>
             </div>
 
-            {/* Before & After 수치 테이블 */}
-            <div className="border rounded-lg overflow-hidden border-slate-200 dark:border-slate-800">
-              <table className="w-full text-[11px] text-slate-600 dark:text-slate-400">
-                <thead>
-                  <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-                    <th className="px-3 py-1.5 text-left font-bold">비교 지표</th>
-                    <th className="px-3 py-1.5 text-left font-bold text-rose-600">Before (전량 VLM 추론)</th>
-                    <th className="px-3 py-1.5 text-left font-bold text-emerald-600">After (계층적 엣지 추론)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-slate-100 dark:border-slate-900">
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">분당 VLM 호출 수</td>
-                    <td className="px-3 py-1 text-rose-500">1,200회 (연속 호출)</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">1~2회 (99.8% 절감)</td>
-                  </tr>
-                  <tr className="border-b border-slate-100 dark:border-slate-900 bg-slate-50/50 dark:bg-slate-900/30">
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">기기 연속 작동 시간</td>
-                    <td className="px-3 py-1 text-rose-500">1분 미만 (발열 꺼짐)</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">120분 이상 (무발열 완주)</td>
-                  </tr>
-                  <tr>
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">서버 클라우드 비용</td>
-                    <td className="px-3 py-1 text-rose-500">매우 높음 (GPU 인스턴스)</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">0원 (서버 추론 최소화)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {/* Before & After 수치 그래프 */}
+            <AnviPerformanceChart />
           </div>
         </div>
 
@@ -607,35 +749,8 @@ export default function PdfPortfolio() {
               </p>
             </div>
 
-            {/* Before & After 수치 테이블 */}
-            <div className="border rounded-lg overflow-hidden border-slate-200 dark:border-slate-800">
-              <table className="w-full text-[11px] text-slate-600 dark:text-slate-400">
-                <thead>
-                  <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-                    <th className="px-3 py-1.5 text-left font-bold">비교 지표</th>
-                    <th className="px-3 py-1.5 text-left font-bold text-rose-600">Before (비관적 락)</th>
-                    <th className="px-3 py-1.5 text-left font-bold text-emerald-600">After (Redis 분산 락)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-slate-100 dark:border-slate-900">
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">500건 동시 자동 이체 속도</td>
-                    <td className="px-3 py-1 text-rose-500">8.5초 (Connection Pool 고갈)</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">1.2초 (85% 속도 단축)</td>
-                  </tr>
-                  <tr className="border-b border-slate-100 dark:border-slate-900 bg-slate-50/50 dark:bg-slate-900/30">
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">잔액 정합성 오류 건수</td>
-                    <td className="px-3 py-1 text-rose-500">100건 중 12건 정합성 붕괴</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">0건 (100% 무결성 보장)</td>
-                  </tr>
-                  <tr>
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">알림 메시지 보존율</td>
-                    <td className="px-3 py-1 text-rose-500">지연 시 메시지 유실 발생</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">100% 보존 (Manual ACK/DLQ)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {/* Before & After 수치 그래프 */}
+            <DonttazPerformanceChart />
           </div>
         </div>
 
@@ -685,29 +800,8 @@ export default function PdfPortfolio() {
               </p>
             </div>
             
-            <div className="border rounded-lg overflow-hidden border-slate-200 dark:border-slate-800">
-              <table className="w-full text-[11px] text-slate-600 dark:text-slate-400">
-                <thead>
-                  <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-                    <th className="px-3 py-1 font-bold">비교 항목</th>
-                    <th className="px-3 py-1 font-bold text-rose-600">Before</th>
-                    <th className="px-3 py-1 font-bold text-emerald-600">After (CI 최적화)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-slate-100 dark:border-slate-900">
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">CI/CD 빌드 시간</td>
-                    <td className="px-3 py-1 text-rose-500">12분 30초</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">4분 48초 (61% 단축)</td>
-                  </tr>
-                  <tr>
-                    <td className="px-3 py-1 text-slate-800 dark:text-slate-200 font-bold">기프티콘 썸네일 노출도</td>
-                    <td className="px-3 py-1 text-rose-500">오류 시 미표시 (14.5% 실패)</td>
-                    <td className="px-3 py-1 text-emerald-500 font-bold">100% 노출 보장 (폴백 탑재)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {/* Before & After 수치 그래프 */}
+            <ConyBuildTimeChart />
 
             <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
               <Image
