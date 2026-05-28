@@ -378,17 +378,17 @@ export default function PdfPortfolio() {
           </div>
 
           {/* 트레이드오프 & 논리적 의사결정 */}
-          <div className="col-span-6 space-y-3.5">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-                <AlertTriangle className="h-4 w-4 text-amber-500" />
+          <div className="col-span-6 space-y-3">
+            <div className="bg-amber-50/30 dark:bg-amber-950/10 border border-amber-200 dark:border-amber-900/50 p-4 rounded-lg space-y-2">
+              <div className="flex items-center gap-1.5 text-sm font-bold text-amber-800 dark:text-amber-300">
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
                 <h3>인프라 리소스 제약 조건과 아키텍처 트레이드오프</h3>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 클라우드 기반 VLM(정확도 약 96%)을 호출하면 가장 높은 탐지 정밀도를 보장할 수 있습니다. 
                 반면 온디바이스 Gemma VLM은 경량화로 인해 복합 부정행위 탐지 성능이 92% 수준으로 4%p 하락합니다.
               </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium mt-2">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
                 하지만 <strong>500명 동시 응시 조건 하에 클라우드 서버 사용 시 발생하는 월 약 1,500만 원의 GPU 청구 비용</strong>과 수험생 영상 유출 시 부과될 수 있는 <strong>법적 징벌적 배상금 리스크</strong>를 방지하기 위해, 온디바이스에서 3초 통계 검증으로 하락된 정확도를 보완하고 <strong>비용 0원 및 프라이버시 100% 안전</strong>을 쟁취하는 엣지 추론 아키텍처가 비즈니스 가치 극대화에 가장 타당하다고 판단했습니다.
               </p>
             </div>
@@ -552,16 +552,16 @@ export default function PdfPortfolio() {
           </div>
 
           {/* 트레이드오프 & 논리적 의사결정 */}
-          <div className="col-span-6 space-y-3.5">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-                <AlertTriangle className="h-4 w-4 text-amber-500" />
+          <div className="col-span-6 space-y-3">
+            <div className="bg-amber-50/30 dark:bg-amber-950/10 border border-amber-200 dark:border-amber-900/50 p-4 rounded-lg space-y-2">
+              <div className="flex items-center gap-1.5 text-sm font-bold text-amber-800 dark:text-amber-300">
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
                 <h3>락 메커니즘 선택에 따른 성능과 신뢰성의 트레이드오프</h3>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 Redis 분산 락 방식은 별도의 인프라를 운영해야 하므로 SPOF(단일 장애점) 발생 위험과 캐시 구축 서버 유지 비용이 추가되는 트레이드오프가 있습니다.
               </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium mt-2">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
                 하지만 핀테크 도메인에서 <strong>동시 출금 오류로 인한 잔액 꼬임 현상은 금융 거래의 신뢰성 상실 및 유저 즉시 탈퇴</strong>로 직결되는 중대한 리스크입니다. 
                 따라서 단일 장애점 극복을 위한 모니터링 비용 부담을 안더라도, DB 커넥션 풀을 안전하게 유지하고 잔액 정합성 100%를 보장하여 피크타임 거래 성사율을 지키는 Redis 메모리 락 도입이 비즈니스 안정화 측면에서 타당한 결정이었습니다.
               </p>
@@ -631,17 +631,19 @@ export default function PdfPortfolio() {
         <div className="grid grid-cols-12 gap-5 my-auto">
           {/* 비즈니스적 맥락 & 빌드 최적화 */}
           <div className="col-span-6 space-y-3">
-            <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-              <Briefcase className="h-4 w-4 text-blue-600" />
-              <h3>비즈니스적 빌드 최적화 배경</h3>
+            <div className="bg-blue-50/30 dark:bg-blue-950/10 border border-blue-200 dark:border-blue-900/50 p-4 rounded-lg space-y-2">
+              <div className="flex items-center gap-1.5 text-sm font-bold text-blue-800 dark:text-blue-300">
+                <Briefcase className="h-4 w-4 text-blue-600" />
+                <h3>비즈니스적 빌드 최적화 배경</h3>
+              </div>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+                기프티콘 이커머스 마켓은 트렌드 대응 및 핫픽스 속도가 매출에 직결되는 분야입니다. 
+                작은 기능 변경에도 젠킨스에서 전체 모듈을 빌드하느라 배포 다운타임과 주기 병목이 생겼으며, 이는 전체 개발팀의 작업 대기 시간 낭비로 이어졌습니다.
+              </p>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
+                따라서 <strong>Changeset 스캔 기반 선택적 CI/CD 파이프라인</strong>을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
+              </p>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-              기프티콘 이커머스 마켓은 트렌드 대응 및 핫픽스 속도가 매출에 직결되는 분야입니다. 
-              작은 기능 변경에도 젠킨스에서 전체 모듈을 빌드하느라 배포 다운타임과 주기 병목이 생겼으며, 이는 전체 개발팀의 작업 대기 시간 낭비로 이어졌습니다.
-            </p>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
-              따라서 <strong>Changeset 스캔 기반 선택적 CI/CD 파이프라인</strong>을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
-            </p>
             
             <div className="border rounded-lg overflow-hidden border-slate-200 dark:border-slate-800">
               <table className="w-full text-[11px] text-slate-600 dark:text-slate-400">
