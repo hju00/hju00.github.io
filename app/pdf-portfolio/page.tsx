@@ -272,7 +272,6 @@ export default function PdfPortfolio() {
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
         <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 leading-relaxed">
-            <span className="font-extrabold text-blue-600 mr-1">[요약]</span>
             <strong>[온라인 시험 감독 도메인]</strong>에서 서버 VLM 운영 시 발생하는 <strong>[극심한 GPU 서버 비용(500명 동시 응시 시 월 1,500만 원 상당) 및 영상 데이터 유출에 따른 개인정보 규정 위반 리스크]</strong>를, 
             <strong>[YOLO-Gemma VLM 계층형 온디바이스 AI 파이프라인 설계 및 기기 내 본인인증/비식별 블러 처리]</strong>를 도입하여 
             <strong>[서버 추론 비용 0원 달성 및 응시자 개인정보 리스크 원천 차단]</strong>으로 해결하여 B2B 계약 체결 타당성을 입증했습니다.
@@ -328,7 +327,7 @@ export default function PdfPortfolio() {
                 <h4 className="font-bold text-slate-800 dark:text-slate-200">2. Prompt & Logging Hook을 통한 오추론 분석 환경 구축</h4>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                   온디바이스 VLM 모델의 프롬프트 변화에 따른 추론 일관성을 보장하기 위해, 
-                  추론 시 입력된 스냅샷의 메타데이터와 Gemma VLM 출력 텍스트를 연동 수집하는 **Logging Hook 모듈**을 기기 내 구축하여 
+                  추론 시 입력된 스냅샷의 메타데이터와 Gemma VLM 출력 텍스트를 연동 수집하는 <strong>Logging Hook 모듈</strong>을 기기 내 구축하여 
                   오추론이 발생하는 특정 상황의 재현성 확보 및 신속한 템플릿 디버깅을 가능하게 했습니다.
                 </p>
               </div>
@@ -366,8 +365,8 @@ export default function PdfPortfolio() {
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 일반적으로 온디바이스 AI의 배터리 과소모를 막기 위해 인공지능 모델 자체의 양자화(Int8 Quantization) 튜닝이나 렌더링 프레임 레이트(FPS)를 깎는 타협안을 택하지만, 이는 탐지 신뢰도의 급격한 저하를 가져옵니다. 
-                저는 모델 성능을 깎는 대신, **바운딩 박스 내 탐지 객체(스마트폰/이어폰 등)의 누적 통계를 통제하는 룰 기반 상태 머신(State Machine)**을 설계했습니다. 
-                단순 노이즈 탐지는 VLM 호출로 이어지지 않고, **연속 3초 이상 누적 감지된 시점에만 딱 1회 정밀 VLM 분석을 가동**시킴으로써, 불필요한 고비용 VLM 연산 실행 횟수를 물리적으로 사전에 완벽히 예방했습니다.
+                저는 모델 성능을 깎는 대신, <strong>바운딩 박스 내 탐지 객체(스마트폰/이어폰 등)의 누적 통계를 통제하는 룰 기반 상태 머신(State Machine)</strong>을 설계했습니다. 
+                단순 노이즈 탐지는 VLM 호출로 이어지지 않고, <strong>연속 3초 이상 누적 감지된 시점에만 딱 1회 정밀 VLM 분석을 가동</strong>시킴으로써, 불필요한 고비용 VLM 연산 실행 횟수를 물리적으로 사전에 완벽히 예방했습니다.
               </p>
             </div>
           </div>
@@ -441,7 +440,6 @@ export default function PdfPortfolio() {
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
         <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 leading-relaxed">
-            <span className="font-extrabold text-blue-600 mr-1">[요약]</span>
             <strong>[스마트 금고 핀테크 도메인]</strong>에서 외부 알림 API 지연시간으로 인해 <strong>[핵심 비즈니스(거래 입출금) 트랜잭션 스레드가 대량으로 점유되고 알림 메시지가 누락되던 안정성 붕괴 문제]</strong>를, 
             <strong>[RabbitMQ 메시지 큐를 통한 비동기 격리 및 Manual-ACK/DLQ 재시도 복구 인프라 구축]</strong>으로 설계하여 
             <strong>[알림 메시지 유실 성공률 100% 보존 및 피크 타임대 사용자 거래 응답 속도 방어]</strong>에 성공하고 서비스 신뢰도를 극대화했습니다.
@@ -457,9 +455,9 @@ export default function PdfPortfolio() {
                 <h3>비즈니스 목적 및 기술 선정 이유</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                핀테크 서비스의 핵심 성공 지표는 <strong>서비스 신뢰도</strong>와 **이탈률(Retention)**입니다. 
+                핀테크 서비스의 핵심 성공 지표는 <strong>서비스 신뢰도</strong>와 <strong>이탈률(Retention)</strong>입니다. 
                 사용자가 이체를 진행했을 때, 외부 푸시 알림(FCM) 발송 속도 지연이나 타사 웹훅(Discord, Mattermost) 통신 병목이 메인 API 서버를 정체시키면, 사용자는 즉시 불안감을 느껴 앱을 이탈하게 됩니다. 
-                이를 차단하기 위해 금융 이체 비즈니스 스레드와 알림 스레드를 **RabbitMQ**로 격리하여 비동기로 독립 분리했습니다.
+                이를 차단하기 위해 금융 이체 비즈니스 스레드와 알림 스레드를 <strong>RabbitMQ</strong>로 격리하여 비동기로 독립 분리했습니다.
               </p>
             </div>
 
@@ -469,7 +467,7 @@ export default function PdfPortfolio() {
                 <h3>FCM & 웹훅 비동기 격리 및 메시지 보존 인프라</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
-                단순히 비동기로 처리하는 것에 그치지 않고 외부 통신 실패 시에도 알림 유실이 발생하지 않도록, **Manual Acknowledge(수동 승인)**를 활성화했습니다. 
+                단순히 비동기로 처리하는 것에 그치지 않고 외부 통신 실패 시에도 알림 유실이 발생하지 않도록, <strong>Manual Acknowledge(수동 승인)</strong>를 활성화했습니다. 
                 네트워크 장애 등으로 실패한 알림들은 지수 백오프 기반으로 3회 자동 재시도하며, 최종 실패 시 <strong>DLQ(Dead Letter Queue)</strong>로 격리 보존시켜 운영 관리자가 사후 대조 복구할 수 있는 안정망을 다졌습니다.
               </p>
             </div>
@@ -494,7 +492,7 @@ export default function PdfPortfolio() {
                 <h4 className="font-bold text-slate-800 dark:text-slate-200">가상 계좌 분할 설계를 통한 금융 규제(20일 가입 제한) 회피</h4>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                   금융감독원의 비대면 단기간 다수계좌 개설 제한(20일 규제) 정책으로 인해 사용자가 가상 금고를 목적별로 늘릴 수 없는 비즈니스 제약이 있었습니다. 
-                  이를 해결하고자 **실제 1개의 실명 마스터 계좌 하위에 DB 상에서 논리적으로 구분되는 가상 금고(Wish Table) 구조**를 설계하여 사용자가 가입 즉시 목표 금액에 맞춰 무제한으로 목적별 저축방을 만들어 분산 저축을 시작할 수 있는 최적의 사용자 경험을 구현했습니다.
+                  이를 해결하고자 <strong>실제 1개의 실명 마스터 계좌 하위에 DB 상에서 논리적으로 구분되는 가상 금고(Wish Table) 구조</strong>를 설계하여 사용자가 가입 즉시 목표 금액에 맞춰 무제한으로 목적별 저축방을 만들어 분산 저축을 시작할 수 있는 최적의 사용자 경험을 구현했습니다.
                 </p>
               </div>
             </div>
@@ -532,7 +530,7 @@ export default function PdfPortfolio() {
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다. 
                 그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 **DB Connection Pool**을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다. 
-                저는 DB 레벨이 아닌 **Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리**하고, 락 획득 실패 시 **지수 백오프(Exponential Backoff)** 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
+                저는 DB 레벨이 아닌 <strong>Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리</strong>하고, 락 획득 실패 시 <strong>지수 백오프(Exponential Backoff)</strong> 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
               </p>
             </div>
           </div>
@@ -546,7 +544,7 @@ export default function PdfPortfolio() {
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
                 Redis 분산 락 방식은 별도의 인프라를 운영해야 하므로 SPOF(단일 장애점) 발생 위험과 캐시 구축 서버 유지 비용이 추가되는 트레이드오프가 있습니다. 
-                하지만 핀테크 도메인에서 **동시 출금 오류로 인한 잔액 꼬임 현상은 금융 거래의 신뢰성 상실 및 유저 즉시 탈퇴**로 직결되는 중대한 리스크입니다. 
+                하지만 핀테크 도메인에서 <strong>동시 출금 오류로 인한 잔액 꼬임 현상은 금융 거래의 신뢰성 상실 및 유저 즉시 탈퇴</strong>로 직결되는 중대한 리스크입니다. 
                 따라서 단일 장애점 극복을 위한 모니터링 비용 부담을 안더라도, DB 커넥션 풀을 안전하게 유지하고 잔액 정합성 100%를 보장하여 피크타임 거래 성사율을 지키는 Redis 메모리 락 도입이 비즈니스 안정화 측면에서 타당한 결정이었습니다.
               </p>
             </div>
@@ -606,7 +604,6 @@ export default function PdfPortfolio() {
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
         <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 leading-relaxed">
-            <span className="font-extrabold text-blue-600 mr-1">[요약]</span>
             <strong>[기프티콘 거래 자산 관리 도메인]</strong>에서 마이크로서비스 빌드 지연으로 인해 <strong>[협업 시 배포 주기가 12분 이상 지연되어 신속한 피드백 반영 및 장애 대응 속도가 저하되던 문제]</strong>를, 
             <strong>[Jenkins 파이프라인 변경 디렉토리(Changeset) 감지 기반 선택적 서브 빌드 파이프라인 설계]</strong>로 극복하여 
             <strong>[전체 빌드/배포 속도 60% 단축(12.5분 ➡️ 4.8분)을 통한 기능 릴리즈 민첩성 확보]</strong>로 비즈니스 경쟁력을 강화했습니다.
@@ -623,7 +620,7 @@ export default function PdfPortfolio() {
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
               기프티콘 이커머스 마켓은 트렌드 대응 및 핫픽스 속도가 매출에 직결되는 분야입니다. 
               작은 기능 변경에도 젠킨스에서 전체 모듈을 빌드하느라 배포 다운타임과 주기 병목이 생겼으며, 이는 전체 개발팀의 작업 대기 시간 낭비로 이어졌습니다. 
-              **Changeset 스캔 기반 선택적 CI/CD 파이프라인**을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
+              <strong>Changeset 스캔 기반 선택적 CI/CD 파이프라인</strong>을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
             </p>
             
             <div className="border rounded-lg overflow-hidden border-slate-200 dark:border-slate-800">
@@ -662,7 +659,7 @@ export default function PdfPortfolio() {
               이로 인해 프론트엔드 UI 렌더링 깨짐 현상이 유발되어 사용자가 상품 상세보기를 실패하고 구매를 포기하는 심각한 비즈니스 이탈 손실이 발생했습니다.
             </p>
             <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              저는 단순 프론트엔드의 null 방어 코드를 넘어, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 **1단계로 고속 썸네일 이미지를 스캔하고, 썸네일 데이터가 없을 시 2단계로 업로드 원본(Original) 이미지 경로를 자동으로 결합하여 반환해주는 2단계 동적 이미지 폴백(Fallback) 조회 아키텍처**를 구현했습니다. 
+              저는 단순 프론트엔드의 null 방어 코드를 넘어, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 <strong>1단계로 고속 썸네일 이미지를 스캔하고, 썸네일 데이터가 없을 시 2단계로 업로드 원본(Original) 이미지 경로를 자동으로 결합하여 반환해주는 2단계 동적 이미지 폴백(Fallback) 조회 아키텍처</strong>를 구현했습니다. 
               이를 통해 프론트엔드의 부하를 줄이면서도 기프티콘 노출 실패율을 0%로 통제하여 고객 상세 페이지의 사용자 이탈율을 근본적으로 사전에 방어했습니다.
             </p>
           </div>
@@ -716,7 +713,7 @@ export default function PdfPortfolio() {
                 </div>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                   - <strong>비즈니스 목적</strong>: 무분별한 스팸 데이터 축적 방지 및 인가된 노드 간 불변 투명성 확보<br />
-                  - <strong>구현 성과</strong>: 백엔드 아키텍처 리드로서, 관계형 데이터베이스(MySQL)와 도큐먼트 DB(CouchDB), 블록체인 원장 상태 기록을 나눈 분리된 **3-Tier 분산 스토리지 아키텍처**를 직접 설계하여 대량 트랜잭션 읽기/쓰기 성능 속도의 병목을 최적화.
+                  - <strong>구현 성과</strong>: 백엔드 아키텍처 리드로서, 관계형 데이터베이스(MySQL)와 도큐먼트 DB(CouchDB), 블록체인 원장 상태 기록을 나눈 분리된 <strong>3-Tier 분산 스토리지 아키텍처</strong>를 직접 설계하여 대량 트랜잭션 읽기/쓰기 성능 속도의 병목을 최적화.
                 </p>
               </div>
             </div>
