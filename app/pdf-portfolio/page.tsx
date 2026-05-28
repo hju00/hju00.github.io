@@ -8,6 +8,7 @@ import {
   Percent, Database, RefreshCw, Layers2, Zap, ArrowLeft
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 // Define Preset types
 type PresetVersion = "general" | "ai" | "fintech" | "devops"
@@ -137,7 +138,7 @@ export default function PdfPortfolio() {
             <span className="h-3 w-3 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Portfolio Cover & Profile</span>
           </div>
-          <span className="text-xs text-muted-foreground font-mono">PARK HYUNG JOO</span>
+          <span className="text-xs text-muted-foreground font-mono">PARK HYEONG JU</span>
         </div>
 
         {/* Slide Body */}
@@ -189,11 +190,16 @@ export default function PdfPortfolio() {
           </div>
 
           <div className="col-span-4 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-4">
-            <div className="h-20 w-20 rounded-full bg-gradient-to-tr from-blue-600 to-emerald-400 flex items-center justify-center text-white text-3xl font-black shadow-md">
-              박형주
+            <div className="relative h-20 w-20 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800 shadow-md">
+              <Image
+                src="/profile.jpg"
+                alt="박형주"
+                fill
+                className="object-cover"
+              />
             </div>
             <div className="text-center space-y-1">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">박형주 (Park Hyung-joo)</h2>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">박형주 (Park Hyeong-ju)</h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">Backend & DevOps Engineer</p>
             </div>
             <div className="w-full pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2 text-xs text-slate-600 dark:text-slate-400 font-medium">
