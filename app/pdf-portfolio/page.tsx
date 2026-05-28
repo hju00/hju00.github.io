@@ -311,30 +311,41 @@ export default function PdfPortfolio() {
           </div>
 
           {/* AI 실무 활용: Plan-First Workflow & Logging Hook */}
-          <div className="col-span-6 space-y-3.5 bg-slate-50 dark:bg-slate-900 p-4 border border-slate-200 dark:border-slate-800 rounded-lg">
-            <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white border-b pb-1.5 border-slate-200 dark:border-slate-800">
-              <Sparkles className="h-4 w-4 text-amber-500" />
-              <h3>AI 실무적 협업 및 엔지니어링 활용</h3>
-            </div>
-            
-            <div className="space-y-3 text-xs">
-              <div className="space-y-1">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">1. Plan-First Workflow & Human Approval Gate</h4>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                  AI 어시스턴트 코드 생성 시 발생하기 쉬운 아키텍처 이탈 및 범위 변경 리스크를 사전에 예방하기 위해, 
-                  구현 전 AI에게 먼저 구체적 개발 계획(Plan)을 세우게 한 뒤 개발자가 정합성을 검증하는 승인 게이트(Approval Gate)를 두어 
-                  작업 범위 이탈률을 0%에 가깝게 통제하며 개발 생산성을 높였습니다.
-                </p>
+          <div className="col-span-6 space-y-3">
+            <div className="bg-slate-50 dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800 rounded-lg">
+              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white border-b pb-1.5 border-slate-200 dark:border-slate-800">
+                <Sparkles className="h-4 w-4 text-amber-500" />
+                <h3>AI 실무적 협업 및 엔지니어링 활용</h3>
               </div>
+              
+              <div className="space-y-3 text-xs mt-2.5">
+                <div className="space-y-1">
+                  <h4 className="font-bold text-slate-800 dark:text-slate-200">1. Plan-First Workflow & Human Approval Gate</h4>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                    AI 어시스턴트 코드 생성 시 발생하기 쉬운 아키텍처 이탈 및 범위 변경 리스크를 사전에 예방하기 위해, 
+                    구현 전 AI에게 먼저 구체적 개발 계획(Plan)을 세우게 한 뒤 개발자가 정합성을 검증하는 승인 게이트(Approval Gate)를 두어 
+                    작업 범위 이탈률을 0%에 가깝게 통제하며 개발 생산성을 높였습니다.
+                  </p>
+                </div>
 
-              <div className="space-y-1">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">2. Prompt & Logging Hook을 통한 오추론 분석 환경 구축</h4>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                  온디바이스 VLM 모델의 프롬프트 변화에 따른 추론 일관성을 보장하기 위해, 
-                  추론 시 입력된 스냅샷의 메타데이터와 Gemma VLM 출력 텍스트를 연동 수집하는 Logging Hook 모듈을 기기 내 구축하여 
-                  오추론이 발생하는 특정 상황의 재현성 확보 및 신속한 템플릿 디버깅을 가능하게 했습니다.
-                </p>
+                <div className="space-y-1">
+                  <h4 className="font-bold text-slate-800 dark:text-slate-200">2. Prompt & Logging Hook을 통한 오추론 분석 환경 구축</h4>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                    온디바이스 VLM 모델의 프롬프트 변화에 따른 추론 일관성을 보장하기 위해, 
+                    추론 시 입력된 스냅샷의 메타데이터와 Gemma VLM 출력 텍스트를 연동 수집하는 Logging Hook 모듈을 기기 내 구축하여 
+                    오추론이 발생하는 특정 상황의 재현성 확보 및 신속한 템플릿 디버깅을 가능하게 했습니다.
+                  </p>
+                </div>
               </div>
+            </div>
+
+            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+              <Image
+                src="/projects/project1-thumbnail.png"
+                alt="ANVI 서비스 화면"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
@@ -361,7 +372,7 @@ export default function PdfPortfolio() {
 
         <div className="grid grid-cols-12 gap-5 my-auto">
           {/* 핵심 해결 방안 */}
-          <div className="col-span-6 space-y-3.5">
+          <div className="col-span-6 space-y-3">
             <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg space-y-2">
               <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
                 <Zap className="h-4 w-4 text-emerald-600" />
@@ -374,6 +385,15 @@ export default function PdfPortfolio() {
                 저는 모델 성능을 깎는 대신, 바운딩 박스 내 탐지 객체(스마트폰/이어폰 등)의 누적 통계를 통제하는 룰 기반 상태 머신(State Machine)을 설계했습니다. 
                 단순 노이즈 탐지는 VLM 호출로 이어지지 않고, 연속 3초 이상 누적 감지된 시점에만 딱 1회 정밀 VLM 분석을 가동시킴으로써, 불필요한 고비용 VLM 연산 실행 횟수를 물리적으로 사전에 완벽히 예방했습니다.
               </p>
+            </div>
+
+            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+              <Image
+                src="/projects/anvi/architecture/ANVI_APP_SA.drawio.png"
+                alt="ANVI 온디바이스 AI 파이프라인 아키텍처"
+                fill
+                className="object-cover object-top"
+              />
             </div>
           </div>
 
@@ -486,27 +506,38 @@ export default function PdfPortfolio() {
           </div>
 
           {/* 단순 기능의 비즈니스 가치화 */}
-          <div className="col-span-6 space-y-3.5 bg-slate-50 dark:bg-slate-900 p-4 border border-slate-200 dark:border-slate-800 rounded-lg">
-            <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white border-b pb-1.5 border-slate-200 dark:border-slate-800">
-              <Zap className="h-4 w-4 text-blue-600" />
-              <h3>단순 기능 구현의 비즈니스적 재해석</h3>
-            </div>
-            
-            <div className="space-y-3 text-xs">
-              <div className="space-y-1">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">OAuth2 기반의 소셜 로그인 구현 및 이탈 방지</h4>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                  초기 금융 회원 가입 프로세스의 번거로움을 생략하여 회원 가입 전환율(Conversion Rate)을 높이기 위해 OAuth2 기반 소셜 가입 체계를 구축하였으며, 사용자 권한 및 개인정보 세션을 고속 검증할 수 있도록 설계했습니다.
-                </p>
+          <div className="col-span-6 space-y-3">
+            <div className="bg-slate-50 dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800 rounded-lg">
+              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white border-b pb-1.5 border-slate-200 dark:border-slate-800">
+                <Zap className="h-4 w-4 text-blue-600" />
+                <h3>단순 기능 구현의 비즈니스적 재해석</h3>
               </div>
+              
+              <div className="space-y-3 text-xs mt-2.5">
+                <div className="space-y-1">
+                  <h4 className="font-bold text-slate-800 dark:text-slate-200">OAuth2 기반의 소셜 로그인 구현 및 이탈 방지</h4>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                    초기 금융 회원 가입 프로세스의 번거로움을 생략하여 회원 가입 전환율(Conversion Rate)을 높이기 위해 OAuth2 기반 소셜 가입 체계를 구축하였으며, 사용자 권한 및 개인정보 세션을 고속 검증할 수 있도록 설계했습니다.
+                  </p>
+                </div>
 
-              <div className="space-y-1">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">가상 계좌 분할 설계를 통한 금융 규제(20일 가입 제한) 회피</h4>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                  금융감독원의 비대면 단기간 다수계좌 개설 제한(20일 규제) 정책으로 인해 사용자가 가상 금고를 목적별로 늘릴 수 없는 비즈니스 제약이 있었습니다. 
-                  이를 해결하고자 실제 1개의 실명 마스터 계좌 하위에 DB 상에서 논리적으로 구분되는 가상 금고(Wish Table) 구조를 설계하여 사용자가 가입 즉시 목표 금액에 맞춰 무제한으로 목적별 저축방을 만들어 분산 저축을 시작할 수 있는 최적의 사용자 경험을 구현했습니다.
-                </p>
+                <div className="space-y-1">
+                  <h4 className="font-bold text-slate-800 dark:text-slate-200">가상 계좌 분할 설계를 통한 금융 규제(20일 가입 제한) 회피</h4>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                    금융감독원의 비대면 단기간 다수계좌 개설 제한(20일 규제) 정책으로 인해 사용자가 가상 금고를 목적별로 늘릴 수 없는 비즈니스 제약이 있었습니다. 
+                    이를 해결하고자 실제 1개의 실명 마스터 계좌 하위에 DB 상에서 논리적으로 구분되는 가상 금고(Wish Table) 구조를 설계하여 사용자가 가입 즉시 목표 금액에 맞춰 무제한으로 목적별 저축방을 만들어 분산 저축을 시작할 수 있는 최적의 사용자 경험을 구현했습니다.
+                  </p>
+                </div>
               </div>
+            </div>
+
+            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+              <Image
+                src="/projects/project2-thumbnail.png"
+                alt="Donttaz 서비스 화면"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
@@ -533,7 +564,7 @@ export default function PdfPortfolio() {
 
         <div className="grid grid-cols-12 gap-5 my-auto">
           {/* 핵심 해결 방안 */}
-          <div className="col-span-6 space-y-3.5">
+          <div className="col-span-6 space-y-3">
             <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg space-y-2">
               <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
                 <Zap className="h-4 w-4 text-emerald-600" />
@@ -543,11 +574,20 @@ export default function PdfPortfolio() {
                 급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다.
               </p>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 <strong>DB Connection Pool</strong>을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다.
+                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 DB Connection Pool을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다.
               </p>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
                 저는 DB 레벨이 아닌 Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리하고, 락 획득 실패 시 지수 백오프(Exponential Backoff) 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
               </p>
+            </div>
+
+            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+              <Image
+                src="/projects/donttaz/architecture.png"
+                alt="Donttaz 분산 락 아키텍처"
+                fill
+                className="object-cover object-top"
+              />
             </div>
           </div>
 
@@ -667,6 +707,15 @@ export default function PdfPortfolio() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="relative h-[85px] w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+              <Image
+                src="/projects/project3-thumbnail.png"
+                alt="CONY 서비스 화면"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
 
