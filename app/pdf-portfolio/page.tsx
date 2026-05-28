@@ -755,6 +755,10 @@ export default function PdfPortfolio() {
       {/* Dynamic Styling to enforce printing parameters */}
       <style dangerouslySetInnerHTML={{ __html: `
         @media print {
+          @page {
+            size: A4 landscape;
+            margin: 0 !important;
+          }
           .no-print {
             display: none !important;
           }
@@ -764,9 +768,18 @@ export default function PdfPortfolio() {
             margin: 0 !important;
             padding: 0 !important;
           }
-          .slide-container {
-            padding: 0 !important;
+          /* Reset parent layout wrappers for printing */
+          div.min-h-screen {
+            padding-top: 0 !important;
+            min-height: auto !important;
+            background: transparent !important;
+          }
+          .slide-container, .slides-preview-container {
+            display: block !important;
+            width: 100% !important;
+            max-width: none !important;
             margin: 0 !important;
+            padding: 0 !important;
             background: transparent !important;
             min-height: auto !important;
           }
@@ -785,6 +798,9 @@ export default function PdfPortfolio() {
             display: flex !important;
             flex-direction: column !important;
             justify-content: space-between !important;
+          }
+          .slide-page:last-child, .slide-page:last-of-type {
+            page-break-after: avoid !important;
           }
           /* Fix layout colors during printing to preserve visibility */
           .text-slate-800 { color: #1e293b !important; }
@@ -926,23 +942,20 @@ export default function PdfPortfolio() {
         </section>
 
         {/* Right Slides Page Previewer (printable) */}
-        <section className="col-span-12 lg:col-span-9 flex flex-col items-center gap-6 pb-20">
+        <section className="col-span-12 lg:col-span-9 flex flex-col items-center gap-6 pb-20 slides-preview-container">
           {orderedSlideIds.map((slideId, index) => {
             const slideMeta = ALL_SLIDES_MAP[slideId]
             if (!slideMeta) return null
             const isActive = activeSlides[slideId]
 
-            // If not active, hide in browser preview and completely hide during printing
+            // If not active, do not render at all to prevent blank page generation during printing
+            if (!isActive) return null
+
             return (
               <div
                 key={slideId}
-                className={`slide-page shadow-2xl rounded-xl bg-white text-slate-800 border border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-all ${
-                  isActive
-                    ? "w-full aspect-[297/210] p-8 md:p-12"
-                    : "hidden no-print"
-                }`}
+                className="slide-page shadow-2xl rounded-xl bg-white text-slate-800 border border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-all w-full aspect-[297/210] p-8 md:p-12"
                 style={{
-                  pageBreakAfter: isActive ? "always" : "auto",
                   pageBreakInside: "avoid",
                 }}
               >
