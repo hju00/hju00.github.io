@@ -9,7 +9,7 @@ const SKILLS = {
   certifications: [
     { name: "SQLD", date: "2025.04", link: "https://drive.google.com/file/d/1owtHkllOHmrQULWB3Y0YMHynUbq01jEr/view?usp=drive_link" },
     { name: "정보처리기사", date: "2025.06", link: "https://drive.google.com/file/d/1JfKRqQN09VksAW1eRt-6gd6Nobf_dHkv/view?usp=drive_link" },
-    { name: "SSAFY 14기", date: "2025.07 ~", link: "https://www.ssafy.com/" }
+    { name: "SSAFY 14기", date: "2025.07 ~ 2026.06", link: "https://www.ssafy.com/" }
   ],
 }
 

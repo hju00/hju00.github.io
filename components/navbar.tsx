@@ -10,6 +10,7 @@ const NAV_ITEMS = [
     { label: "Awards & Certs", href: "#skills" },
     { label: "Projects", href: "#projects" },
     { label: "Timeline", href: "#timeline" },
+    { label: "PDF Portfolio", href: "/pdf-portfolio", isSpecial: true },
 ]
 
 export default function Navbar() {
@@ -28,6 +29,14 @@ export default function Navbar() {
 
     const scrollTo = (href: string) => {
         setMobileOpen(false)
+        if (href.startsWith("/")) {
+            window.location.href = href
+            return
+        }
+        if (typeof window !== "undefined" && window.location.pathname !== "/") {
+            window.location.href = "/" + href
+            return
+        }
         const el = document.querySelector(href)
         if (el) {
             el.scrollIntoView({ behavior: "smooth" })
@@ -36,9 +45,17 @@ export default function Navbar() {
         }
     }
 
+    const handleLogoClick = () => {
+        if (typeof window !== "undefined" && window.location.pathname !== "/") {
+            window.location.href = "/"
+        } else {
+            window.scrollTo({ top: 0, behavior: "smooth" })
+        }
+    }
+
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+            className={`fixed top-0 left-0 right-0 z-50 print:hidden transition-all duration-300 ${scrolled
                 ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-sm"
                 : "bg-transparent"
                 }`}
@@ -46,7 +63,7 @@ export default function Navbar() {
             <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
                 {/* Logo */}
                 <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                    onClick={handleLogoClick}
                     className={`font-bold text-lg transition-colors ${scrolled
                         ? "text-foreground"
                         : "text-white"
@@ -63,10 +80,15 @@ export default function Navbar() {
                         <button
                             key={item.href}
                             onClick={() => scrollTo(item.href)}
-                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${scrolled
-                                ? "text-muted-foreground hover:text-foreground hover:bg-accent"
-                                : "text-slate-300 hover:text-white hover:bg-white/10"
-                                }`}
+                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-300 ${
+                                item.isSpecial
+                                    ? scrolled
+                                        ? "bg-blue-600 text-white hover:bg-blue-700 shadow-sm ml-2"
+                                        : "bg-white/10 text-white border border-white/20 hover:bg-white hover:text-slate-900 ml-2"
+                                    : scrolled
+                                        ? "text-muted-foreground hover:text-foreground hover:bg-accent"
+                                        : "text-slate-300 hover:text-white hover:bg-white/10"
+                            }`}
                         >
                             {item.label}
                         </button>
@@ -133,7 +155,11 @@ export default function Navbar() {
                             <button
                                 key={item.href}
                                 onClick={() => scrollTo(item.href)}
-                                className="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                                className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                    item.isSpecial
+                                        ? "bg-blue-600/10 text-blue-500 hover:bg-blue-600/20 font-semibold"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                                }`}
                             >
                                 {item.label}
                             </button>
