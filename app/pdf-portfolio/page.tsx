@@ -271,7 +271,7 @@ export default function PdfPortfolio() {
 
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
         <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
-          <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 leading-relaxed">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
             온라인 시험 감독 서비스 운영 시 발생하는 <strong>극심한 GPU 서버 비용(500명 동시 응시 시 월 1,500만 원 상당) 및 영상 데이터 유출에 따른 개인정보 규정 위반 리스크</strong>를, 
             <strong>YOLO-Gemma VLM 계층형 온디바이스 AI 파이프라인 설계 및 기기 내 본인인증/비식별 블러 처리</strong>를 도입해 
             <strong>서버 추론 비용 0원 달성 및 응시자 개인정보 리스크 원천 차단</strong>으로 극복하여 B2B 상용 계약의 타당성을 입증했습니다.
@@ -447,7 +447,7 @@ export default function PdfPortfolio() {
 
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
         <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
-          <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 leading-relaxed">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
             스마트 금고 핀테크 서비스에서 외부 알림 API 지연시간으로 인해 <strong>핵심 비즈니스(거래 입출금) 트랜잭션 스레드가 대량 점유되고 알림 메시지가 누락되던 안정성 결함</strong>을, 
             <strong>RabbitMQ 메시지 큐를 통한 비동기 격리 및 Manual-ACK/DLQ 재시도 복구 인프라 구축</strong>을 통해 해결하여 
             <strong>알림 메시지 유실을 방지하고 피크 타임대 사용자 거래 응답 속도를 방어</strong>함으로써 서비스 신뢰도를 극대화했습니다.
@@ -621,7 +621,7 @@ export default function PdfPortfolio() {
 
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
         <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
-          <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 leading-relaxed">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
             기프티콘 거래 플랫폼의 마이크로서비스 빌드 지연으로 인해 <strong>협업 시 배포 주기가 12분 이상 소요되어 피드백 반영 및 장애 대응 속도가 저하되던 문제</strong>를, 
             <strong>Jenkins 파이프라인 변경 디렉토리(Changeset) 감지 기반 선택적 서브 빌드 파이프라인 설계</strong>로 극복하여 
             <strong>전체 빌드/배포 속도 60% 단축(12.5분 ➡️ 4.8분)을 달성하고 기능 릴리즈 민첩성을 확보</strong>하여 서비스 경쟁력을 강화했습니다.
