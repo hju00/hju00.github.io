@@ -529,7 +529,7 @@ export default function PdfPortfolio() {
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                 급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다. 
-                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 **DB Connection Pool**을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다. 
+                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 <strong>DB Connection Pool</strong>을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다. 
                 저는 DB 레벨이 아닌 <strong>Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리</strong>하고, 락 획득 실패 시 <strong>지수 백오프(Exponential Backoff)</strong> 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
               </p>
             </div>
@@ -659,7 +659,7 @@ export default function PdfPortfolio() {
               이로 인해 프론트엔드 UI 렌더링 깨짐 현상이 유발되어 사용자가 상품 상세보기를 실패하고 구매를 포기하는 심각한 비즈니스 이탈 손실이 발생했습니다.
             </p>
             <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              저는 단순 프론트엔드의 null 방어 코드를 넘어, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 <strong>1단계로 고속 썸네일 이미지를 스캔하고, 썸네일 데이터가 없을 시 2단계로 업로드 원본(Original) 이미지 경로를 자동으로 결합하여 반환해주는 2단계 동적 이미지 폴백(Fallback) 조회 아키텍처</strong>를 구현했습니다. 
+              저는 단순 프론트엔드의 null 방어 코드를 넘어, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 **1단계로 고속 썸네일 이미지를 스캔하고, 썸네일 데이터가 없을 시 2단계로 업로드 원본(Original) 이미지 경로를 자동으로 결합하여 반환해주는 2단계 동적 이미지 폴백(Fallback) 조회 아키텍처**를 구현했습니다. 
               이를 통해 프론트엔드의 부하를 줄이면서도 기프티콘 노출 실패율을 0%로 통제하여 고객 상세 페이지의 사용자 이탈율을 근본적으로 사전에 방어했습니다.
             </p>
           </div>
