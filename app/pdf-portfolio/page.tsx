@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import {
   Trophy, Printer, Check, Calendar, Briefcase, Code,
   Sparkles, Cpu, Layers, Shield, FileText, CheckSquare, Square,
@@ -42,6 +42,35 @@ export default function PdfPortfolio() {
     "secondary",
     "certs",
   ])
+
+  const previewContainerRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(0.8)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (previewContainerRef.current) {
+        const width = previewContainerRef.current.getBoundingClientRect().width
+        // 297mm is 1122.5px. We subtract 4px of padding/spacing to prevent overflow.
+        const targetWidth = Math.max(width - 4, 300)
+        setScale(targetWidth / 1122.5)
+      }
+    }
+
+    const observer = new ResizeObserver(() => {
+      handleResize()
+    })
+
+    if (previewContainerRef.current) {
+      observer.observe(previewContainerRef.current)
+    }
+
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   // Sync slide ordering and selection based on selected preset version
   useEffect(() => {
@@ -760,6 +789,31 @@ export default function PdfPortfolio() {
     <div className="min-h-screen pt-14 bg-slate-900 text-slate-100 flex flex-col antialiased">
       {/* Dynamic Styling to enforce printing parameters */}
       <style dangerouslySetInnerHTML={{ __html: `
+        /* General styles for both screen and print to ensure 100% layout fidelity */
+        .slide-wrapper {
+          width: 100%;
+          position: relative;
+          background: transparent;
+          overflow: hidden;
+          border-radius: 0.75rem;
+          box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .slide-page {
+          width: 297mm !important;
+          height: 210mm !important;
+          padding: 18mm 22mm !important;
+          box-sizing: border-box !important;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transform-origin: top left;
+          background: white !important;
+          color: #1e293b !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: space-between !important;
+        }
+
         @media print {
           @page {
             size: A4 landscape;
@@ -789,21 +843,21 @@ export default function PdfPortfolio() {
             background: transparent !important;
             min-height: auto !important;
           }
+          .slide-wrapper {
+            height: auto !important;
+            overflow: visible !important;
+            display: block !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+          }
           .slide-page {
-            width: 297mm !important;
-            height: 210mm !important;
+            position: relative !important;
+            transform: none !important;
             page-break-after: always !important;
             page-break-inside: avoid !important;
             box-shadow: none !important;
             border: none !important;
             margin: 0 !important;
-            padding: 18mm 22mm !important;
-            background: white !important;
-            color: #1e293b !important;
-            box-sizing: border-box !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
           }
           .slide-page:last-child, .slide-page:last-of-type {
             page-break-after: avoid !important;
@@ -948,7 +1002,10 @@ export default function PdfPortfolio() {
         </section>
 
         {/* Right Slides Page Previewer (printable) */}
-        <section className="col-span-12 lg:col-span-9 flex flex-col items-center gap-6 pb-20 slides-preview-container">
+        <section 
+          ref={previewContainerRef}
+          className="col-span-12 lg:col-span-9 flex flex-col items-center gap-6 pb-20 slides-preview-container"
+        >
           {orderedSlideIds.map((slideId, index) => {
             const slideMeta = ALL_SLIDES_MAP[slideId]
             if (!slideMeta) return null
@@ -960,13 +1017,21 @@ export default function PdfPortfolio() {
             return (
               <div
                 key={slideId}
-                className="slide-page shadow-2xl rounded-xl bg-white text-slate-800 border border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-all w-full aspect-[297/210] p-8 md:p-12"
+                className="slide-wrapper"
                 style={{
-                  pageBreakInside: "avoid",
+                  height: `${793.7 * scale}px`,
                 }}
               >
-                {/* Dynamic slide rendering */}
-                {slideMeta.component({ version: selectedVersion })}
+                <div
+                  className="slide-page border border-slate-200 dark:border-slate-800"
+                  style={{
+                    transform: `scale(${scale})`,
+                    pageBreakInside: "avoid",
+                  }}
+                >
+                  {/* Dynamic slide rendering */}
+                  {slideMeta.component({ version: selectedVersion })}
+                </div>
               </div>
             )
           })}
