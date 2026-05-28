@@ -801,7 +801,7 @@ export default function PdfPortfolio() {
         .slide-page {
           width: 297mm !important;
           height: 210mm !important;
-          padding: 15mm 20mm !important;
+          padding: 12mm 16mm !important;
           box-sizing: border-box !important;
           position: absolute;
           top: 0;
@@ -814,17 +814,17 @@ export default function PdfPortfolio() {
           justify-content: space-between !important;
         }
 
-        /* Scale up font-sizes inside slide-page to enhance readability */
-        .slide-page .text-\[9px\] { font-size: 11.5px !important; line-height: 15px !important; }
-        .slide-page .text-\[10px\] { font-size: 12.5px !important; line-height: 17px !important; }
-        .slide-page .text-\[11px\] { font-size: 13.5px !important; line-height: 19px !important; }
-        .slide-page .text-xs { font-size: 14.5px !important; line-height: 20px !important; }
-        .slide-page .text-sm { font-size: 16.5px !important; line-height: 23px !important; }
-        .slide-page .text-base { font-size: 18.5px !important; line-height: 26px !important; }
-        .slide-page .text-lg { font-size: 20.5px !important; line-height: 29px !important; }
-        .slide-page .text-xl { font-size: 23.5px !important; line-height: 32px !important; }
-        .slide-page .text-2xl { font-size: 27.5px !important; line-height: 36px !important; }
-        .slide-page .text-3xl { font-size: 33.5px !important; line-height: 42px !important; }
+        /* Scale up font-sizes inside slide-page to enhance readability and fill the page */
+        .slide-page .text-\[9px\] { font-size: 13px !important; line-height: 17px !important; }
+        .slide-page .text-\[10px\] { font-size: 14px !important; line-height: 19px !important; }
+        .slide-page .text-\[11px\] { font-size: 15px !important; line-height: 21px !important; }
+        .slide-page .text-xs { font-size: 16px !important; line-height: 22px !important; }
+        .slide-page .text-sm { font-size: 18px !important; line-height: 25px !important; }
+        .slide-page .text-base { font-size: 20px !important; line-height: 28px !important; }
+        .slide-page .text-lg { font-size: 22px !important; line-height: 30px !important; }
+        .slide-page .text-xl { font-size: 25px !important; line-height: 33px !important; }
+        .slide-page .text-2xl { font-size: 30px !important; line-height: 38px !important; }
+        .slide-page .text-3xl { font-size: 36px !important; line-height: 46px !important; }
 
         @media print {
           @page {
