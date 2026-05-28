@@ -288,8 +288,10 @@ export default function PdfPortfolio() {
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                 비대면 시험 솔루션의 B2B 상용화 진입 시 가장 큰 진입 장벽은 <strong>개인정보보호법 준수</strong>와 <strong>인프라 GPU 비용 구조</strong>였습니다. 
-                중앙 서버로 수험생 방 내부 영상과 신분증 이미지를 전송할 경우 법적 동의 및 유출 위험성이 증대되어 도입 결정이 지연되는 부작용이 있었습니다. 
-                따라서 <strong>LiteRT(TFLite) 기반의 Gemma 4 VLM 및 YOLO 모델</strong>을 채택하여 모든 추론을 사용자 디바이스 내로 한정시끔으로써 보안 규제를 충족하고 서버 비용 리스크를 차단했습니다.
+                중앙 서버로 수험생 방 내부 영상과 신분증 이미지를 전송할 경우 법적 동의 및 유출 위험성이 증대되어 도입 결정이 지연되는 부작용이 있었습니다.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
+                따라서 <strong>LiteRT(TFLite) 기반의 Gemma 4 VLM 및 YOLO 모델</strong>을 채택하여 모든 추론을 사용자 디바이스 내로 한정시킴으로써 보안 규제를 충족하고 서버 비용 리스크를 차단했습니다.
               </p>
             </div>
 
@@ -299,7 +301,9 @@ export default function PdfPortfolio() {
                 <h3>계층형 온디바이스 AI 파이프라인 설계</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                한정된 기기 리소스 상에서 거대 VLM을 연속 실행하면 1분 이내 발열로 기기가 다운됩니다. 
+                한정된 기기 리소스 상에서 거대 VLM을 연속 실행하면 1분 이내 발열로 기기가 다운됩니다.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
                 이에 따라 가벼운 <strong>YOLO 모델로 매 프레임 객체(휴대폰, 이어폰 등) 1차 필터링</strong>을 수행하고, 
                 의심 행동 감지 시 <strong>상태 머신(State Machine)을 거쳐 최종 판별에 한해 VLM 정밀 멀티모달 추론</strong>을 호출하도록 계층화했습니다.
               </p>
@@ -364,7 +368,9 @@ export default function PdfPortfolio() {
                 <h3>핵심 해결 방안: 상태 머신(State Machine)을 활용한 VLM 호출 빈도 제어</h3>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                일반적으로 온디바이스 AI의 배터리 과소모를 막기 위해 인공지능 모델 자체의 양자화(Int8 Quantization) 튜닝이나 렌더링 프레임 레이트(FPS)를 깎는 타협안을 택하지만, 이는 탐지 신뢰도의 급격한 저하를 가져옵니다. 
+                일반적으로 온디바이스 AI의 배터리 과소모를 막기 위해 인공지능 모델 자체의 양자화(Int8 Quantization) 튜닝이나 렌더링 프레임 레이트(FPS)를 깎는 타협안을 택하지만, 이는 탐지 신뢰도의 급격한 저하를 가져옵니다.
+              </p>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
                 저는 모델 성능을 깎는 대신, <strong>바운딩 박스 내 탐지 객체(스마트폰/이어폰 등)의 누적 통계를 통제하는 룰 기반 상태 머신(State Machine)</strong>을 설계했습니다. 
                 단순 노이즈 탐지는 VLM 호출로 이어지지 않고, <strong>연속 3초 이상 누적 감지된 시점에만 딱 1회 정밀 VLM 분석을 가동</strong>시킴으로써, 불필요한 고비용 VLM 연산 실행 횟수를 물리적으로 사전에 완벽히 예방했습니다.
               </p>
@@ -380,7 +386,9 @@ export default function PdfPortfolio() {
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
                 클라우드 기반 VLM(정확도 약 96%)을 호출하면 가장 높은 탐지 정밀도를 보장할 수 있습니다. 
-                반면 온디바이스 Gemma VLM은 경량화로 인해 복합 부정행위 탐지 성능이 92% 수준으로 4%p 하락합니다. 
+                반면 온디바이스 Gemma VLM은 경량화로 인해 복합 부정행위 탐지 성능이 92% 수준으로 4%p 하락합니다.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium mt-2">
                 하지만 <strong>500명 동시 응시 조건 하에 클라우드 서버 사용 시 발생하는 월 약 1,500만 원의 GPU 청구 비용</strong>과 수험생 영상 유출 시 부과될 수 있는 <strong>법적 징벌적 배상금 리스크</strong>를 방지하기 위해, 온디바이스에서 3초 통계 검증으로 하락된 정확도를 보완하고 <strong>비용 0원 및 프라이버시 100% 안전</strong>을 쟁취하는 엣지 추론 아키텍처가 비즈니스 가치 극대화에 가장 타당하다고 판단했습니다.
               </p>
             </div>
@@ -456,7 +464,9 @@ export default function PdfPortfolio() {
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
                 핀테크 서비스의 핵심 성공 지표는 <strong>서비스 신뢰도</strong>와 <strong>이탈률(Retention)</strong>입니다. 
-                사용자가 이체를 진행했을 때, 외부 푸시 알림(FCM) 발송 속도 지연이나 타사 웹훅(Discord, Mattermost) 통신 병목이 메인 API 서버를 정체시키면, 사용자는 즉시 불안감을 느껴 앱을 이탈하게 됩니다. 
+                사용자가 이체를 진행했을 때, 외부 푸시 알림(FCM) 발송 속도 지연이나 타사 웹훅(Discord, Mattermost) 통신 병목이 메인 API 서버를 정체시키면, 사용자가 즉시 불안감을 느껴 앱을 이탈하게 됩니다.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
                 이를 차단하기 위해 금융 이체 비즈니스 스레드와 알림 스레드를 <strong>RabbitMQ</strong>로 격리하여 비동기로 독립 분리했습니다.
               </p>
             </div>
@@ -467,8 +477,10 @@ export default function PdfPortfolio() {
                 <h3>FCM & 웹훅 비동기 격리 및 메시지 보존 인프라</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
-                단순히 비동기로 처리하는 것에 그치지 않고 외부 통신 실패 시에도 알림 유실이 발생하지 않도록, <strong>Manual Acknowledge(수동 승인)</strong>를 활성화했습니다. 
-                네트워크 장애 등으로 실패한 알림들은 지수 백오프 기반으로 3회 자동 재시도하며, 최종 실패 시 <strong>DLQ(Dead Letter Queue)</strong>로 격리 보존시켜 운영 관리자가 사후 대조 복구할 수 있는 안정망을 다졌습니다.
+                단순히 비동기로 처리하는 것에 그치지 않고 외부 통신 실패 시에도 알림 유실이 발생하지 않도록, <strong>Manual Acknowledge(수동 승인)</strong>를 활성화했습니다.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium mt-2">
+                네트워크 장애 등으로 실패한 알림들은 지수 백오프 기반으로 3회 자동 재시도하며, 최종 실패 시 <strong>DLQ(Dead Letter Queue)</strong>로 격리 보존시켜 운영 관리자가 사후 대조 복구할 수 있는 안전망을 다졌습니다.
               </p>
             </div>
           </div>
@@ -528,8 +540,12 @@ export default function PdfPortfolio() {
                 <h3>핵심 해결 방안: DB 커넥션 풀 보호를 위한 Redis 분산 락 격리</h3>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다. 
-                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 <strong>DB Connection Pool</strong>을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다. 
+                급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다.
+              </p>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
+                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 <strong>DB Connection Pool</strong>을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다.
+              </p>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
                 저는 DB 레벨이 아닌 <strong>Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리</strong>하고, 락 획득 실패 시 <strong>지수 백오프(Exponential Backoff)</strong> 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
               </p>
             </div>
@@ -543,7 +559,9 @@ export default function PdfPortfolio() {
                 <h3>락 메커니즘 선택에 따른 성능과 신뢰성의 트레이드오프</h3>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
-                Redis 분산 락 방식은 별도의 인프라를 운영해야 하므로 SPOF(단일 장애점) 발생 위험과 캐시 구축 서버 유지 비용이 추가되는 트레이드오프가 있습니다. 
+                Redis 분산 락 방식은 별도의 인프라를 운영해야 하므로 SPOF(단일 장애점) 발생 위험과 캐시 구축 서버 유지 비용이 추가되는 트레이드오프가 있습니다.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium mt-2">
                 하지만 핀테크 도메인에서 <strong>동시 출금 오류로 인한 잔액 꼬임 현상은 금융 거래의 신뢰성 상실 및 유저 즉시 탈퇴</strong>로 직결되는 중대한 리스크입니다. 
                 따라서 단일 장애점 극복을 위한 모니터링 비용 부담을 안더라도, DB 커넥션 풀을 안전하게 유지하고 잔액 정합성 100%를 보장하여 피크타임 거래 성사율을 지키는 Redis 메모리 락 도입이 비즈니스 안정화 측면에서 타당한 결정이었습니다.
               </p>
@@ -619,8 +637,10 @@ export default function PdfPortfolio() {
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
               기프티콘 이커머스 마켓은 트렌드 대응 및 핫픽스 속도가 매출에 직결되는 분야입니다. 
-              작은 기능 변경에도 젠킨스에서 전체 모듈을 빌드하느라 배포 다운타임과 주기 병목이 생겼으며, 이는 전체 개발팀의 작업 대기 시간 낭비로 이어졌습니다. 
-              <strong>Changeset 스캔 기반 선택적 CI/CD 파이프라인</strong>을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
+              작은 기능 변경에도 젠킨스에서 전체 모듈을 빌드하느라 배포 다운타임과 주기 병목이 생겼으며, 이는 전체 개발팀의 작업 대기 시간 낭비로 이어졌습니다.
+            </p>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
+              따라서 <strong>Changeset 스캔 기반 선택적 CI/CD 파이프라인</strong>을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
             </p>
             
             <div className="border rounded-lg overflow-hidden border-slate-200 dark:border-slate-800">
