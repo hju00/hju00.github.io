@@ -183,23 +183,19 @@ export default function PdfPortfolio() {
   const [selectedVersion, setSelectedVersion] = useState<PresetVersion>("general")
   const [activeSlides, setActiveSlides] = useState<Record<string, boolean>>({
     cover: true,
-    anvi_1: true,
-    anvi_2: true,
-    donttaz_1: true,
-    donttaz_2: true,
+    skills: true,
+    anvi: true,
+    donttaz: true,
     cony: true,
     secondary: true,
-    certs: true,
   })
   const [orderedSlideIds, setOrderedSlideIds] = useState<string[]>([
     "cover",
-    "anvi_1",
-    "anvi_2",
-    "donttaz_1",
-    "donttaz_2",
+    "skills",
+    "anvi",
+    "donttaz",
     "cony",
     "secondary",
-    "certs",
   ])
 
   const previewContainerRef = useRef<HTMLDivElement>(null)
@@ -236,33 +232,26 @@ export default function PdfPortfolio() {
     let order: string[] = []
     let defaultActive: Record<string, boolean> = {
       cover: true,
-      anvi_1: true,
-      anvi_2: true,
-      donttaz_1: true,
-      donttaz_2: true,
+      skills: true,
+      anvi: true,
+      donttaz: true,
       cony: true,
       secondary: true,
-      certs: true,
     }
 
     switch (selectedVersion) {
       case "ai":
-        order = ["cover", "anvi_1", "anvi_2", "donttaz_1", "cony", "secondary", "certs"]
-        // For AI specific company, we exclude donttaz_2 (distributed lock) to keep it concise, or keep it.
-        // Let's keep it but put ANVI slides first
-        order = ["cover", "anvi_1", "anvi_2", "donttaz_1", "donttaz_2", "cony", "secondary", "certs"]
+        order = ["cover", "skills", "anvi", "donttaz", "cony", "secondary"]
         break
       case "fintech":
-        // Put Donttaz (Fintech Vault) first
-        order = ["cover", "donttaz_1", "donttaz_2", "anvi_1", "anvi_2", "cony", "secondary", "certs"]
+        order = ["cover", "skills", "donttaz", "anvi", "cony", "secondary"]
         break
       case "devops":
-        // Put CONY (CI/CD optimized) first
-        order = ["cover", "cony", "donttaz_1", "donttaz_2", "anvi_1", "anvi_2", "secondary", "certs"]
+        order = ["cover", "skills", "cony", "anvi", "donttaz", "secondary"]
         break
       case "general":
       default:
-        order = ["cover", "anvi_1", "anvi_2", "donttaz_1", "donttaz_2", "cony", "secondary", "certs"]
+        order = ["cover", "skills", "anvi", "donttaz", "cony", "secondary"]
         break
     }
 
@@ -290,6 +279,22 @@ export default function PdfPortfolio() {
 
   // Cover & Profile Slide Component
   const CoverSlide = ({ version }: { version: PresetVersion }) => {
+    const isDevOps = version === "devops"
+
+    const getTitle = () => {
+      if (isDevOps) {
+        return "신입 인프라 / DevOps 엔지니어 포트폴리오"
+      }
+      return "신입 백엔드 소프트웨어 엔지니어 포트폴리오"
+    }
+
+    const getJobTitle = () => {
+      if (isDevOps) {
+        return "Infrastructure & DevOps Engineer"
+      }
+      return "Backend Software Engineer"
+    }
+
     const getSlogan = () => {
       switch (version) {
         case "ai":
@@ -297,7 +302,7 @@ export default function PdfPortfolio() {
         case "fintech":
           return "고신뢰성 분산 트랜잭션 제어 및 대규모 금융 정합성 강점의 백엔드 개발자"
         case "devops":
-          return "지속 통합(CI/CD) 자동화 및 컨테이너 가상화 인프라 최적화 강점의 백엔드 개발자"
+          return "클라우드 아키텍처 설계와 CI/CD 자동화를 통한 빌드/배포 병목 최적화 강점의 인프라 / DevOps 엔지니어"
         case "general":
         default:
           return "비즈니스 지표 최적화 및 안정적 분산 아키텍처를 설계하는 백엔드 개발자"
@@ -311,7 +316,7 @@ export default function PdfPortfolio() {
         case "fintech":
           return "Redis 분산 락을 통한 메모리 레벨 동시성 격리와 RabbitMQ Manual-ACK/DLQ 메시지 신뢰성 설계를 적용하여, 트래픽 폭주 상황에서도 비즈니스 금융 데이터의 무결성 100%를 보장하는 신입 백엔드 개발자입니다."
         case "devops":
-          return "Jenkins 파이프라인 Changeset 변경 스캔 기반 선택적 서브 빌드를 통해 빌드 병목 속도를 60% 단축하고, Nginx 리버스 프록시 및 컨테이너 격리로 무장애 비즈니스 배포 체계를 다진 신입 백엔드/DevOps 엔지니어입니다."
+          return "Jenkins 파이프라인 Changeset 기반 선택적 서브 빌드를 구축해 CI/CD 빌드 타임을 60% 이상 단축하고, Docker 컨테이너 오케스트레이션 및 Nginx 무중단 배포를 통해 서비스 가용성을 극대화한 신입 인프라 / DevOps 엔지니어 박형주입니다."
         case "general":
         default:
           return "학부 정보컴퓨터공학 전공 및 SSAFY 14기 1,600시간의 집중 개발 훈련을 거치며, 대용량 트래픽 동시성 이슈 및 배포 인프라 성능 최적화 과정을 트레이드오프 관점에서 해결해 온 신입 백엔드 개발자 박형주입니다."
@@ -333,7 +338,7 @@ export default function PdfPortfolio() {
         <div className="grid grid-cols-12 gap-8 my-auto items-center">
           <div className="col-span-8 space-y-6">
             <div className="inline-block px-3 py-1 rounded-md bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/50">
-              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wide uppercase">신입 백엔드 개발자 포트폴리오</span>
+              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wide uppercase">{getTitle()}</span>
             </div>
             
             <div className="space-y-3">
@@ -352,7 +357,7 @@ export default function PdfPortfolio() {
                 <ul className="text-xs text-slate-700 dark:text-slate-300 space-y-1 font-medium">
                   <li className="flex items-center gap-1.5">
                     <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    부산대학교 정보컴퓨터공학 전공 (2025.08 졸업)
+                    부산대학교 정보컴퓨터공학과 졸업 (2025.08)
                   </li>
                   <li className="flex items-center gap-1.5">
                     <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
@@ -362,16 +367,33 @@ export default function PdfPortfolio() {
               </div>
 
               <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Certifications & Awards</p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">
+                  {isDevOps ? "Core Infra Focus" : "Certifications & Awards"}
+                </p>
                 <ul className="text-xs text-slate-700 dark:text-slate-300 space-y-1 font-medium">
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    정보처리기사 / SQLD 자격 보유
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                    SSAFY 14기 공통 프로젝트 우수상 (CONY)
-                  </li>
+                  {isDevOps ? (
+                    <>
+                      <li className="flex items-center gap-1.5">
+                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                        선택적 CI/CD 파이프라인 단축 (12.5분 ➡️ 4.8분)
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                        Docker & Nginx 다중 서비스 무장애 격리 배포
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex items-center gap-1.5">
+                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                        정보처리기사 / SQLD 자격 보유
+                      </li>
+                      <li className="flex items-center gap-1.5">
+                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                        SSAFY 14기 공통 프로젝트 우수상 (CONY)
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
@@ -388,7 +410,7 @@ export default function PdfPortfolio() {
             </div>
             <div className="text-center space-y-1">
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">박형주 (Park Hyeong-ju)</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Backend & DevOps Engineer</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{getJobTitle()}</p>
             </div>
             <div className="w-full pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2 text-xs text-slate-600 dark:text-slate-400 font-medium">
               <div className="flex items-center gap-2">
@@ -409,382 +431,398 @@ export default function PdfPortfolio() {
 
         {/* Slide Footer */}
         <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 1/7</span>
+          <span>IT Portfolio - Slide 1/6</span>
           <span>Targeting: {version.toUpperCase()} Focus</span>
         </div>
       </div>
     )
   }
 
-  // Slide 2: ANVI 1 (개요 & AI 실무 활용)
-  const Anvi1Slide = () => {
+  // New Slide 2: Core Skills & Competencies Slide
+  const SkillsSlide = ({ version }: { version: PresetVersion }) => {
+    const isDevOps = version === "devops";
+    
+    return (
+      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
+        {/* Slide Header */}
+        <div className="flex items-center justify-between border-b pb-4 border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
+            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              {isDevOps ? "CORE SKILLS: 인프라 및 데브옵스 핵심 역량" : "CORE SKILLS: 백엔드 핵심 역량 및 기술 스택"}
+            </span>
+          </div>
+          <span className="text-xs text-muted-foreground font-mono">PARK HYEONG JU</span>
+        </div>
+
+        {/* Slide Body */}
+        <div className="grid grid-cols-2 gap-4 my-auto">
+          {/* Card 1: Backend Engineering */}
+          <div className={`p-4 rounded-xl border ${isDevOps ? "border-slate-200 dark:border-slate-800" : "border-blue-200 dark:border-blue-900 bg-blue-50/10"} space-y-2.5`}>
+            <div className="flex items-center gap-2">
+              <Cpu className="h-4.5 w-4.5 text-blue-600" />
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Backend Engineering</h3>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Java</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Spring Boot</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Spring Security</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">JPA/Hibernate</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">QueryDSL</span>
+              </div>
+              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+                <li>Spring Boot & Java 기반의 안정적이고 테스트 가능한 비즈니스 API 설계 및 웹 애플리케이션 개발</li>
+                <li>JPA 영속성 컨텍스트 생명주기 및 N+1 쿼리 최적화, QueryDSL을 활용한 다차원 동적 쿼리 구현</li>
+                <li>Spring Security 기반의 사용자 인증/인가 흐름 제어 및 커스텀 필터 체인을 통한 API 보안 강화</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Card 2: Database & Caching */}
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2.5">
+            <div className="flex items-center gap-2">
+              <Database className="h-4.5 w-4.5 text-blue-600" />
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Database & Caching</h3>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">MySQL</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Redis</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">RabbitMQ</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">CouchDB</span>
+              </div>
+              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+                <li>데이터베이스 정규화 및 트랜잭션 격리 수준 조정을 통한 동시성 데이터 무결성 보장</li>
+                <li>Redis 캐싱 및 분산 락(Redisson)을 활용하여 초당 고빈도 분산 이체 트랜잭션 동시성 격리</li>
+                <li>RabbitMQ 메시지 큐를 통한 비동기 이벤트 격리 및 신뢰성 보장 (Manual ACK, Dead Letter Queue)</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Card 3: Cloud & DevOps */}
+          <div className={`p-4 rounded-xl border ${isDevOps ? "border-blue-200 dark:border-blue-900 bg-blue-50/10" : "border-slate-200 dark:border-slate-800"} space-y-2.5`}>
+            <div className="flex items-center gap-2">
+              <Layers className="h-4.5 w-4.5 text-blue-600" />
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Infrastructure & DevOps</h3>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">AWS (EC2, S3, RDS)</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Docker</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Jenkins</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Nginx</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">GitHub Actions</span>
+              </div>
+              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+                <li>Docker 컨테이너 가상화를 통한 다중 마이크로서비스 서비스 격리 및 이식성 확보</li>
+                <li>Jenkins 변경 changeset 감지 기반 선택적 서브 빌드 파이프라인 설계로 빌드 속도 60% 단축</li>
+                <li>Nginx 리버스 프록시 및 로드 밸런싱 세팅, 무중단 자동 롤링/배포 아키텍처 환경 구축</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Card 4: Languages & Frontend */}
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2.5">
+            <div className="flex items-center gap-2">
+              <Code className="h-4.5 w-4.5 text-blue-600" />
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Other Tech Skills</h3>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Go</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Python</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">TypeScript</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Vue.js</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">React/Next.js</span>
+              </div>
+              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+                <li>Go 및 Python 언어 문법 이해를 바탕으로 한 시스템 스크립트 작성 및 대량 크롤링 구현</li>
+                <li>TypeScript 기반의 Vue.js 및 React 프레임워크 핵심 개념 이해 및 프론트 개발 협업 가능</li>
+                <li>Git 버전 제어(Branch 전략 설정) 및 다양한 이슈 트래킹 협업 툴(Jira, Notion, Slack) 사용 숙련</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Slide Footer */}
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
+          <span>IT Portfolio - Slide 2/6</span>
+          <span>Core Technology Stack & Competencies</span>
+        </div>
+      </div>
+    );
+  };
+
+  // Slide 3: ANVI (온디바이스 AI 온라인 시험 감독 솔루션 - 1장 압축)
+  const AnviSlide = ({ version }: { version: PresetVersion }) => {
+    const isDevOps = version === "devops"
+    
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 1: ANVI (온디바이스 AI 온라인 시험 감독 솔루션)</span>
+            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              PROJECT 1: ANVI (온디바이스 AI 온라인 시험 감독 솔루션)
+            </span>
           </div>
-          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">Team Lead / AI & Android</span>
+          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
+            {isDevOps ? "Infra Lead / Resource Optimization" : "Team Lead / AI & Backend"}
+          </span>
         </div>
 
         {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
-        <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
+        <div className="my-2.5 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-            온라인 시험 감독 서비스 운영 시 발생하는 극심한 GPU 서버 비용(500명 동시 응시 시 월 1,500만 원 상당) 및 영상 데이터 유출에 따른 개인정보 규정 위반 리스크를, 
-            YOLO-Gemma VLM 계층형 온디바이스 AI 파이프라인 설계 및 기기 내 본인인증/비식별 블러 처리를 도입해 
-            서버 추론 비용 0원 달성 및 응시자 개인정보 리스크 원천 차단으로 극복하여 B2B 상용 계약의 타당성을 입증했습니다.
+            {isDevOps 
+              ? "온디바이스 AI 구동 시 거대 VLM 호출에 따른 모바일 기기 발열 다운 및 배터리 방전 제약 조건을 해결하기 위해, 가벼운 YOLO 객체 탐지와 상태 머신(State Machine)을 활용한 2단계 계층 추론 파이프라인을 설계하여 기기 구동 시간을 120배 이상(1분 미만 ➡️ 120분+) 연장하고 안정적 온디바이스 모니터링을 가능하게 했습니다."
+              : "온라인 시험 감독 서비스 운영 시 발생하는 극심한 GPU 서버 비용(500명 동시 응시 시 월 1,500만 원 상당) 및 개인정보 규정 위반 리스크를, YOLO-Gemma VLM 계층형 온디바이스 AI 파이프라인 설계 및 기기 내 본인인증/비식별 처리를 통해 해결하여 서버 추론 비용 0원 달성 및 보안 리스크를 원천 차단했습니다."
+            }
           </p>
         </div>
 
-        <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 비즈니스적 맥락 & 기술 선택 이유 */}
-          <div className="col-span-6 space-y-3.5">
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-                <Briefcase className="h-4 w-4 text-blue-600" />
-                <h3>비즈니스 배경 및 기술 선정 이유</h3>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                비대면 시험 솔루션의 B2B 상용화 진입 시 가장 큰 진입 장벽은 개인정보보호법 준수와 인프라 GPU 비용 구조였습니다. 
-                중앙 서버로 수험생 방 내부 영상과 신분증 이미지를 전송할 경우 법적 동의 및 유출 위험성이 증대되어 도입 결정이 지연되는 부작용이 있었습니다.
-              </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
-                따라서 LiteRT(TFLite) 기반의 Gemma 4 VLM 및 YOLO 모델을 채택하여 모든 추론을 사용자 디바이스 내로 한정시킴으로써 보안 규제를 충족하고 서버 비용 리스크를 차단했습니다.
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-                <Cpu className="h-4 w-4 text-blue-600" />
-                <h3>계층형 온디바이스 AI 파이프라인 설계</h3>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                한정된 기기 리소스 상에서 거대 VLM을 연속 실행하면 1분 이내 발열로 기기가 다운됩니다.
-              </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
-                이에 따라 가벼운 YOLO 모델로 매 프레임 객체(휴대폰, 이어폰 등) 1차 필터링을 수행하고, 
-                의심 행동 감지 시 상태 머신(State Machine)을 거쳐 최종 판별에 한해 VLM 정밀 멀티모달 추론을 호출하도록 계층화했습니다.
-              </p>
-            </div>
-          </div>
-
-          {/* AI 실무 활용: Plan-First Workflow & Logging Hook */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-slate-50 dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800 rounded-lg">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white border-b pb-1.5 border-slate-200 dark:border-slate-800">
-                <Sparkles className="h-4 w-4 text-amber-500" />
-                <h3>AI 실무적 협업 및 엔지니어링 활용</h3>
-              </div>
-              
-              <div className="space-y-3 text-xs mt-2.5">
-                <div className="space-y-1">
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200">1. Plan-First Workflow & Human Approval Gate</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                    AI 어시스턴트 코드 생성 시 발생하기 쉬운 아키텍처 이탈 및 범위 변경 리스크를 사전에 예방하기 위해, 
-                    구현 전 AI에게 먼저 구체적 개발 계획(Plan)을 세우게 한 뒤 개발자가 정합성을 검증하는 승인 게이트(Approval Gate)를 두어 
-                    작업 범위 이탈률을 0%에 가깝게 통제하며 개발 생산성을 높였습니다.
-                  </p>
+        <div className="grid grid-cols-12 gap-4 my-auto items-stretch">
+          {/* Left Column: 서비스 개요 & 적용 기술 */}
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                  <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
+                  <span>서비스 개요 및 핵심 기능</span>
                 </div>
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                  비대면 시험 환경에서 웹캠/카메라로 응시자의 스마트폰, 이어폰 등 부정행위 유도 객체를 탐지하고 실시간 의심 행동을 분석하여 공정한 비대면 평가를 보장하는 솔루션입니다.
+                </p>
+              </div>
 
-                <div className="space-y-1">
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200">2. Prompt & Logging Hook을 통한 오추론 분석 환경 구축</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                    온디바이스 VLM 모델의 프롬프트 변화에 따른 추론 일관성을 보장하기 위해, 
-                    추론 시 입력된 스냅샷의 메타데이터와 Gemma VLM 출력 텍스트를 연동 수집하는 Logging Hook 모듈을 기기 내 구축하여 
-                    오추론이 발생하는 특정 상황의 재현성 확보 및 신속한 템플릿 디버깅을 가능하게 했습니다.
-                  </p>
-                </div>
+              <div className="space-y-1">
+                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300">• 주요 기능:</p>
+                <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-0.5 pl-3 list-disc">
+                  <li><strong>실시간 다중 객체 탐지</strong>: 스마트폰, 이어폰, 책 등 1차 감지</li>
+                  <li><strong>얼굴 대조 본인 인증</strong>: 수험생 얼굴 인식 및 신분증 실시간 대조</li>
+                  <li><strong>프라이버시 비식별화</strong>: 사용자 얼굴 및 백그라운드 실시간 블러 처리</li>
+                </ul>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 2/7</span>
-          <span>ANVI: Cost & Privacy Optimization</span>
-        </div>
-      </div>
-    )
-  }
-
-  // Slide 3: ANVI 2 (한 끗 다른 해결 & 트레이드오프)
-  const Anvi2Slide = () => {
-    return (
-      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
-        <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 1: ANVI (디바이스 리소스 최적화 및 아키텍처 비교 검증)</span>
-          </div>
-          <span className="text-xs font-mono text-muted-foreground">Technical Deep Dive</span>
-        </div>
-
-        <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 핵심 해결 방안 */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
-                <Zap className="h-4 w-4 text-emerald-600" />
-                <h3>핵심 해결 방안: 상태 머신(State Machine)을 활용한 VLM 호출 빈도 제어</h3>
-              </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                일반적으로 온디바이스 AI의 배터리 과소모를 막기 위해 인공지능 모델 자체의 양자화(Int8 Quantization) 튜닝이나 렌더링 프레임 레이트(FPS)를 깎는 타협안을 택하지만, 이는 탐지 신뢰도의 급격한 저하를 가져옵니다.
-              </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                저는 모델 성능을 깎는 대신, 바운딩 박스 내 탐지 객체(스마트폰/이어폰 등)의 누적 통계를 통제하는 룰 기반 상태 머신(State Machine)을 설계했습니다. 
-                단순 노이즈 탐지는 VLM 호출로 이어지지 않고, 연속 3초 이상 누적 감지된 시점에만 딱 1회 정밀 VLM 분석을 가동시킴으로써, 불필요한 고비용 VLM 연산 실행 횟수를 물리적으로 사전에 완벽히 예방했습니다.
-              </p>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-2 flex flex-wrap gap-1">
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">LiteRT (TFLite)</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Gemma 2B/4B VLM</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">YOLO v8</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Android/Kotlin</span>
             </div>
           </div>
 
-          {/* 트레이드오프 & 논리적 의사결정 */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-amber-50/30 dark:bg-amber-950/10 border border-amber-200 dark:border-amber-900/50 p-4 rounded-lg space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-amber-800 dark:text-amber-300">
-                <AlertTriangle className="h-4 w-4 text-amber-600" />
-                <h3>인프라 리소스 제약 조건과 아키텍처 트레이드오프</h3>
+          {/* Right Column: 기술적 문제 해결 & 성과 */}
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <Cpu className="h-4 w-4 text-emerald-600 shrink-0" />
+                <span>핵심 기술적 문제 해결</span>
               </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                클라우드 기반 VLM(정확도 약 96%)을 호출하면 가장 높은 탐지 정밀도를 보장할 수 있습니다. 
-                반면 온디바이스 Gemma VLM은 경량화로 인해 복합 부정행위 탐지 성능이 92% 수준으로 4%p 하락합니다.
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                <strong>[문제점]</strong> 기기 리소스 제약 하에 고부하 Gemma VLM을 프레임별로 연속 호출 시, 1분 이내 극심한 발열과 배터리 방전으로 기기가 강제 다운됨.
               </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                하지만 500명 동시 응시 조건 하에 클라우드 서버 사용 시 발생하는 월 약 1,500만 원의 GPU 청구 비용과 수험생 영상 유출 시 부과될 수 있는 법적 징벌적 배상금 리스크를 방지하기 위해, 온디바이스에서 3초 통계 검증으로 하락된 정확도를 보완하고 비용 0원 및 프라이버시 100% 안전을 쟁취하는 엣지 추론 아키텍처가 비즈니스 가치 극대화에 가장 타당하다고 판단했습니다.
-              </p>
-            </div>
-
-            {/* Before & After 수치 그래프 */}
-            <AnviPerformanceChart />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 3/7</span>
-          <span>ANVI: Engineering Verification</span>
-        </div>
-      </div>
-    )
-  }
-
-  // Slide 4: Donttaz 1 (개요 & 비즈니스 가치)
-  const Donttaz1Slide = () => {
-    return (
-      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
-        <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 2: Donttaz (AI 기반 스마트 금고 핀테크 플랫폼)</span>
-          </div>
-          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">Team Lead / Backend & DevOps</span>
-        </div>
-
-        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
-        <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
-          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-            스마트 금고 핀테크 서비스에서 외부 알림 API 지연시간으로 인해 핵심 비즈니스(거래 입출금) 트랜잭션 스레드가 대량 점유되고 알림 메시지가 누락되던 안정성 결함을, 
-            RabbitMQ 메시지 큐를 통한 비동기 격리 및 Manual-ACK/DLQ 재시도 복구 인프라 구축을 통해 해결하여 
-            알림 메시지 유실을 방지하고 피크 타임대 사용자 거래 응답 속도를 방어함으로써 서비스 신뢰도를 극대화했습니다.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 비즈니스적 맥락 & 기술 선택 이유 */}
-          <div className="col-span-6 space-y-3.5">
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-                <Briefcase className="h-4 w-4 text-blue-600" />
-                <h3>비즈니스 목적 및 기술 선정 이유</h3>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                핀테크 서비스의 핵심 성공 지표는 서비스 신뢰도와 이탈률(Retention)입니다. 
-                사용자가 이체를 진행했을 때, 외부 푸시 알림(FCM) 발송 속도 지연이나 타사 웹훅(Discord, Mattermost) 통신 병목이 메인 API 서버를 정체시키면, 사용자가 즉시 불안감을 느껴 앱을 이탈하게 됩니다.
-              </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal mt-2">
-                이를 차단하기 위해 금융 이체 비즈니스 스레드와 알림 스레드를 RabbitMQ로 격리하여 비동기로 독립 분리했습니다.
-              </p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white">
-                <Layers className="h-4 w-4 text-blue-600" />
-                <h3>FCM & 웹훅 비동기 격리 및 메시지 보존 인프라</h3>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium">
-                단순히 비동기로 처리하는 것에 그치지 않고 외부 통신 실패 시에도 알림 유실이 발생하지 않도록, Manual Acknowledge(수동 승인)를 활성화했습니다.
-              </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-normal font-medium mt-2">
-                네트워크 장애 등으로 실패한 알림들은 지수 백오프 기반으로 3회 자동 재시도하며, 최종 실패 시 DLQ(Dead Letter Queue)로 격리 보존시켜 운영 관리자가 사후 대조 복구할 수 있는 안전망을 다졌습니다.
-              </p>
-            </div>
-          </div>
-
-          {/* 단순 기능의 비즈니스 가치화 */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-slate-50 dark:bg-slate-900 p-3.5 border border-slate-200 dark:border-slate-800 rounded-lg">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-slate-900 dark:text-white border-b pb-1.5 border-slate-200 dark:border-slate-800">
-                <Zap className="h-4 w-4 text-blue-600" />
-                <h3>단순 기능 구현의 비즈니스적 재해석</h3>
-              </div>
-              
-              <div className="space-y-3 text-xs mt-2.5">
-                <div className="space-y-1">
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200">OAuth2 기반의 소셜 로그인 구현 및 이탈 방지</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                    초기 금융 회원 가입 프로세스의 번거로움을 생략하여 회원 가입 전환율(Conversion Rate)을 높이기 위해 OAuth2 기반 소셜 가입 체계를 구축하였으며, 사용자 권한 및 개인정보 세션을 고속 검증할 수 있도록 설계했습니다.
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200">가상 계좌 분할 설계를 통한 금융 규제(20일 가입 제한) 회피</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                    금융감독원의 비대면 단기간 다수계좌 개설 제한(20일 규제) 정책으로 인해 사용자가 가상 금고를 목적별로 늘릴 수 없는 비즈니스 제약이 있었습니다. 
-                    이를 해결하고자 실제 1개의 실명 마스터 계좌 하위에 DB 상에서 논리적으로 구분되는 가상 금고(Wish Table) 구조를 설계하여 사용자가 가입 즉시 목표 금액에 맞춰 무제한으로 목적별 저축방을 만들어 분산 저축을 시작할 수 있는 최적의 사용자 경험을 구현했습니다.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 4/7</span>
-          <span>Donttaz: Transactional Reliability</span>
-        </div>
-      </div>
-    )
-  }
-
-  // Slide 5: Donttaz 2 (한 끗 다른 해결 & 트레이드오프)
-  const Donttaz2Slide = () => {
-    return (
-      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
-        <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 2: Donttaz (대용량 트래픽 동시성 제어 및 데이터 정합성 설계)</span>
-          </div>
-          <span className="text-xs font-mono text-muted-foreground">Concurrency Deep Dive</span>
-        </div>
-
-        <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 핵심 해결 방안 */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
-                <Zap className="h-4 w-4 text-emerald-600" />
-                <h3>핵심 해결 방안: DB 커넥션 풀 보호를 위한 Redis 분산 락 격리</h3>
-              </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                급여일 대량 동시 가상 금고 자동 이체 발생 시 모계좌 잔액의 레이스 컨디션을 막기 위해, 흔히 데이터베이스 레코드에 락을 거는 비관적 락(Pessimistic Lock)을 채택합니다.
-              </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                그러나 비관적 락은 락을 획득하려는 모든 대기 트랜잭션이 DB Connection Pool을 점유하고 잠자기 상태가 되어, 동시성 트래픽 폭주 시 WAS의 Connection 부족으로 서버 전체가 마비되는 심각한 비즈니스 장애로 이어집니다.
-              </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                저는 DB 레벨이 아닌 Redis 메모리 레벨에서 Redisson 라이브러리를 활용해 유저 고유 계좌 번호로 락 범위를 완벽히 격리하고, 락 획득 실패 시 지수 백오프(Exponential Backoff) 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리 구현하여 DB 커넥션 병목을 근본적으로 방지했습니다.
-              </p>
-            </div>
-          </div>
-
-          {/* 트레이드오프 & 논리적 의사결정 */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-amber-50/30 dark:bg-amber-950/10 border border-amber-200 dark:border-amber-900/50 p-4 rounded-lg space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-amber-800 dark:text-amber-300">
-                <AlertTriangle className="h-4 w-4 text-amber-600" />
-                <h3>락 메커니즘 선택에 따른 성능과 신뢰성의 트레이드오프</h3>
-              </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                Redis 분산 락 방식은 별도의 인프라를 운영해야 하므로 SPOF(단일 장애점) 발생 위험과 캐시 구축 서버 유지 비용이 추가되는 트레이드오프가 있습니다.
-              </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                하지만 핀테크 도메인에서 동시 출금 오류로 인한 잔액 꼬임 현상은 금융 거래의 신뢰성 상실 및 유저 즉시 탈퇴로 직결되는 중대한 리스크입니다. 
-                따라서 단일 장애점 극복을 위한 모니터링 비용 부담을 안더라도, DB 커넥션 풀을 안전하게 유지하고 잔액 정합성 100%를 보장하여 피크타임 거래 성사율을 지키는 Redis 메모리 락 도입이 비즈니스 안정화 측면에서 타당한 결정이었습니다.
-              </p>
-            </div>
-
-            {/* Before & After 수치 그래프 */}
-            <DonttazPerformanceChart />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 5/7</span>
-          <span>Donttaz: Concurrency Verification</span>
-        </div>
-      </div>
-    )
-  }
-
-  // Slide 6: CONY (개요 & 한 끗 다른 해결)
-  const ConySlide = () => {
-    return (
-      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
-        <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-blue-600" />
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">PROJECT 3: CONY (기프티콘 안전 거래 관리 플랫폼)</span>
-          </div>
-          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">Team Lead / Backend & Infra</span>
-        </div>
-
-        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
-        <div className="my-3 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
-          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-            기프티콘 거래 플랫폼의 마이크로서비스 빌드 지연으로 인해 협업 시 배포 주기가 12분 이상 소요되어 피드백 반영 및 장애 대응 속도가 저하되던 문제를, 
-            Jenkins 파이프라인 변경 디렉토리(Changeset) 감지 기반 선택적 서브 빌드 파이프라인 설계로 극복하여 
-            전체 빌드/배포 속도 60% 단축(12.5분 ➡️ 4.8분)을 달성하고 기능 릴리즈 민첩성을 확보하여 서비스 경쟁력을 강화했습니다.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-12 gap-5 my-auto">
-          {/* 비즈니스적 맥락 & 빌드 최적화 */}
-          <div className="col-span-6 space-y-3">
-            <div className="bg-blue-50/30 dark:bg-blue-950/10 border border-blue-200 dark:border-blue-900/50 p-4 rounded-lg space-y-2">
-              <div className="flex items-center gap-1.5 text-sm font-bold text-blue-800 dark:text-blue-300">
-                <Briefcase className="h-4 w-4 text-blue-600" />
-                <h3>비즈니스적 빌드 최적화 배경</h3>
-              </div>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                기프티콘 이커머스 마켓은 트렌드 대응 및 핫픽스 속도가 매출에 직결되는 분야입니다. 
-                작은 기능 변경에도 젠킨스에서 전체 모듈을 빌드하느라 배포 다운타임과 주기 병목이 생겼으며, 이는 전체 개발팀의 작업 대기 시간 낭비로 이어졌습니다.
-              </p>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal mt-2">
-                따라서 Changeset 스캔 기반 선택적 CI/CD 파이프라인을 작성함으로써 변경된 해당 서비스의 컨테이너만 타겟 빌드해 비즈니스 민첩성을 확보했습니다.
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                <strong>[해결책]</strong> 매 프레임 연산은 가벼운 YOLO 모델로 1차 고속 스캔하고, 3초 이상 누적 감지되어 조건이 만족된 상태에만 <strong>상태 머신(State Machine)</strong>이 최종 VLM 분석을 가동하도록 제어하여 불필요한 VLM 연산을 완벽히 차단.
               </p>
             </div>
             
-            {/* Before & After 수치 그래프 */}
-            <ConyBuildTimeChart />
-          </div>
-
-          {/* 한 끗 다른 해결: 썸네일 예외 폴백 */}
-          <div className="col-span-6 space-y-3 bg-emerald-50/30 dark:bg-emerald-950/10 border border-emerald-200 dark:border-emerald-900/50 p-4 rounded-lg">
-            <div className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 dark:text-emerald-300">
-              <Zap className="h-4 w-4 text-emerald-600" />
-              <h3>한 끗 다른 해결: 사용자 상세 페이지 이탈을 막는 2단계 이미지 폴백</h3>
+            <div className="mt-3">
+              <AnviPerformanceChart />
             </div>
-            <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              사용자가 상품 구매 상세 페이지에 진입할 때, 특정 외부 기프티콘 OCR 판독 과정의 오류로 인해 생성되지 않은 기프티콘 썸네일 경로가 `null`로 반환되는 일이 있었습니다. 
-              이로 인해 프론트엔드 UI 렌더링 깨짐 현상이 유발되어 사용자가 상품 상세보기를 실패하고 구매를 포기하는 심각한 비즈니스 이탈 손실이 발생했습니다.
-            </p>
-            <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              저는 단순 프론트엔드의 null 방어 코드를 넘어, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 1단계로 고속 썸네일 이미지를 스캔하고, 썸네일 데이터가 없을 시 2단계로 업로드 원본(Original) 이미지 경로를 자동으로 결합하여 반환해주는 2단계 동적 이미지 폴백(Fallback) 조회 아키텍처를 구현했습니다. 
-              이를 통해 프론트엔드의 부하를 줄이면서도 기프티콘 노출 실패율을 0%로 통제하여 고객 상세 페이지의 사용자 이탈율을 근본적으로 사전에 방어했습니다.
-            </p>
           </div>
         </div>
 
         <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 6/7</span>
-          <span>CONY: CI/CD & Fallback Architecture</span>
+          <span>IT Portfolio - Slide 3/6</span>
+          <span>ANVI: Cost & Resource Optimization</span>
         </div>
       </div>
     )
   }
 
-  // Slide 7: 기타 이력 및 자격/활동 (Secondary Projects & Certifications)
-  const SecondarySlide = () => {
+  // Slide 4: Donttaz (분산 락 기반 동시성 제어 및 가상 금고 이체 플랫폼 - 1장 압축)
+  const DonttazSlide = ({ version }: { version: PresetVersion }) => {
+    const isDevOps = version === "devops"
+    
+    return (
+      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
+        <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-blue-600" />
+            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              PROJECT 2: Donttaz (분산 락 기반 동시성 제어 및 가상 금고 이체 플랫폼)
+            </span>
+          </div>
+          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
+            {isDevOps ? "Infra Lead / Message Reliability" : "Team Lead / Backend & DB"}
+          </span>
+        </div>
+
+        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
+        <div className="my-2.5 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
+            {isDevOps 
+              ? "외부 알림 API 통신 지연 시 발생하는 핀테크 메인 스레드 고갈 및 서비스 마비 장애를 방지하기 위해, RabbitMQ 비동기 이벤트 격리 및 Manual-ACK 기반의 DLQ 재시도 무실패 인프라를 구축하여 트래픽 피크대 거래 성사 속도를 극대화하고 비즈니스 신뢰성을 100% 확보했습니다."
+              : "급여일 자동 이체 등 초당 500건 이상의 고빈도 동시 이체 요청 시 발생하는 데이터 레이스(Race Condition)와 데드락 현상을 방지하기 위해, Redis 분산 락(Redisson)을 통한 메모리 레벨 락 제어 및 가상 금고 격리 아키텍처를 구현하여 데이터 무결성 100%를 충족했습니다."
+            }
+          </p>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4 my-auto items-stretch">
+          {/* Left Column: 서비스 개요 & 적용 기술 */}
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                  <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
+                  <span>서비스 개요 및 핵심 기능</span>
+                </div>
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                  금융 규제 제약 조건을 우회하며, 유저의 목적별 분산 가상 저축 금고를 무제한 제공하고 정확성 높은 동시 이체 예약을 보장해 주는 핀테크 이체 및 자산 보호 플랫폼입니다.
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300">• 주요 기능:</p>
+                <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-0.5 pl-3 list-disc">
+                  <li><strong>가상 금고 논리 분할</strong>: 20일 가입 제한 회비 목적별 가상 계좌 무제한 획득</li>
+                  <li><strong>동시 예약 이체 실행</strong>: 지정 시각 대용량 예약 송금 벌크 트랙킹 처리</li>
+                  <li><strong>RabbitMQ 비동기 격리</strong>: 이체 트랜잭션과 알림(FCM, Webhook) 스레드 분리</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-2 flex flex-wrap gap-1">
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Spring Boot</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Redis / Redisson</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">RabbitMQ</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">MySQL / JPA</span>
+            </div>
+          </div>
+
+          {/* Right Column: 기술적 문제 해결 & 성과 */}
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <Database className="h-4 w-4 text-emerald-600 shrink-0" />
+                <span>핵심 기술적 문제 해결</span>
+              </div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                {isDevOps
+                  ? "외부 알림 API 통신 지연 시 메인 서버 스레드 점유 해결을 위해, 이체 성공 로그를 발행한 즉시 DB 커넥션을 반환하고 RabbitMQ를 통해 비동기 처리를 유도하여 가용성 확보."
+                  : "비관적 락으로 대기 중인 트랜잭션이 DB 커넥션 풀을 과도하게 독점하는 병목 방지를 위해, Redis 메모리 레벨에서 Redisson 분산 락(pub/sub 구조)을 AOP 기반으로 분리 설계해 락 경합 및 대기 지연 최소화."
+                }
+              </p>
+            </div>
+            
+            <div className="mt-3">
+              <DonttazPerformanceChart />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
+          <span>IT Portfolio - Slide 4/6</span>
+          <span>Donttaz: Transaction & Message Reliability</span>
+        </div>
+      </div>
+    )
+  }
+
+  // Slide 5: CONY (선택적 빌드 CI/CD 최적화 및 이미지 폴백 커머스 플랫폼)
+  const ConySlide = ({ version }: { version: PresetVersion }) => {
+    const isDevOps = version === "devops"
+    
+    return (
+      <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
+        <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-blue-600" />
+            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              PROJECT 3: CONY (기프티콘 안전 거래 관리 플랫폼)
+            </span>
+          </div>
+          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
+            {isDevOps ? "DevOps Lead / CI&CD Architect" : "Team Lead / Backend & DevOps"}
+          </span>
+        </div>
+
+        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
+        <div className="my-2.5 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
+            {isDevOps 
+              ? "기프티콘 거래소 마이크로서비스 배포 시 변경되지 않은 전체 모듈을 매번 빌드/배포하여 발생하는 12분 이상의 배포 병목 및 피드백 지연을, Jenkins 파이프라인 변경 디렉토리(Changeset) 감지 기반 선택적 서브 빌드 파이프라인 설계로 극복하여 배포 타임을 60% 이상 단축했습니다."
+              : "기프티콘 판독 지연에 의해 생성되지 않은 썸네일 경로가 null로 반환될 때 발생하던 화면 깨짐 및 사용자 이탈 장애를, 백엔드 조회 쿼리 레벨(JPA Specification)에서 원본 이미지로 우회하도록 2단계 이미지 폴백(Fallback) 반환 아키텍처를 구축하여 노출 실패율을 0%로 해결했습니다."
+            }
+          </p>
+        </div>
+
+        <div className="grid grid-cols-12 gap-4 my-auto items-stretch">
+          {/* Left Column: 서비스 개요 & 적용 기술 */}
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                  <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
+                  <span>서비스 개요 및 핵심 기능</span>
+                </div>
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                  C2C 기반 모바일 기프티콘 이미지의 유효 바코드를 안전하게 자동 스캔 판독하고, 회원 간 직거래 중개 및 정산 관리 흐름을 처리하는 커머스 플랫폼입니다.
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300">• 주요 기능:</p>
+                <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-0.5 pl-3 list-disc">
+                  <li><strong>바코드 이미지 판독</strong>: 업로드된 기프티콘 이미지 고속 자동 분석</li>
+                  <li><strong>직거래 매칭 및 안전 정산</strong>: 판매금 에스크로 보호 및 거래 정산 자동화</li>
+                  <li><strong>다중 서비스 배포 파이프라인</strong>: MSA 독립 빌드 및 서비스 격리 배포</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-2 flex flex-wrap gap-1">
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Jenkins Pipeline</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Docker Container</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Nginx</span>
+              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Spring Boot / MySQL</span>
+            </div>
+          </div>
+
+          {/* Right Column: 기술적 문제 해결 & 성과 */}
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <RefreshCw className="h-4 w-4 text-emerald-600 shrink-0" />
+                <span>핵심 기술적 문제 해결</span>
+              </div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                <strong>[문제점]</strong> 일부 서비스 코드 수정에도 전체 모듈 컨테이너 이미지를 재생성하고 재빌드하여 불필요하게 긴 12.5분의 CI/CD 대기 시간 초래.
+              </p>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+                <strong>[해결책]</strong> 젠킨스 파일 changeset 플러그인을 활용해 변경 파일 위치를 자동 스캔하여, 변경이 확인된 디렉토리의 단일 모듈만 도커 빌드/푸시를 트리거하는 분기 로직 적용.
+              </p>
+            </div>
+            
+            <div className="mt-3">
+              <ConyBuildTimeChart />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
+          <span>IT Portfolio - Slide 5/6</span>
+          <span>CONY: Selective CI/CD & Caching Fallback</span>
+        </div>
+      </div>
+    )
+  }
+
+  // Slide 6: 기타 이력 및 자격/활동 (Secondary Projects & Certifications)
+  const SecondarySlide = ({ version }: { version: PresetVersion }) => {
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
@@ -874,7 +912,7 @@ export default function PdfPortfolio() {
         </div>
 
         <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
-          <span>IT Portfolio - Slide 7/7</span>
+          <span>IT Portfolio - Slide 6/6</span>
           <span>Education & Qualification Final</span>
         </div>
       </div>
@@ -884,12 +922,11 @@ export default function PdfPortfolio() {
   // Master Slide list to map IDs to components and titles
   const ALL_SLIDES_MAP: Record<string, { title: string; category: string; component: (props: { version: PresetVersion }) => React.JSX.Element }> = {
     cover: { title: "표지 및 프로필 (Cover & Profile)", category: "기본 정보", component: CoverSlide },
-    anvi_1: { title: "ANVI 1 (개요, 아키텍처 및 AI 실무)", category: "핵심 프로젝트", component: Anvi1Slide },
-    anvi_2: { title: "ANVI 2 (리소스 최적화 및 아키텍처 비교)", category: "핵심 프로젝트", component: Anvi2Slide },
-    donttaz_1: { title: "Donttaz 1 (개요, 비동기 격리 및 가상 금고)", category: "핵심 프로젝트", component: Donttaz1Slide },
-    donttaz_2: { title: "Donttaz 2 (동시성 제어 및 아키텍처 비교)", category: "핵심 프로젝트", component: Donttaz2Slide },
+    skills: { title: "핵심 기술 및 역량 (Core Skills)", category: "기본 정보", component: SkillsSlide },
+    anvi: { title: "ANVI (온디바이스 AI 온라인 시험 감독)", category: "핵심 프로젝트", component: AnviSlide },
+    donttaz: { title: "Donttaz (분산 락 동시성 제어 및 이체)", category: "핵심 프로젝트", component: DonttazSlide },
     cony: { title: "CONY (선택적 빌드 CI/CD & 이미지 폴백)", category: "주요 프로젝트", component: ConySlide },
-    secondary: { title: "SsaveryTime & Hyperledger 분산 저장소", category: "기타 프로젝트", component: SecondarySlide },
+    secondary: { title: "기타 프로젝트 & 학력/자격/활동 요약", category: "기타 사항", component: SecondarySlide },
   }
 
   return (
@@ -921,6 +958,58 @@ export default function PdfPortfolio() {
           justify-content: space-between !important;
         }
 
+        /* Force light mode styles on slide pages even if site-wide dark mode is active */
+        .dark .slide-page {
+          background-color: white !important;
+          color: #1e293b !important;
+          --background: oklch(0.98 0.001 270) !important;
+          --foreground: oklch(0.2 0.02 270) !important;
+          --card: oklch(1 0 0) !important;
+          --card-foreground: oklch(0.2 0.02 270) !important;
+          --muted: oklch(0.92 0.01 0) !important;
+          --muted-foreground: oklch(0.5 0.01 0) !important;
+          --border: oklch(0.93 0.002 270) !important;
+          --input: oklch(0.93 0.002 270) !important;
+        }
+        .dark .slide-page [class*="dark:text-white"],
+        .dark .slide-page [class*="dark:text-slate-100"],
+        .dark .slide-page [class*="dark:text-slate-200"],
+        .dark .slide-page [class*="dark:text-slate-300"],
+        .dark .slide-page [class*="dark:text-slate-400"] {
+          color: #1e293b !important;
+        }
+        .dark .slide-page [class*="dark:text-slate-500"],
+        .dark .slide-page [class*="dark:text-slate-600"],
+        .dark .slide-page [class*="dark:text-slate-700"] {
+          color: #475569 !important;
+        }
+        .dark .slide-page [class*="dark:text-blue-400"],
+        .dark .slide-page [class*="dark:text-blue-300"] {
+          color: #2563eb !important;
+        }
+        .dark .slide-page [class*="dark:text-emerald-400"],
+        .dark .slide-page [class*="dark:text-emerald-300"] {
+          color: #059669 !important;
+        }
+        .dark .slide-page [class*="dark:bg-slate-900"],
+        .dark .slide-page [class*="dark:bg-slate-800"],
+        .dark .slide-page [class*="dark:bg-slate-950"] {
+          background-color: #f1f5f9 !important;
+          color: #334155 !important;
+        }
+        .dark .slide-page [class*="dark:bg-blue-950"] {
+          background-color: rgba(239, 246, 255, 0.5) !important;
+        }
+        .dark .slide-page [class*="dark:bg-emerald-950"] {
+          background-color: rgba(236, 253, 245, 0.5) !important;
+        }
+        .dark .slide-page [class*="dark:border-slate-"] {
+          border-color: #e2e8f0 !important;
+        }
+        .dark .slide-page [class*="dark:border-blue-"] {
+          border-color: #bfdbfe !important;
+        }
+
         /* Scale up font-sizes inside slide-page to enhance readability and fill the page */
         .slide-page .text-\[9px\] { font-size: 13px !important; line-height: 17px !important; }
         .slide-page .text-\[10px\] { font-size: 14px !important; line-height: 19px !important; }
@@ -935,7 +1024,7 @@ export default function PdfPortfolio() {
 
         @media print {
           @page {
-            size: A4 landscape;
+            size: landscape;
             margin: 0 !important;
           }
           .no-print {
@@ -1111,11 +1200,13 @@ export default function PdfPortfolio() {
             </div>
 
             <div className="pt-2 text-[10px] text-slate-500 leading-relaxed space-y-1">
-              <p className="font-bold text-slate-400">💡 PDF 저장 안내:</p>
+              <p className="font-bold text-slate-400">💡 PDF 저장 안내 (A4 가로 최적화):</p>
               <p>1. <strong>[Ctrl + P]</strong> 또는 인쇄 버튼을 누릅니다.</p>
               <p>2. 대상을 <strong>[PDF로 저장]</strong>으로 변경합니다.</p>
-              <p>3. 레이아웃을 <strong>[가로 (Landscape)]</strong>로 선택합니다.</p>
-              <p>4. 여백을 <strong>[없음 (None)]</strong>으로, 배경 그래픽 체크를 <strong>[선택 (Checked)]</strong>으로 설정합니다.</p>
+              <p>3. 레이아웃을 반드시 <strong>[가로 (Landscape)]</strong>로 선택합니다.</p>
+              <p>4. 여백은 <strong>[없음 (None)]</strong>, 배경 그래픽은 <strong>[선택 (Checked)]</strong>으로 설정합니다.</p>
+              <p className="text-amber-500 font-semibold mt-1">⚠️ 90도 회전 오류 발생 시:</p>
+              <p className="text-[9px] text-slate-400">일부 브라우저(Safari 등)나 환경에서 세로로 회전되어 저장될 경우, 인쇄 옵션에서 용지 크기를 <strong>'A4'</strong>로 명확히 선택하고 레이아웃 가로 지정을 재확인해 주세요. Chrome 브라우저를 권장합니다.</p>
             </div>
           </div>
         </section>
