@@ -462,22 +462,22 @@ export default function PdfPortfolio() {
         </div>
 
         {/* Slide Body */}
-        <div className="grid grid-cols-2 gap-4 my-auto">
+        <div className="grid grid-cols-2 gap-3.5 flex-1 my-2 items-stretch">
           {/* Card 1: Backend Engineering */}
-          <div className={`p-4 rounded-xl border ${isDevOps ? "border-slate-200 dark:border-slate-800" : "border-blue-200 dark:border-blue-900 bg-blue-50/10"} space-y-2.5`}>
+          <div className={`p-3.5 rounded-xl border ${isDevOps ? "border-slate-200 dark:border-slate-800" : "border-blue-200 dark:border-blue-900 bg-blue-50/10"} flex flex-col justify-start gap-2.5`}>
             <div className="flex items-center gap-2">
               <Cpu className="h-4.5 w-4.5 text-blue-600" />
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Backend Engineering</h3>
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Backend Engineering</h3>
             </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex flex-wrap gap-1.5">
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-1">
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Java</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Spring Boot</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Spring Security</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">JPA/Hibernate</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">QueryDSL</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
                 <li>Spring Boot & Java 기반의 안정적이고 테스트 가능한 비즈니스 API 설계 및 웹 애플리케이션 개발</li>
                 <li>JPA 영속성 컨텍스트 생명주기 및 N+1 쿼리 최적화, QueryDSL을 활용한 다차원 동적 쿼리 구현</li>
                 <li>Spring Security 기반의 사용자 인증/인가 흐름 제어 및 커스텀 필터 체인을 통한 API 보안 강화</li>
@@ -486,19 +486,19 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 2: Database & Caching */}
-          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2.5">
+          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col justify-start gap-2.5">
             <div className="flex items-center gap-2">
               <Database className="h-4.5 w-4.5 text-blue-600" />
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Database & Caching</h3>
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Database & Caching</h3>
             </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex flex-wrap gap-1.5">
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-1">
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">MySQL</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Redis</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">RabbitMQ</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">CouchDB</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
                 <li>데이터베이스 정규화 및 트랜잭션 격리 수준 조정을 통한 동시성 데이터 무결성 보장</li>
                 <li>Redis 캐싱 및 분산 락(Redisson)을 활용하여 초당 고빈도 분산 이체 트랜잭션 동시성 격리</li>
                 <li>RabbitMQ 메시지 큐를 통한 비동기 이벤트 격리 및 신뢰성 보장 (Manual ACK, Dead Letter Queue)</li>
@@ -507,20 +507,20 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 3: Cloud & DevOps */}
-          <div className={`p-4 rounded-xl border ${isDevOps ? "border-blue-200 dark:border-blue-900 bg-blue-50/10" : "border-slate-200 dark:border-slate-800"} space-y-2.5`}>
+          <div className={`p-3.5 rounded-xl border ${isDevOps ? "border-blue-200 dark:border-blue-900 bg-blue-50/10" : "border-slate-200 dark:border-slate-800"} flex flex-col justify-start gap-2.5`}>
             <div className="flex items-center gap-2">
               <Layers className="h-4.5 w-4.5 text-blue-600" />
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Infrastructure & DevOps</h3>
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Infrastructure & DevOps</h3>
             </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex flex-wrap gap-1.5">
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-1">
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">AWS (EC2, S3, RDS)</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Docker</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Jenkins</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Nginx</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">GitHub Actions</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
                 <li>Docker 컨테이너 가상화를 통한 다중 마이크로서비스 서비스 격리 및 이식성 확보</li>
                 <li>Jenkins 변경 changeset 감지 기반 선택적 서브 빌드 파이프라인 설계로 빌드 속도 60% 단축</li>
                 <li>Nginx 리버스 프록시 및 로드 밸런싱 세팅, 무중단 자동 롤링/배포 아키텍처 환경 구축</li>
@@ -529,20 +529,20 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 4: Languages & Frontend */}
-          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2.5">
+          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col justify-start gap-2.5">
             <div className="flex items-center gap-2">
               <Code className="h-4.5 w-4.5 text-blue-600" />
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Other Tech Skills</h3>
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Other Tech Skills</h3>
             </div>
-            <div className="space-y-2 text-xs">
-              <div className="flex flex-wrap gap-1.5">
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-1">
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Go</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Python</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">TypeScript</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Vue.js</span>
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">React/Next.js</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] font-normal leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
                 <li>Go 및 Python 언어 문법 이해를 바탕으로 한 시스템 스크립트 작성 및 대량 크롤링 구현</li>
                 <li>TypeScript 기반의 Vue.js 및 React 프레임워크 핵심 개념 이해 및 프론트 개발 협업 가능</li>
                 <li>Git 버전 제어(Branch 전략 설정) 및 다양한 이슈 트래킹 협업 툴(Jira, Notion, Slack) 사용 숙련</li>
@@ -588,80 +588,80 @@ export default function PdfPortfolio() {
           </p>
         </div>
 
-        <div className="grid grid-cols-12 gap-3 my-auto items-stretch">
+        <div className="grid grid-cols-12 gap-3.5 flex-1 my-2.5 items-stretch">
           {/* Card 1: 서비스 개요 & 주요 기능 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
             <div className="space-y-2">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              <div className="flex items-center gap-1.5">
                 <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
-                <span>서비스 개요 및 핵심 기능</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                 비대면 시험 환경에서 웹캠/카메라로 스마트폰, 이어폰 등 부정행위 유도 객체를 탐지하고 실시간 의심 행동을 분석하여 공정한 평가를 보장하는 온디바이스 솔루션입니다.
               </p>
-              <div className="space-y-0.5">
-                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300">• 주요 기능:</p>
-                <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-0.5 pl-3 list-disc">
+              <div className="space-y-1">
+                <p className="text-xs font-extrabold text-slate-800 dark:text-slate-200">• 주요 기능:</p>
+                <ul className="text-[11px] text-slate-600 dark:text-slate-400 space-y-1 pl-3.5 list-disc font-medium">
                   <li><strong>실시간 다중 객체 탐지</strong>: 스마트폰, 이어폰, 책 등 1차 감지</li>
                   <li><strong>얼굴 대조 본인 인증</strong>: 신분증과 실시간 얼굴 대조 본인 확인</li>
                   <li><strong>프라이버시 비식별화</strong>: 얼굴 외 주변 환경 실시간 블러 처리</li>
                 </ul>
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-2 flex flex-wrap gap-1">
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">LiteRT (TFLite)</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Gemma 2B/4B VLM</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">YOLO v8</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Android/Kotlin</span>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-1">
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">LiteRT (TFLite)</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Gemma 2B/4B VLM</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">YOLO v8</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Android/Kotlin</span>
             </div>
           </div>
 
           {/* Card 2: 계층형 AI 파이프라인 & 상태 머신 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <Cpu className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span>계층형 AI 파이프라인 & 상태 머신</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">계층형 AI 파이프라인 & 상태 머신</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[리소스 제약]</strong> 기기 리소스 제약 하에 고부하 Gemma VLM을 프레임별로 연속 호출 시, 1분 이내 극심한 발열과 배터리 방전으로 기기가 강제 다운되는 결함 발생.
               </p>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[상태 머신 제어]</strong> 매 프레임 연산은 가벼운 YOLO 모델로 1차 고속 스캔하고, 3초 이상 누적 감지되어 조건이 만족된 상태에만 <strong>상태 머신(State Machine)</strong>이 최종 VLM 분석을 가동하도록 제어하여 불필요한 VLM 연산을 완벽히 차단하고 구동 시간을 120배 이상 극대화.
               </p>
             </div>
           </div>
 
           {/* Card 3: 인프라 제약 및 아키텍처 트레이드오프 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span>인프라 제약 및 아키텍처 트레이드오프</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">인프라 제약 및 아키텍처 트레이드오프</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[클라우드 vs 온디바이스]</strong> 클라우드 기반 VLM(정확도 96%) 호출 시 가장 높은 정밀도를 보장하나, 500명 동시 응시 조건에서 발생하는 월 약 1,500만 원의 GPU 비용 및 개인정보보호법 유출 리스크 수반.
               </p>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[의사결정]</strong> 온디바이스 VLM은 경량화로 인해 정확도가 4%p 낮지만, 3초 통계 검증으로 하락폭을 보완하고 서버 비용 0원 및 개인정보 안전 100%를 달성하는 엣지 아키텍처가 비즈니스 가치 극대화에 가장 타당하다고 판단.
               </p>
             </div>
           </div>
 
           {/* Card 4: 성능 및 효율성 정량 검증 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2 w-full">
+              <div className="flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
-                <span>성능 및 효율성 정량 검증</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">성능 및 효율성 정량 검증</span>
               </div>
               <div className="w-full">
                 <AnviPerformanceChart />
               </div>
-              <p className="text-[10px] text-slate-500 text-center font-semibold mt-1">
-                배터리 연속 구동 가능 시간 120배 이상 극대화 및 GPU 인프라 서버 비용 0원 달성
-              </p>
             </div>
+            <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
+              배터리 연속 구동 가능 시간 120배 이상 극대화 및 GPU 인프라 서버 비용 0원 달성
+            </p>
           </div>
         </div>
 
@@ -701,80 +701,80 @@ export default function PdfPortfolio() {
           </p>
         </div>
 
-        <div className="grid grid-cols-12 gap-3 my-auto items-stretch">
+        <div className="grid grid-cols-12 gap-3.5 flex-1 my-2.5 items-stretch">
           {/* Card 1: 서비스 개요 및 주요 기능 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
             <div className="space-y-2">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              <div className="flex items-center gap-1.5">
                 <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
-                <span>서비스 개요 및 핵심 기능</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                 금융 규제 제약 조건을 우회하며, 유저의 목적별 분산 가상 저축 금고를 무제한 제공하고 정확성 높은 동시 이체 예약을 보장해 주는 핀테크 이체 및 자산 보호 플랫폼입니다.
               </p>
-              <div className="space-y-0.5">
-                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300">• 주요 기능:</p>
-                <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-0.5 pl-3 list-disc">
+              <div className="space-y-1">
+                <p className="text-xs font-extrabold text-slate-800 dark:text-slate-200">• 주요 기능:</p>
+                <ul className="text-[11px] text-slate-600 dark:text-slate-400 space-y-1 pl-3.5 list-disc font-medium">
                   <li><strong>가상 금고 논리 분할</strong>: 20일 개설 제한 규제를 우회한 논리적 계좌 무제한 획득</li>
                   <li><strong>동시 예약 이체 실행</strong>: 지정 시각 대용량 예약 송금 벌크 트랙킹 처리</li>
                   <li><strong>RabbitMQ 비동기 격리</strong>: 이체 트랜잭션과 알림(FCM, Webhook) 스레드 분리</li>
                 </ul>
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-2 flex flex-wrap gap-1">
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Spring Boot</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Redis / Redisson</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">RabbitMQ</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">MySQL / JPA</span>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-1">
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Spring Boot</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Redis / Redisson</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">RabbitMQ</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">MySQL / JPA</span>
             </div>
           </div>
 
           {/* Card 2: DB 커넥션 보호 (Redis 분산 락) */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <Database className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span>DB 커넥션 보호 & Redis 분산 락</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">DB 커넥션 보호 & Redis 분산 락</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[데이터 레이스]</strong> 급여일 대량 동시 이체 발생 시 모계좌 잔액의 레이스 컨디션을 방지하기 위해 데이터베이스 레코드 비관적 락(Pessimistic Lock)을 사용할 경우, 대기 트랜잭션의 DB 커넥션 풀 과점으로 WAS가 마비되는 심각한 가용성 병목이 생깁니다.
               </p>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[분산 락 격리]</strong> Redis 메모리 레벨에서 Redisson pub/sub 구조 분산 락을 통해 락 범위를 계좌 단위로 격리하고, 지수 백오프 기반 재시도 구조를 공통 애스펙트(Spring AOP)로 분리해 WAS 병목을 차단하고 100% 무결성을 확보했습니다.
               </p>
             </div>
           </div>
 
           {/* Card 3: 메시지 격리 & 비즈니스 규제 회피 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span>메시지 격리 & 비즈니스 규제 회피</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">메시지 격리 & 비즈니스 규제 회피</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[비동기 격리]</strong> 외부 푸시 알림 FCM 및 웹훅 통신 지연이 이체 메인 트랙을 점유하지 않도록, 이체 성공 즉시 DB 커넥션을 반환하고 알림 처리는 RabbitMQ로 발행하여 비동기 격리했습니다. 실패 건은 Manual ACK와 DLQ로 우회해 유실을 방지했습니다.
               </p>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[규제 회피]</strong> 금융권의 20일 다수계좌 개설 제한 규제로 인해 목적별 통장을 개설하기 힘든 문제를 우회하기 위해, 실제 1개의 계좌 하위에 논리적으로 가상 금고(Wish Table)를 무제한 분할 매핑하는 구조를 통해 가입 즉시 목적별 금고 개설을 지원했습니다.
               </p>
             </div>
           </div>
 
           {/* Card 4: 동시성 처리 성능 검증 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2 w-full">
+              <div className="flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
-                <span>동시성 처리 성능 검증</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">동시성 처리 성능 검증</span>
               </div>
               <div className="w-full">
                 <DonttazPerformanceChart />
               </div>
-              <p className="text-[10px] text-slate-500 text-center font-semibold mt-1">
-                동시 이체 요청 피크 타임대 트랜잭션 대기 시간 65% 이상 개선
-              </p>
             </div>
+            <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
+              동시 이체 요청 피크 타임대 트랜잭션 대기 시간 65% 이상 개선
+            </p>
           </div>
         </div>
 
@@ -814,80 +814,80 @@ export default function PdfPortfolio() {
           </p>
         </div>
 
-        <div className="grid grid-cols-12 gap-3 my-auto items-stretch">
+        <div className="grid grid-cols-12 gap-3.5 flex-1 my-2.5 items-stretch">
           {/* Card 1: 서비스 개요 및 주요 기능 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
             <div className="space-y-2">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              <div className="flex items-center gap-1.5">
                 <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
-                <span>서비스 개요 및 핵심 기능</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                 C2C 기반 모바일 기프티콘 이미지의 유효 바코드를 안전하게 자동 스캔 판독하고, 회원 간 직거래 중개 및 에스크로 기반 정산 관리 흐름을 처리하는 커머스 플랫폼입니다.
               </p>
-              <div className="space-y-0.5">
-                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300">• 주요 기능:</p>
-                <ul className="text-[10px] text-slate-600 dark:text-slate-400 space-y-0.5 pl-3 list-disc">
+              <div className="space-y-1">
+                <p className="text-xs font-extrabold text-slate-800 dark:text-slate-200">• 주요 기능:</p>
+                <ul className="text-[11px] text-slate-600 dark:text-slate-400 space-y-1 pl-3.5 list-disc font-medium">
                   <li><strong>바코드 이미지 판독</strong>: 업로드된 기프티콘 이미지 고속 자동 분석</li>
                   <li><strong>직거래 매칭 및 안전 정산</strong>: 판매금 에스크로 보호 및 거래 정산 자동화</li>
                   <li><strong>다중 서비스 배포 파이프라인</strong>: MSA 독립 빌드 및 서비스 격리 배포</li>
                 </ul>
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-2 flex flex-wrap gap-1">
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Jenkins Pipeline</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Docker Container</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Nginx</span>
-              <span className="text-[9px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">Spring Boot / MySQL</span>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-1">
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Jenkins Pipeline</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Docker Container</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Nginx</span>
+              <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono font-bold">Spring Boot / MySQL</span>
             </div>
           </div>
 
           {/* Card 2: 선택적 CI/CD 빌드 최적화 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <RefreshCw className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span>선택적 CI/CD 빌드 최적화</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">선택적 CI/CD 빌드 최적화</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[배포 병목]</strong> 기프티콘 거래소는 배포 주기 및 핫픽스 민첩성이 매출에 큰 영향을 미치는 도메인이나, 작은 서비스 코드 수정에도 매번 변경되지 않은 전체 모듈 컨테이너 이미지를 전체 빌드/배포하여 12.5분 이상의 불필요한 배포 대기 시간이 소요되었습니다.
               </p>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[빌드 최적화]</strong> Jenkins 파이프라인에서 Git changeset 스캔 플러그인을 활용해 실제 변경 파일의 디렉토리를 식별하고, 해당 타겟 서비스 모듈만 Docker 빌드 및 배포되도록 분기 파이프라인을 구축하여 CI/CD 소요 시간을 60% 이상 대폭 단축했습니다.
               </p>
             </div>
           </div>
 
           {/* Card 3: 2단계 이미지 폴백 아키텍처 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span>2단계 이미지 폴백 아키텍처</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">2단계 이미지 폴백 아키텍처</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[썸네일 장애]</strong> 기프티콘 판독 지연에 의해 생성되지 않은 썸네일 경로가 `null`로 반환될 때 프론트엔드 UI 화면 깨짐 현상과 상품 구매 페이지의 사용자 즉시 이탈 장벽이 유발되어 큰 매출 손실을 겪었습니다.
               </p>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                <strong>[폴백 조회]</strong> 프론트엔드의 방어 코드 작성에 머무르지 않고, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 1단계로 썸네일을 스캔한 뒤, 없을 경우 2단계로 업로드 원본(Original) 이미지 경로를 자동 맵핑 결합해 반환하는 조회 아키텍처를 구현해 실패율을 0%로 해결했습니다.
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                <strong>[폴백 조회]</strong> 프론트엔드의 방어 코드 작성에 머무르지 않고, JPA Specification을 연동한 백엔드 조회 쿼리 레벨에서 1단계로 썸네일을 스캔한 뒤, 없을 경우 2단계로 업로드 원본(Original) 이미지 경로를 automatic 맵핑 결합해 반환하는 조회 아키텍처를 구현해 실패율을 0%로 해결했습니다.
               </p>
             </div>
           </div>
 
           {/* Card 4: 빌드 배포 성능 검증 */}
-          <div className="col-span-6 flex flex-col justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="space-y-2 w-full">
+              <div className="flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
-                <span>빌드 배포 성능 검증</span>
+                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">빌드 배포 성능 검증</span>
               </div>
               <div className="w-full">
                 <ConyBuildTimeChart />
               </div>
-              <p className="text-[10px] text-slate-500 text-center font-semibold mt-1">
-                Changeset 기반 선택적 빌드를 통해 전체 소요 시간 60% 이상 단축
-              </p>
             </div>
+            <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
+              Changeset 기반 선택적 빌드를 통해 전체 소요 시간 60% 이상 단축
+            </p>
           </div>
         </div>
 
