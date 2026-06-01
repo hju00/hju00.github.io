@@ -10,37 +10,81 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 
-// Define Preset types
-type PresetVersion = "general" | "ai" | "fintech" | "devops"
+interface Customization {
+  coverTitle: string
+  coverSlogan: string
+  coverIntro: string
+  anviRole: string
+  anviSummary: string
+  donttazRole: string
+  donttazSummary: string
+  conyRole: string
+  conySummary: string
+  activeSlides: Record<string, boolean>
+}
 
-interface Slide {
+interface JobApplication {
   id: string
-  title: string
-  category: string
-  component: (props: { version: PresetVersion }) => React.JSX.Element
+  company: string
+  position: string
+  jobDescription: string
+  createdAt: string
+  updatedAt: string
+  customization: Customization
+}
+
+const DEFAULT_CUSTOMIZATION: Customization = {
+  coverTitle: "신입 백엔드 소프트웨어 엔지니어 포트폴리오",
+  coverSlogan: "비즈니스 지표 최적화 및 안정적 분산 아키텍처를 설계하는 백엔드 개발자",
+  coverIntro: "학부 정보컴퓨터공학 전공 및 SSAFY 14기 1,600시간의 집중 개발 훈련을 거치며, 대용량 트래픽 동시성 이슈 및 배포 인프라 성능 최적화 과정을 트레이드오프 관점에서 해결해 온 신입 백엔드 개발자 박형주입니다.",
+  anviRole: "Team Lead / AI & Backend",
+  anviSummary: "온라인 시험 감독 서비스 운영 시 발생하는 극심한 GPU 서버 비용(500명 동시 응시 시 월 1,500만 원 상당) 및 개인정보 규정 위반 리스크를, YOLO-Gemma VLM 계층형 온디바이스 AI 파이프라인 설계 및 기기 내 본인인증/비식별 처리를 통해 해결하여 서버 추론 비용 0원 달성 및 보안 리스크를 원천 차단했습니다.",
+  donttazRole: "Team Lead / Backend & DB",
+  donttazSummary: "급여일 자동 이체 등 초당 500건 이상의 고빈도 동시 이체 요청 시 발생하는 데이터 레이스(Race Condition)와 데드락 현상을 방지하기 위해, Redis 분산 락(Redisson)을 통한 메모리 레벨 락 제어 및 가상 금고 격리 아키텍처를 구현하여 데이터 무결성 100%를 충족했습니다.",
+  conyRole: "Team Lead / Backend & DevOps",
+  conySummary: "기프티콘 판독 지연에 의해 생성되지 않은 썸네일 경로가 null로 반환될 때 발생하던 화면 깨짐 및 사용자 이탈 장애를, 백엔드 조회 쿼리 레벨(JPA Specification)에서 원본 이미지로 우회하도록 2단계 이미지 폴백(Fallback) 반환 아키텍처를 구축하여 노출 실패율을 0%로 해결했습니다.",
+  activeSlides: { cover: true, skills: true, anvi: true, donttaz: true, cony: true, secondary: true },
+}
+
+const SLIDE_IDS = ["cover", "skills", "anvi", "donttaz", "cony", "secondary"]
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2)
+}
+
+function loadApplications(): JobApplication[] {
+  if (typeof window === "undefined") return []
+  try {
+    const raw = localStorage.getItem("pdf-portfolio-applications")
+    return raw ? JSON.parse(raw) : []
+  } catch { return [] }
+}
+
+function saveApplicationsToStorage(apps: JobApplication[]) {
+  localStorage.setItem("pdf-portfolio-applications", JSON.stringify(apps))
 }
 
 // 1. ANVI Performance Chart
 const AnviPerformanceChart = () => {
   return (
-    <div className="space-y-2.5 w-full pt-1">
+    <div className="h-full flex flex-col justify-between w-full pt-1">
       {/* Metric 1: VLM 호출 수 */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
           <span>분당 VLM 호출 횟수 (낮을수록 리소스 우수)</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-bold">-99.8% 절감</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '100%' }} />
             </div>
             <span className="w-20 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">1,200회/분</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '1.2%' }} />
             </div>
             <span className="w-20 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">1.5회/분</span>
@@ -49,22 +93,22 @@ const AnviPerformanceChart = () => {
       </div>
 
       {/* Metric 2: 배터리 연속 구동 시간 */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
           <span>기기 연속 작동 시간 (발열 한계 테스트)</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-bold">120배 연장</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전량 VLM</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '0.8%' }} />
             </div>
             <span className="w-20 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">1분 미만</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">계층 추론</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '100%' }} />
             </div>
             <span className="w-20 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">120분+</span>
@@ -78,24 +122,24 @@ const AnviPerformanceChart = () => {
 // 2. Donttaz Performance Chart
 const DonttazPerformanceChart = () => {
   return (
-    <div className="space-y-2.5 w-full pt-1">
+    <div className="h-full flex flex-col justify-between w-full pt-1">
       {/* Metric 1: 처리 속도 */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
           <span>500건 동시 처리 시간 (낮을수록 우수)</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-bold">85% 단축</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '100%' }} />
             </div>
             <span className="w-20 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">8.5초 (대기)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '14%' }} />
             </div>
             <span className="w-20 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">1.2초 (격리)</span>
@@ -104,22 +148,22 @@ const DonttazPerformanceChart = () => {
       </div>
 
       {/* Metric 2: 잔액 정합성 */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
           <span>동시성 유입 시 잔액 무결성 성공률</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-bold">100% 보장</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">비관적 락</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '88%' }} />
             </div>
             <span className="w-20 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">88% 성공</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">분산 락</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '100%' }} />
             </div>
             <span className="w-20 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">100% 무결성</span>
@@ -133,24 +177,24 @@ const DonttazPerformanceChart = () => {
 // 3. CONY Build Time Chart
 const ConyBuildTimeChart = () => {
   return (
-    <div className="space-y-2.5 w-full pt-1">
+    <div className="h-full flex flex-col justify-between w-full pt-1">
       {/* Metric 1: 빌드 속도 */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
           <span>CI/CD 파이프라인 빌드/배포 속도 (낮을수록 우수)</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-bold">61.6% 단축</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전체 빌드</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">전체 빌드</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '100%' }} />
             </div>
             <span className="w-20 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">12분 30초</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">선택 빌드</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">선택 빌드</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '38.4%' }} />
             </div>
             <span className="w-20 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">4분 48초</span>
@@ -159,22 +203,22 @@ const ConyBuildTimeChart = () => {
       </div>
 
       {/* Metric 2: 이미지 노출 성공률 */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex justify-between text-[10px] font-semibold text-slate-700 dark:text-slate-300">
           <span>기프티콘 이미지 노출 성공률 (상세 페이지)</span>
           <span className="text-emerald-600 dark:text-emerald-400 font-bold">100% 보장</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">일반 조회</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">일반 조회</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-rose-400 to-rose-500 h-full rounded-full" style={{ width: '92.5%' }} />
             </div>
             <span className="w-20 text-[9px] text-rose-600 dark:text-rose-400 font-mono font-bold text-right">92.5% (에러)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-12 text-[9px] text-slate-500 dark:text-slate-400 font-medium">폴백 적용</span>
-            <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <span className="w-14 text-[9px] text-slate-500 dark:text-slate-400 font-medium">폴백 적용</span>
+            <div className="flex-1 h-3.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full" style={{ width: '100%' }} />
             </div>
             <span className="w-20 text-[9px] text-emerald-600 dark:text-emerald-400 font-mono font-bold text-right">100% 노출</span>
@@ -186,149 +230,96 @@ const ConyBuildTimeChart = () => {
 }
 
 export default function PdfPortfolio() {
-  const [selectedVersion, setSelectedVersion] = useState<PresetVersion>("general")
-  const [activeSlides, setActiveSlides] = useState<Record<string, boolean>>({
-    cover: true,
-    skills: true,
-    anvi: true,
-    donttaz: true,
-    cony: true,
-    secondary: true,
-  })
-  const [orderedSlideIds, setOrderedSlideIds] = useState<string[]>([
-    "cover",
-    "skills",
-    "anvi",
-    "donttaz",
-    "cony",
-    "secondary",
-  ])
+  const [applications, setApplications] = useState<JobApplication[]>([])
+  const [currentAppId, setCurrentAppId] = useState<string | null>(null)
+  const [leftTab, setLeftTab] = useState<"info" | "edit">("info")
+  const [saved, setSaved] = useState(false)
 
   const previewContainerRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(0.8)
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const loaded = loadApplications()
+    setApplications(loaded)
+    if (loaded.length > 0) setCurrentAppId(loaded[0].id)
+  }, [])
 
   useEffect(() => {
     const handleResize = () => {
       if (previewContainerRef.current) {
         const width = previewContainerRef.current.getBoundingClientRect().width
-        // 297mm is 1122.5px. We subtract 4px of padding/spacing to prevent overflow.
         const targetWidth = Math.max(width - 4, 300)
         setScale(targetWidth / 1122.5)
       }
     }
-
-    const observer = new ResizeObserver(() => {
-      handleResize()
-    })
-
-    if (previewContainerRef.current) {
-      observer.observe(previewContainerRef.current)
-    }
-
+    const observer = new ResizeObserver(handleResize)
+    if (previewContainerRef.current) observer.observe(previewContainerRef.current)
     handleResize()
     window.addEventListener("resize", handleResize)
-    return () => {
-      observer.disconnect()
-      window.removeEventListener("resize", handleResize)
-    }
+    return () => { observer.disconnect(); window.removeEventListener("resize", handleResize) }
   }, [])
 
-  // Sync slide ordering and selection based on selected preset version
-  useEffect(() => {
-    let order: string[] = []
-    let defaultActive: Record<string, boolean> = {
-      cover: true,
-      skills: true,
-      anvi: true,
-      donttaz: true,
-      cony: true,
-      secondary: true,
-    }
+  const currentApp = applications.find(a => a.id === currentAppId) ?? null
+  const customization: Customization = currentApp?.customization ?? DEFAULT_CUSTOMIZATION
+  const activeSlides = customization.activeSlides
 
-    switch (selectedVersion) {
-      case "ai":
-        order = ["cover", "skills", "anvi", "donttaz", "cony", "secondary"]
-        break
-      case "fintech":
-        order = ["cover", "skills", "donttaz", "anvi", "cony", "secondary"]
-        break
-      case "devops":
-        order = ["cover", "skills", "cony", "anvi", "donttaz", "secondary"]
-        break
-      case "general":
-      default:
-        order = ["cover", "skills", "anvi", "donttaz", "cony", "secondary"]
-        break
-    }
-
-    setOrderedSlideIds(order)
-    setActiveSlides(defaultActive)
-  }, [selectedVersion])
-
-  const toggleSlide = (id: string) => {
-    setActiveSlides((prev) => ({ ...prev, [id]: !prev[id] }))
+  const updateApplications = (updated: JobApplication[]) => {
+    setApplications(updated)
+    saveApplicationsToStorage(updated)
   }
 
-  const selectAll = (val: boolean) => {
-    const updated = { ...activeSlides }
-    Object.keys(updated).forEach((k) => {
-      updated[k] = val
-    })
-    setActiveSlides(updated)
+  const createNewApplication = () => {
+    const newApp: JobApplication = {
+      id: generateId(),
+      company: "",
+      position: "",
+      jobDescription: "",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      customization: { ...DEFAULT_CUSTOMIZATION, activeSlides: { ...DEFAULT_CUSTOMIZATION.activeSlides } },
+    }
+    const updated = [newApp, ...applications]
+    updateApplications(updated)
+    setCurrentAppId(newApp.id)
+    setLeftTab("info")
+  }
+
+  const deleteApplication = (id: string) => {
+    const updated = applications.filter(a => a.id !== id)
+    updateApplications(updated)
+    if (currentAppId === id) setCurrentAppId(updated[0]?.id ?? null)
+  }
+
+  const updateCurrentApp = (patch: Partial<JobApplication>) => {
+    if (!currentAppId) return
+    const updated = applications.map(a =>
+      a.id === currentAppId ? { ...a, ...patch, updatedAt: new Date().toISOString() } : a
+    )
+    updateApplications(updated)
+  }
+
+  const updateCustomization = (patch: Partial<Customization>) => {
+    if (!currentApp) return
+    updateCurrentApp({ customization: { ...currentApp.customization, ...patch } })
+  }
+
+  const handleSave = () => {
+    if (!currentAppId) return
+    const updated = applications.map(a =>
+      a.id === currentAppId ? { ...a, updatedAt: new Date().toISOString() } : a
+    )
+    updateApplications(updated)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 1500)
   }
 
   const handlePrint = () => {
-    if (typeof window !== "undefined") {
-      window.print()
-    }
+    if (typeof window !== "undefined") window.print()
   }
 
   // Cover & Profile Slide Component
-  const CoverSlide = ({ version }: { version: PresetVersion }) => {
-    const isDevOps = version === "devops"
-
-    const getTitle = () => {
-      if (isDevOps) {
-        return "신입 인프라 / DevOps 엔지니어 포트폴리오"
-      }
-      return "신입 백엔드 소프트웨어 엔지니어 포트폴리오"
-    }
-
-    const getJobTitle = () => {
-      if (isDevOps) {
-        return "Infrastructure & DevOps Engineer"
-      }
-      return "Backend Software Engineer"
-    }
-
-    const getSlogan = () => {
-      switch (version) {
-        case "ai":
-          return "온디바이스 AI 파이프라인 설계 및 AI 실무 협업 강점의 백엔드 엔지니어"
-        case "fintech":
-          return "고신뢰성 분산 트랜잭션 제어 및 대규모 금융 정합성 강점의 백엔드 개발자"
-        case "devops":
-          return "클라우드 아키텍처 설계와 CI/CD 자동화를 통한 빌드/배포 병목 최적화 강점의 인프라 / DevOps 엔지니어"
-        case "general":
-        default:
-          return "비즈니스 지표 최적화 및 안정적 분산 아키텍처를 설계하는 백엔드 개발자"
-      }
-    }
-
-    const getFactualIntro = () => {
-      switch (version) {
-        case "ai":
-          return "모바일 기기 내에서 YOLO와 Gemma VLM을 계층 설계하여 서버 GPU 비용을 0원으로 차단하고, AI 개발 프로세스에 Plan-First Workflow를 도입하여 개발 결함률을 낮추고 민첩성을 확보한 신입 백엔드/AI 엔지니어입니다."
-        case "fintech":
-          return "Redis 분산 락을 통한 메모리 레벨 동시성 격리와 RabbitMQ Manual-ACK/DLQ 메시지 신뢰성 설계를 적용하여, 트래픽 폭주 상황에서도 비즈니스 금융 데이터의 무결성 100%를 보장하는 신입 백엔드 개발자입니다."
-        case "devops":
-          return "Jenkins 파이프라인 Changeset 기반 선택적 서브 빌드를 구축해 CI/CD 빌드 타임을 60% 이상 단축하고, Docker 컨테이너 오케스트레이션 및 Nginx 무중단 배포를 통해 서비스 가용성을 극대화한 신입 인프라 / DevOps 엔지니어 박형주입니다."
-        case "general":
-        default:
-          return "학부 정보컴퓨터공학 전공 및 SSAFY 14기 1,600시간의 집중 개발 훈련을 거치며, 대용량 트래픽 동시성 이슈 및 배포 인프라 성능 최적화 과정을 트레이드오프 관점에서 해결해 온 신입 백엔드 개발자 박형주입니다."
-      }
-    }
-
+  const CoverSlide = ({ custom }: { custom: Customization }) => {
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         {/* Slide Header */}
@@ -344,19 +335,19 @@ export default function PdfPortfolio() {
         <div className="grid grid-cols-12 gap-8 my-auto items-center">
           <div className="col-span-8 space-y-6">
             <div className="inline-block px-3 py-1 rounded-md bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/50">
-              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wide uppercase">{getTitle()}</span>
+              <span className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wide uppercase">{custom.coverTitle}</span>
             </div>
-            
+
             <div className="space-y-3">
               <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-                {getSlogan()}
+                {custom.coverSlogan}
               </h1>
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-                {getFactualIntro()}
+                {custom.coverIntro}
               </p>
             </div>
 
-            {/* Fact list (Career & Core Tech focus) */}
+            {/* Fact list */}
             <div className="grid grid-cols-2 gap-4 pt-2">
               <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
                 <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Education & Experience</p>
@@ -371,35 +362,17 @@ export default function PdfPortfolio() {
                   </li>
                 </ul>
               </div>
-
               <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">
-                  {isDevOps ? "Core Infra Focus" : "Certifications & Awards"}
-                </p>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Certifications & Awards</p>
                 <ul className="text-xs text-slate-700 dark:text-slate-300 space-y-1 font-medium">
-                  {isDevOps ? (
-                    <>
-                      <li className="flex items-center gap-1.5">
-                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                        선택적 CI/CD 파이프라인 단축 (12.5분 ➡️ 4.8분)
-                      </li>
-                      <li className="flex items-center gap-1.5">
-                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                        Docker & Nginx 다중 서비스 무장애 격리 배포
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="flex items-center gap-1.5">
-                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                        정보처리기사 / SQLD 자격 보유
-                      </li>
-                      <li className="flex items-center gap-1.5">
-                        <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                        SSAFY 14기 공통 프로젝트 우수상 (CONY)
-                      </li>
-                    </>
-                  )}
+                  <li className="flex items-center gap-1.5">
+                    <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                    정보처리기사 / SQLD 자격 보유
+                  </li>
+                  <li className="flex items-center gap-1.5">
+                    <Check className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                    SSAFY 14기 공통 프로젝트 우수상 (CONY)
+                  </li>
                 </ul>
               </div>
             </div>
@@ -407,16 +380,11 @@ export default function PdfPortfolio() {
 
           <div className="col-span-4 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-4">
             <div className="relative h-20 w-20 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800 shadow-md">
-              <Image
-                src="/profile.jpg"
-                alt="박형주"
-                fill
-                className="object-cover"
-              />
+              <Image src="/profile.jpg" alt="박형주" fill className="object-cover" />
             </div>
             <div className="text-center space-y-1">
               <h2 className="text-lg font-bold text-slate-900 dark:text-white">박형주 (Park Hyeong-ju)</h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">{getJobTitle()}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Backend Software Engineer</p>
             </div>
             <div className="w-full pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2 text-xs text-slate-600 dark:text-slate-400 font-medium">
               <div className="flex items-center gap-2">
@@ -438,16 +406,14 @@ export default function PdfPortfolio() {
         {/* Slide Footer */}
         <div className="flex items-center justify-between text-[10px] text-muted-foreground border-t pt-2 border-slate-200 dark:border-slate-800 font-mono">
           <span>IT Portfolio - Slide 1/6</span>
-          <span>Targeting: {version.toUpperCase()} Focus</span>
+          <span>Cover & Profile</span>
         </div>
       </div>
     )
   }
 
   // New Slide 2: Core Skills & Competencies Slide
-  const SkillsSlide = ({ version }: { version: PresetVersion }) => {
-    const isDevOps = version === "devops";
-    
+  const SkillsSlide = ({ custom: _custom }: { custom: Customization }) => {
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         {/* Slide Header */}
@@ -455,7 +421,7 @@ export default function PdfPortfolio() {
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
             <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              {isDevOps ? "CORE SKILLS: 인프라 및 데브옵스 핵심 역량" : "CORE SKILLS: 백엔드 핵심 역량 및 기술 스택"}
+              CORE SKILLS: 백엔드 핵심 역량 및 기술 스택
             </span>
           </div>
           <span className="text-xs text-muted-foreground font-mono">PARK HYEONG JU</span>
@@ -464,20 +430,20 @@ export default function PdfPortfolio() {
         {/* Slide Body */}
         <div className="grid grid-cols-2 gap-3.5 flex-1 my-2 items-stretch">
           {/* Card 1: Backend Engineering */}
-          <div className={`p-3.5 rounded-xl border ${isDevOps ? "border-slate-200 dark:border-slate-800" : "border-blue-200 dark:border-blue-900 bg-blue-50/10"} flex flex-col justify-start gap-2.5`}>
-            <div className="flex items-center gap-2">
+          <div className="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/10 flex flex-col">
+            <div className="flex items-center gap-2 mb-2.5">
               <Cpu className="h-4.5 w-4.5 text-blue-600" />
               <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Backend Engineering</h3>
             </div>
-            <div className="space-y-2">
+            <div className="flex-1 space-y-2">
               <div className="flex flex-wrap gap-1">
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Java</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Spring Boot</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Spring Security</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">JPA/Hibernate</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">QueryDSL</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Java</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Spring Boot</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Spring Security</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">JPA/Hibernate</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">QueryDSL</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-xs font-semibold leading-relaxed">
                 <li>Spring Boot & Java 기반의 안정적이고 테스트 가능한 비즈니스 API 설계 및 웹 애플리케이션 개발</li>
                 <li>JPA 영속성 컨텍스트 생명주기 및 N+1 쿼리 최적화, QueryDSL을 활용한 다차원 동적 쿼리 구현</li>
                 <li>Spring Security 기반의 사용자 인증/인가 흐름 제어 및 커스텀 필터 체인을 통한 API 보안 강화</li>
@@ -486,19 +452,19 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 2: Database & Caching */}
-          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col justify-start gap-2.5">
-            <div className="flex items-center gap-2">
+          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col">
+            <div className="flex items-center gap-2 mb-2.5">
               <Database className="h-4.5 w-4.5 text-blue-600" />
               <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Database & Caching</h3>
             </div>
-            <div className="space-y-2">
+            <div className="flex-1 space-y-2">
               <div className="flex flex-wrap gap-1">
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">MySQL</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Redis</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">RabbitMQ</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">CouchDB</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">MySQL</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Redis</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">RabbitMQ</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">CouchDB</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-xs font-semibold leading-relaxed">
                 <li>데이터베이스 정규화 및 트랜잭션 격리 수준 조정을 통한 동시성 데이터 무결성 보장</li>
                 <li>Redis 캐싱 및 분산 락(Redisson)을 활용하여 초당 고빈도 분산 이체 트랜잭션 동시성 격리</li>
                 <li>RabbitMQ 메시지 큐를 통한 비동기 이벤트 격리 및 신뢰성 보장 (Manual ACK, Dead Letter Queue)</li>
@@ -507,20 +473,20 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 3: Cloud & DevOps */}
-          <div className={`p-3.5 rounded-xl border ${isDevOps ? "border-blue-200 dark:border-blue-900 bg-blue-50/10" : "border-slate-200 dark:border-slate-800"} flex flex-col justify-start gap-2.5`}>
-            <div className="flex items-center gap-2">
+          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col">
+            <div className="flex items-center gap-2 mb-2.5">
               <Layers className="h-4.5 w-4.5 text-blue-600" />
               <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Infrastructure & DevOps</h3>
             </div>
-            <div className="space-y-2">
+            <div className="flex-1 space-y-2">
               <div className="flex flex-wrap gap-1">
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">AWS (EC2, S3, RDS)</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Docker</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Jenkins</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Nginx</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">GitHub Actions</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">AWS (EC2, S3, RDS)</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Docker</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Jenkins</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Nginx</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">GitHub Actions</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-xs font-semibold leading-relaxed">
                 <li>Docker 컨테이너 가상화를 통한 다중 마이크로서비스 서비스 격리 및 이식성 확보</li>
                 <li>Jenkins 변경 changeset 감지 기반 선택적 서브 빌드 파이프라인 설계로 빌드 속도 60% 단축</li>
                 <li>Nginx 리버스 프록시 및 로드 밸런싱 세팅, 무중단 자동 롤링/배포 아키텍처 환경 구축</li>
@@ -529,20 +495,20 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 4: Languages & Frontend */}
-          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col justify-start gap-2.5">
-            <div className="flex items-center gap-2">
+          <div className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col">
+            <div className="flex items-center gap-2 mb-2.5">
               <Code className="h-4.5 w-4.5 text-blue-600" />
               <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">Other Tech Skills</h3>
             </div>
-            <div className="space-y-2">
+            <div className="flex-1 space-y-2">
               <div className="flex flex-wrap gap-1">
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Go</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Python</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">TypeScript</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">Vue.js</span>
-                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold rounded">React/Next.js</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Go</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Python</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">TypeScript</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">Vue.js</span>
+                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold rounded">React/Next.js</span>
               </div>
-              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-[10px] font-semibold leading-relaxed">
+              <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300 text-xs font-semibold leading-relaxed">
                 <li>Go 및 Python 언어 문법 이해를 바탕으로 한 시스템 스크립트 작성 및 대량 크롤링 구현</li>
                 <li>TypeScript 기반의 Vue.js 및 React 프레임워크 핵심 개념 이해 및 프론트 개발 협업 가능</li>
                 <li>Git 버전 제어(Branch 전략 설정) 및 다양한 이슈 트래킹 협업 툴(Jira, Notion, Slack) 사용 숙련</li>
@@ -561,8 +527,7 @@ export default function PdfPortfolio() {
   };
 
   // Slide 3: ANVI (온디바이스 AI 온라인 시험 감독 솔루션 - 1장 압축)
-  const AnviSlide = ({ version }: { version: PresetVersion }) => {
-    const isDevOps = version === "devops"
+  const AnviSlide = ({ custom }: { custom: Customization }) => {
     
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
@@ -574,28 +539,25 @@ export default function PdfPortfolio() {
             </span>
           </div>
           <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
-            {isDevOps ? "Infra Lead / Resource Optimization" : "Team Lead / AI & Backend"}
+            {custom.anviRole}
           </span>
         </div>
 
-        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
+        {/* 최상단 요약 */}
         <div className="my-2.5 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-            {isDevOps 
-              ? "온디바이스 AI 구동 시 거대 VLM 호출에 따른 모바일 기기 발열 다운 및 배터리 방전 제약 조건을 해결하기 위해, 가벼운 YOLO 객체 탐지와 상태 머신(State Machine)을 활용한 2단계 계층 추론 파이프라인을 설계하여 기기 구동 시간을 120배 이상(1분 미만 ➡️ 120분+) 연장하고 안정적 온디바이스 모니터링을 가능하게 했습니다."
-              : "온라인 시험 감독 서비스 운영 시 발생하는 극심한 GPU 서버 비용(500명 동시 응시 시 월 1,500만 원 상당) 및 개인정보 규정 위반 리스크를, YOLO-Gemma VLM 계층형 온디바이스 AI 파이프라인 설계 및 기기 내 본인인증/비식별 처리를 통해 해결하여 서버 추론 비용 0원 달성 및 보안 리스크를 원천 차단했습니다."
-            }
+            {custom.anviSummary}
           </p>
         </div>
 
         <div className="grid grid-cols-12 gap-3.5 flex-1 my-2.5 items-stretch">
           {/* Card 1: 서비스 개요 & 주요 기능 */}
-          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                 비대면 시험 환경에서 웹캠/카메라로 스마트폰, 이어폰 등 부정행위 유도 객체를 탐지하고 실시간 의심 행동을 분석하여 공정한 평가를 보장하는 온디바이스 솔루션입니다.
               </p>
@@ -617,12 +579,12 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 2: 계층형 AI 파이프라인 & 상태 머신 */}
-          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <Cpu className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">계층형 AI 파이프라인 & 상태 머신</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Cpu className="h-4 w-4 text-emerald-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">계층형 AI 파이프라인 & 상태 머신</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[리소스 제약]</strong> 기기 리소스 제약 하에 고부하 Gemma VLM을 프레임별로 연속 호출 시, 1분 이내 극심한 발열과 배터리 방전으로 기기가 강제 다운되는 결함 발생.
               </p>
@@ -633,12 +595,12 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 3: 인프라 제약 및 아키텍처 트레이드오프 */}
-          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">인프라 제약 및 아키텍처 트레이드오프</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">인프라 제약 및 아키텍처 트레이드오프</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[클라우드 vs 온디바이스]</strong> 클라우드 기반 VLM(정확도 96%) 호출 시 가장 높은 정밀도를 보장하나, 500명 동시 응시 조건에서 발생하는 월 약 1,500만 원의 GPU 비용 및 개인정보보호법 유출 리스크 수반.
               </p>
@@ -649,19 +611,19 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 4: 성능 및 효율성 정량 검증 */}
-          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2 w-full">
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">성능 및 효율성 정량 검증</span>
-              </div>
-              <div className="w-full">
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">성능 및 효율성 정량 검증</span>
+            </div>
+            <div className="flex-1 flex flex-col">
+              <div className="flex-1 w-full">
                 <AnviPerformanceChart />
               </div>
+              <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
+                배터리 연속 구동 가능 시간 120배 이상 극대화 및 GPU 인프라 서버 비용 0원 달성
+              </p>
             </div>
-            <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
-              배터리 연속 구동 가능 시간 120배 이상 극대화 및 GPU 인프라 서버 비용 0원 달성
-            </p>
           </div>
         </div>
 
@@ -674,9 +636,7 @@ export default function PdfPortfolio() {
   }
 
   // Slide 4: Donttaz (분산 락 기반 동시성 제어 및 가상 금고 이체 플랫폼 - 1장 압축)
-  const DonttazSlide = ({ version }: { version: PresetVersion }) => {
-    const isDevOps = version === "devops"
-    
+  const DonttazSlide = ({ custom }: { custom: Customization }) => {
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
@@ -687,28 +647,25 @@ export default function PdfPortfolio() {
             </span>
           </div>
           <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
-            {isDevOps ? "Infra Lead / Message Reliability" : "Team Lead / Backend & DB"}
+            {custom.donttazRole}
           </span>
         </div>
 
-        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
+        {/* 최상단 요약 */}
         <div className="my-2.5 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-            {isDevOps 
-              ? "외부 알림 API 통신 지연 시 발생하는 핀테크 메인 스레드 고갈 및 서비스 마비 장애를 방지하기 위해, RabbitMQ 비동기 이벤트 격리 및 Manual-ACK 기반의 DLQ 재시도 무실패 인프라를 구축하여 트래픽 피크대 거래 성사 속도를 극대화하고 비즈니스 신뢰성을 100% 확보했습니다."
-              : "급여일 자동 이체 등 초당 500건 이상의 고빈도 동시 이체 요청 시 발생하는 데이터 레이스(Race Condition)와 데드락 현상을 방지하기 위해, Redis 분산 락(Redisson)을 통한 메모리 레벨 락 제어 및 가상 금고 격리 아키텍처를 구현하여 데이터 무결성 100%를 충족했습니다."
-            }
+            {custom.donttazSummary}
           </p>
         </div>
 
         <div className="grid grid-cols-12 gap-3.5 flex-1 my-2.5 items-stretch">
           {/* Card 1: 서비스 개요 및 주요 기능 */}
-          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                 금융 규제 제약 조건을 우회하며, 유저의 목적별 분산 가상 저축 금고를 무제한 제공하고 정확성 높은 동시 이체 예약을 보장해 주는 핀테크 이체 및 자산 보호 플랫폼입니다.
               </p>
@@ -730,12 +687,12 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 2: DB 커넥션 보호 (Redis 분산 락) */}
-          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <Database className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">DB 커넥션 보호 & Redis 분산 락</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Database className="h-4 w-4 text-emerald-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">DB 커넥션 보호 & Redis 분산 락</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[데이터 레이스]</strong> 급여일 대량 동시 이체 발생 시 모계좌 잔액의 레이스 컨디션을 방지하기 위해 데이터베이스 레코드 비관적 락(Pessimistic Lock)을 사용할 경우, 대기 트랜잭션의 DB 커넥션 풀 과점으로 WAS가 마비되는 심각한 가용성 병목이 생깁니다.
               </p>
@@ -746,12 +703,12 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 3: 메시지 격리 & 비즈니스 규제 회피 */}
-          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">메시지 격리 & 비즈니스 규제 회피</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">메시지 격리 & 비즈니스 규제 회피</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[비동기 격리]</strong> 외부 푸시 알림 FCM 및 웹훅 통신 지연이 이체 메인 트랙을 점유하지 않도록, 이체 성공 즉시 DB 커넥션을 반환하고 알림 처리는 RabbitMQ로 발행하여 비동기 격리했습니다. 실패 건은 Manual ACK와 DLQ로 우회해 유실을 방지했습니다.
               </p>
@@ -762,19 +719,19 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 4: 동시성 처리 성능 검증 */}
-          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2 w-full">
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">동시성 처리 성능 검증</span>
-              </div>
-              <div className="w-full">
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">동시성 처리 성능 검증</span>
+            </div>
+            <div className="flex-1 flex flex-col">
+              <div className="flex-1 w-full">
                 <DonttazPerformanceChart />
               </div>
+              <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
+                동시 이체 요청 피크 타임대 트랜잭션 대기 시간 65% 이상 개선
+              </p>
             </div>
-            <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
-              동시 이체 요청 피크 타임대 트랜잭션 대기 시간 65% 이상 개선
-            </p>
           </div>
         </div>
 
@@ -787,9 +744,7 @@ export default function PdfPortfolio() {
   }
 
   // Slide 5: CONY (선택적 빌드 CI/CD 최적화 및 이미지 폴백 커머스 플랫폼)
-  const ConySlide = ({ version }: { version: PresetVersion }) => {
-    const isDevOps = version === "devops"
-    
+  const ConySlide = ({ custom }: { custom: Customization }) => {
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
@@ -800,28 +755,25 @@ export default function PdfPortfolio() {
             </span>
           </div>
           <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
-            {isDevOps ? "DevOps Lead / CI&CD Architect" : "Team Lead / Backend & DevOps"}
+            {custom.conyRole}
           </span>
         </div>
 
-        {/* 최상단 요약 규칙 적용: 도메인 + 문제 + 해결 + 결과 */}
+        {/* 최상단 요약 */}
         <div className="my-2.5 p-3 bg-blue-50/50 dark:bg-blue-950/20 border-l-4 border-blue-600 rounded-r-md">
           <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-relaxed">
-            {isDevOps 
-              ? "기프티콘 거래소 마이크로서비스 배포 시 변경되지 않은 전체 모듈을 매번 빌드/배포하여 발생하는 12분 이상의 배포 병목 및 피드백 지연을, Jenkins 파이프라인 변경 디렉토리(Changeset) 감지 기반 선택적 서브 빌드 파이프라인 설계로 극복하여 배포 타임을 60% 이상 단축했습니다."
-              : "기프티콘 판독 지연에 의해 생성되지 않은 썸네일 경로가 null로 반환될 때 발생하던 화면 깨짐 및 사용자 이탈 장애를, 백엔드 조회 쿼리 레벨(JPA Specification)에서 원본 이미지로 우회하도록 2단계 이미지 폴백(Fallback) 반환 아키텍처를 구축하여 노출 실패율을 0%로 해결했습니다."
-            }
+            {custom.conySummary}
           </p>
         </div>
 
         <div className="grid grid-cols-12 gap-3.5 flex-1 my-2.5 items-stretch">
           {/* Card 1: 서비스 개요 및 주요 기능 */}
-          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Briefcase className="h-4 w-4 text-blue-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">서비스 개요 및 핵심 기능</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                 C2C 기반 모바일 기프티콘 이미지의 유효 바코드를 안전하게 자동 스캔 판독하고, 회원 간 직거래 중개 및 에스크로 기반 정산 관리 흐름을 처리하는 커머스 플랫폼입니다.
               </p>
@@ -843,12 +795,12 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 2: 선택적 CI/CD 빌드 최적화 */}
-          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <RefreshCw className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">선택적 CI/CD 빌드 최적화</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <RefreshCw className="h-4 w-4 text-emerald-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">선택적 CI/CD 빌드 최적화</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[배포 병목]</strong> 기프티콘 거래소는 배포 주기 및 핫픽스 민첩성이 매출에 큰 영향을 미치는 도메인이나, 작은 서비스 코드 수정에도 매번 변경되지 않은 전체 모듈 컨테이너 이미지를 전체 빌드/배포하여 12.5분 이상의 불필요한 배포 대기 시간이 소요되었습니다.
               </p>
@@ -859,12 +811,12 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 3: 2단계 이미지 폴백 아키텍처 */}
-          <div className="col-span-6 flex flex-col justify-start gap-2.5 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2">
-              <div className="flex items-center gap-1.5">
-                <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">2단계 이미지 폴백 아키텍처</span>
-              </div>
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">2단계 이미지 폴백 아키텍처</span>
+            </div>
+            <div className="flex-1 space-y-2">
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
                 <strong>[썸네일 장애]</strong> 기프티콘 판독 지연에 의해 생성되지 않은 썸네일 경로가 `null`로 반환될 때 프론트엔드 UI 화면 깨짐 현상과 상품 구매 페이지의 사용자 즉시 이탈 장벽이 유발되어 큰 매출 손실을 겪었습니다.
               </p>
@@ -875,19 +827,19 @@ export default function PdfPortfolio() {
           </div>
 
           {/* Card 4: 빌드 배포 성능 검증 */}
-          <div className="col-span-6 flex flex-col justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
-            <div className="space-y-2 w-full">
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
-                <span className="text-[13px] font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">빌드 배포 성능 검증</span>
-              </div>
-              <div className="w-full">
+          <div className="col-span-6 flex flex-col p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-950/20">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">빌드 배포 성능 검증</span>
+            </div>
+            <div className="flex-1 flex flex-col">
+              <div className="flex-1 w-full">
                 <ConyBuildTimeChart />
               </div>
+              <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
+                Changeset 기반 선택적 빌드를 통해 전체 소요 시간 60% 이상 단축
+              </p>
             </div>
-            <p className="text-[11px] text-slate-500 text-center font-bold mt-2">
-              Changeset 기반 선택적 빌드를 통해 전체 소요 시간 60% 이상 단축
-            </p>
           </div>
         </div>
 
@@ -900,7 +852,7 @@ export default function PdfPortfolio() {
   }
 
   // Slide 6: 기타 이력 및 자격/활동 (Secondary Projects & Certifications)
-  const SecondarySlide = ({ version }: { version: PresetVersion }) => {
+  const SecondarySlide = ({ custom: _custom }: { custom: Customization }) => {
     return (
       <div className="w-full h-full flex flex-col justify-between text-slate-800 dark:text-slate-100">
         <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
@@ -998,7 +950,7 @@ export default function PdfPortfolio() {
   }
 
   // Master Slide list to map IDs to components and titles
-  const ALL_SLIDES_MAP: Record<string, { title: string; category: string; component: (props: { version: PresetVersion }) => React.JSX.Element }> = {
+  const ALL_SLIDES_MAP: Record<string, { title: string; category: string; component: (props: { custom: Customization }) => React.JSX.Element }> = {
     cover: { title: "표지 및 프로필 (Cover & Profile)", category: "기본 정보", component: CoverSlide },
     skills: { title: "핵심 기술 및 역량 (Core Skills)", category: "기본 정보", component: SkillsSlide },
     anvi: { title: "ANVI (온디바이스 AI 온라인 시험 감독)", category: "핵심 프로젝트", component: AnviSlide },
@@ -1172,153 +1124,292 @@ export default function PdfPortfolio() {
       ` }} />
 
       {/* GNB / Top Control Toolbar (no-print) */}
-      <header className="no-print sticky top-14 z-40 w-full bg-slate-950/80 backdrop-blur border-b border-slate-800 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+      <header className="no-print sticky top-14 z-40 w-full bg-slate-950/80 backdrop-blur border-b border-slate-800 px-6 py-3 flex justify-between items-center gap-4">
         <div className="flex items-center gap-3">
           <Link href="/" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:bg-slate-800 hover:text-white transition">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
             <h1 className="text-base font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-              PDF Slide Portfolio Builder
+              맞춤 포트폴리오 빌더
             </h1>
             <p className="text-[11px] text-slate-400">
-              원하는 기업 프리셋을 선택하고 인쇄할 슬라이드를 실시간 조정하여 PDF로 완벽하게 내보내세요.
+              {currentApp
+                ? `${currentApp.company || "(회사명 없음)"} · ${currentApp.position || "(직무 없음)"}`
+                : "지원 공고를 추가하고 포트폴리오 내용을 맞춤 편집하세요"}
             </p>
           </div>
         </div>
-
-        {/* Dynamic Preset Switcher */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold text-slate-400 mr-1">제출 프리셋:</span>
-          {(["general", "ai", "fintech", "devops"] as PresetVersion[]).map((preset) => (
-            <button
-              key={preset}
-              onClick={() => setSelectedVersion(preset)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                selectedVersion === preset
-                  ? "bg-blue-600 text-white shadow shadow-blue-500/20 border border-blue-500"
-                  : "bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800"
-              }`}
-            >
-              {preset === "general" && "일반 백엔드"}
-              {preset === "ai" && "AI & SaaS"}
-              {preset === "fintech" && "금융 & 핀테크"}
-              {preset === "devops" && "인프라 & DevOps"}
-            </button>
-          ))}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleSave}
+            className={`flex items-center gap-2 text-white font-bold text-xs px-3 py-2 rounded-lg border transition-all ${
+              saved
+                ? "bg-emerald-700 border-emerald-600"
+                : "bg-slate-800 border-slate-700 hover:bg-slate-700"
+            }`}
+          >
+            <Check className="h-3.5 w-3.5" />
+            {saved ? "저장됨" : "저장"}
+          </button>
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs px-4 py-2 rounded-lg shadow-md transition-all"
+          >
+            <Printer className="h-4 w-4" />
+            PDF 출력 (Ctrl+P)
+          </button>
         </div>
-
-        {/* Print Button */}
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-md transition-all hover:-translate-y-0.5"
-        >
-          <Printer className="h-4 w-4" />
-          PDF로 인쇄 / 저장 (Ctrl + P)
-        </button>
       </header>
 
-      {/* Main Workspace (Web View) */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6 grid grid-cols-12 gap-6 slide-container">
-        
-        {/* Left Interactive Checklist Configurator Panel (no-print) */}
-        <section className="no-print col-span-12 lg:col-span-3 space-y-4">
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <span className="text-xs font-extrabold uppercase text-slate-300 tracking-wider">슬라이드 구성 요소 설정</span>
-              <span className="text-[10px] text-slate-500 font-mono">Total {Object.values(activeSlides).filter(Boolean).length} / 7</span>
-            </div>
+      {/* Main Workspace */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 py-6 grid grid-cols-12 gap-5 slide-container">
 
-            <div className="flex justify-between gap-2">
+        {/* Left Panel: Job Management + Editor (no-print) */}
+        <section className="no-print col-span-12 lg:col-span-4 flex flex-col gap-4">
+
+          {/* Applications List */}
+          <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+              <span className="text-xs font-extrabold text-slate-300 uppercase tracking-wider">지원 목록</span>
               <button
-                onClick={() => selectAll(true)}
-                className="flex-1 text-[10px] font-bold py-1 px-2 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 text-center"
+                onClick={createNewApplication}
+                className="px-2.5 py-1 text-[11px] font-bold bg-blue-600 hover:bg-blue-500 text-white rounded transition"
               >
-                전체 선택
-              </button>
-              <button
-                onClick={() => selectAll(false)}
-                className="flex-1 text-[10px] font-bold py-1 px-2 rounded bg-slate-900 border border-slate-800 hover:bg-slate-800 text-center text-slate-400"
-              >
-                전체 해제
+                + 새 지원
               </button>
             </div>
-
-            {/* Checklist Items */}
-            <div className="space-y-2">
-              {orderedSlideIds.map((slideId, index) => {
-                const slideMeta = ALL_SLIDES_MAP[slideId]
-                if (!slideMeta) return null
-                const isActive = activeSlides[slideId]
-
-                return (
+            {applications.length === 0 ? (
+              <div className="px-4 py-6 text-center">
+                <p className="text-xs text-slate-500">저장된 지원 내역이 없습니다.</p>
+                <button onClick={createNewApplication} className="mt-2 text-xs text-blue-400 hover:text-blue-300 font-bold">
+                  첫 지원 만들기 →
+                </button>
+              </div>
+            ) : (
+              <div className="max-h-44 overflow-y-auto divide-y divide-slate-800/60">
+                {applications.map(app => (
                   <button
-                    key={slideId}
-                    onClick={() => toggleSlide(slideId)}
-                    className={`w-full flex items-center justify-between p-3 rounded-lg border text-left transition-all ${
-                      isActive
-                        ? "bg-slate-900 border-blue-500/50 hover:bg-slate-900/80 text-white"
-                        : "bg-slate-950/40 border-slate-800/80 hover:bg-slate-900/30 text-slate-500"
+                    key={app.id}
+                    onClick={() => setCurrentAppId(app.id)}
+                    className={`w-full px-4 py-3 text-left flex items-center justify-between hover:bg-slate-900 transition ${
+                      currentAppId === app.id ? "bg-slate-900 border-l-2 border-blue-500" : ""
                     }`}
                   >
-                    <div className="flex items-center gap-2.5 overflow-hidden">
-                      {isActive ? (
-                        <CheckSquare className="h-4 w-4 text-blue-500 shrink-0" />
-                      ) : (
-                        <Square className="h-4 w-4 text-slate-700 shrink-0" />
-                      )}
-                      <div className="overflow-hidden">
-                        <p className="text-xs font-bold truncate leading-tight">{slideMeta.title}</p>
-                        <p className="text-[9px] text-slate-500 mt-0.5 font-mono">Slide {index + 1}</p>
+                    <div className="overflow-hidden">
+                      <p className="text-xs font-bold text-slate-200 truncate">{app.company || "(회사명 없음)"}</p>
+                      <p className="text-[10px] text-slate-500 truncate">{app.position || "(직무 없음)"} · {new Date(app.createdAt).toLocaleDateString("ko-KR")}</p>
+                    </div>
+                    <span
+                      onClick={(e) => { e.stopPropagation(); deleteApplication(app.id) }}
+                      className="ml-2 text-slate-600 hover:text-rose-400 text-sm font-bold shrink-0 cursor-pointer"
+                    >×</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Tab Selector */}
+          {currentApp && (
+            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col flex-1">
+              <div className="flex border-b border-slate-800">
+                <button
+                  onClick={() => setLeftTab("info")}
+                  className={`flex-1 py-2.5 text-xs font-bold transition ${leftTab === "info" ? "bg-slate-800 text-white" : "text-slate-500 hover:text-slate-300"}`}
+                >
+                  지원 정보
+                </button>
+                <button
+                  onClick={() => setLeftTab("edit")}
+                  className={`flex-1 py-2.5 text-xs font-bold transition ${leftTab === "edit" ? "bg-slate-800 text-white" : "text-slate-500 hover:text-slate-300"}`}
+                >
+                  내용 편집
+                </button>
+              </div>
+
+              <div className="p-4 overflow-y-auto flex-1" style={{ maxHeight: "calc(100vh - 340px)" }}>
+                {leftTab === "info" ? (
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase">회사명</label>
+                      <input
+                        value={currentApp.company}
+                        onChange={e => updateCurrentApp({ company: e.target.value })}
+                        className="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                        placeholder="예: 카카오"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase">지원 직무</label>
+                      <input
+                        value={currentApp.position}
+                        onChange={e => updateCurrentApp({ position: e.target.value })}
+                        className="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                        placeholder="예: 백엔드 개발자"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase">채용 공고 (참고용)</label>
+                      <textarea
+                        value={currentApp.jobDescription}
+                        onChange={e => updateCurrentApp({ jobDescription: e.target.value })}
+                        rows={12}
+                        className="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none leading-relaxed"
+                        placeholder="공고 내용을 붙여넣기하여 참고하면서 포트폴리오를 편집하세요..."
+                      />
+                    </div>
+                    <div className="pt-2 text-[10px] text-slate-500 leading-relaxed space-y-1 border-t border-slate-800">
+                      <p className="font-bold text-slate-400">PDF 저장 안내:</p>
+                      <p>1. <strong>Ctrl+P</strong> → 대상: <strong>PDF로 저장</strong></p>
+                      <p>2. 레이아웃: <strong>가로(Landscape)</strong></p>
+                      <p>3. 여백: <strong>없음</strong>, 배경 그래픽: <strong>체크</strong></p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-5">
+                    {/* Slide visibility */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">슬라이드 포함 여부</p>
+                      {SLIDE_IDS.map(id => {
+                        const meta = ALL_SLIDES_MAP[id]
+                        if (!meta) return null
+                        const isOn = activeSlides[id] ?? true
+                        return (
+                          <button
+                            key={id}
+                            onClick={() => updateCustomization({ activeSlides: { ...activeSlides, [id]: !isOn } })}
+                            className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg border text-left text-xs transition ${
+                              isOn ? "bg-slate-900 border-blue-500/40 text-white" : "bg-slate-950/40 border-slate-800 text-slate-500"
+                            }`}
+                          >
+                            {isOn ? <CheckSquare className="h-3.5 w-3.5 text-blue-400 shrink-0" /> : <Square className="h-3.5 w-3.5 shrink-0" />}
+                            <span className="font-semibold truncate">{meta.title}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    {/* Cover */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">표지 슬라이드</p>
+                      <div>
+                        <label className="text-[10px] text-slate-400">포트폴리오 제목</label>
+                        <input
+                          value={customization.coverTitle}
+                          onChange={e => updateCustomization({ coverTitle: e.target.value })}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400">슬로건 (h1)</label>
+                        <textarea
+                          value={customization.coverSlogan}
+                          onChange={e => updateCustomization({ coverSlogan: e.target.value })}
+                          rows={2}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400">소개 문단</label>
+                        <textarea
+                          value={customization.coverIntro}
+                          onChange={e => updateCustomization({ coverIntro: e.target.value })}
+                          rows={3}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+                        />
                       </div>
                     </div>
-                  </button>
-                )
-              })}
-            </div>
 
-            <div className="pt-2 text-[10px] text-slate-500 leading-relaxed space-y-1">
-              <p className="font-bold text-slate-400">💡 PDF 저장 안내 (A4 가로 최적화):</p>
-              <p>1. <strong>[Ctrl + P]</strong> 또는 인쇄 버튼을 누릅니다.</p>
-              <p>2. 대상을 <strong>[PDF로 저장]</strong>으로 변경합니다.</p>
-              <p>3. 레이아웃을 반드시 <strong>[가로 (Landscape)]</strong>로 선택합니다.</p>
-              <p>4. 여백은 <strong>[없음 (None)]</strong>, 배경 그래픽은 <strong>[선택 (Checked)]</strong>으로 설정합니다.</p>
-              <p className="text-amber-500 font-semibold mt-1">⚠️ 90도 회전 오류 발생 시:</p>
-              <p className="text-[9px] text-slate-400">일부 브라우저(Safari 등)나 환경에서 세로로 회전되어 저장될 경우, 인쇄 옵션에서 용지 크기를 <strong>'A4'</strong>로 명확히 선택하고 레이아웃 가로 지정을 재확인해 주세요. Chrome 브라우저를 권장합니다.</p>
+                    {/* ANVI */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">ANVI 프로젝트</p>
+                      <div>
+                        <label className="text-[10px] text-slate-400">역할 배지</label>
+                        <input
+                          value={customization.anviRole}
+                          onChange={e => updateCustomization({ anviRole: e.target.value })}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400">핵심 요약 (파란 박스)</label>
+                        <textarea
+                          value={customization.anviSummary}
+                          onChange={e => updateCustomization({ anviSummary: e.target.value })}
+                          rows={4}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Donttaz */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">Donttaz 프로젝트</p>
+                      <div>
+                        <label className="text-[10px] text-slate-400">역할 배지</label>
+                        <input
+                          value={customization.donttazRole}
+                          onChange={e => updateCustomization({ donttazRole: e.target.value })}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400">핵심 요약 (파란 박스)</label>
+                        <textarea
+                          value={customization.donttazSummary}
+                          onChange={e => updateCustomization({ donttazSummary: e.target.value })}
+                          rows={4}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* CONY */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">CONY 프로젝트</p>
+                      <div>
+                        <label className="text-[10px] text-slate-400">역할 배지</label>
+                        <input
+                          value={customization.conyRole}
+                          onChange={e => updateCustomization({ conyRole: e.target.value })}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400">핵심 요약 (파란 박스)</label>
+                        <textarea
+                          value={customization.conySummary}
+                          onChange={e => updateCustomization({ conySummary: e.target.value })}
+                          rows={4}
+                          className="w-full mt-0.5 bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </section>
 
-        {/* Right Slides Page Previewer (printable) */}
-        <section 
+        {/* Right: Slides Preview (printable) */}
+        <section
           ref={previewContainerRef}
-          className="col-span-12 lg:col-span-9 flex flex-col items-center gap-6 pb-20 slides-preview-container"
+          className="col-span-12 lg:col-span-8 flex flex-col items-center gap-6 pb-20 slides-preview-container"
         >
-          {orderedSlideIds.map((slideId, index) => {
+          {SLIDE_IDS.map((slideId) => {
             const slideMeta = ALL_SLIDES_MAP[slideId]
             if (!slideMeta) return null
-            const isActive = activeSlides[slideId]
-
-            // If not active, do not render at all to prevent blank page generation during printing
-            if (!isActive) return null
+            if (!activeSlides[slideId]) return null
 
             return (
-              <div
-                key={slideId}
-                className="slide-wrapper"
-                style={{
-                  height: `${793.7 * scale}px`,
-                }}
-              >
+              <div key={slideId} className="slide-wrapper" style={{ height: `${793.7 * scale}px` }}>
                 <div
                   className="slide-page border border-slate-200 dark:border-slate-800"
-                  style={{
-                    transform: `scale(${scale})`,
-                    pageBreakInside: "avoid",
-                  }}
+                  style={{ transform: `scale(${scale})`, pageBreakInside: "avoid" }}
                 >
-                  {/* Dynamic slide rendering */}
-                  {slideMeta.component({ version: selectedVersion })}
+                  {slideMeta.component({ custom: customization })}
                 </div>
               </div>
             )
