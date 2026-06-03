@@ -1080,6 +1080,8 @@ export default function PdfPortfolio() {
             padding: 0 !important;
             background: transparent !important;
             min-height: auto !important;
+            height: auto !important;
+            overflow: visible !important;
           }
           .slide-wrapper {
             height: auto !important;
@@ -1163,10 +1165,10 @@ export default function PdfPortfolio() {
       </header>
 
       {/* Main Workspace */}
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 py-6 grid grid-cols-12 gap-5 slide-container">
+      <main className="w-full max-w-[1600px] mx-auto px-4 py-6 grid grid-cols-12 gap-5 slide-container overflow-hidden" style={{ height: 'calc(100vh - 8rem)' }}>
 
         {/* Left Panel: Job Management + Editor (no-print) */}
-        <section className="no-print col-span-12 lg:col-span-4 flex flex-col gap-4">
+        <section className="no-print col-span-12 lg:col-span-4 flex flex-col gap-4 min-h-0 overflow-hidden">
 
           {/* Applications List */}
           <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
@@ -1212,7 +1214,7 @@ export default function PdfPortfolio() {
 
           {/* Tab Selector */}
           {currentApp && (
-            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col flex-1">
+            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col flex-1 min-h-0">
               <div className="flex border-b border-slate-800">
                 <button
                   onClick={() => setLeftTab("info")}
@@ -1228,7 +1230,7 @@ export default function PdfPortfolio() {
                 </button>
               </div>
 
-              <div className="p-4 overflow-y-auto flex-1" style={{ maxHeight: "calc(100vh - 340px)" }}>
+              <div className="p-4 overflow-y-auto flex-1 min-h-0">
                 {leftTab === "info" ? (
                   <div className="space-y-3">
                     <div>
@@ -1396,7 +1398,7 @@ export default function PdfPortfolio() {
         {/* Right: Slides Preview (printable) */}
         <section
           ref={previewContainerRef}
-          className="col-span-12 lg:col-span-8 flex flex-col items-center gap-6 pb-20 slides-preview-container"
+          className="col-span-12 lg:col-span-8 flex flex-col items-center gap-6 pb-6 slides-preview-container overflow-y-auto min-h-0"
         >
           {SLIDE_IDS.map((slideId) => {
             const slideMeta = ALL_SLIDES_MAP[slideId]
